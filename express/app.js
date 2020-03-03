@@ -25,7 +25,7 @@ app.use('/api/members', require('./routes/api/members'));
 
 
 //port setup
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 5000);
 app.listen(app.get('port'), function(){
   console.log( 'Express started on http://localhost:' +
            app.get('port') + '; press Ctrl-C to terminate.' );

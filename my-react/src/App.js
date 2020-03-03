@@ -1,14 +1,13 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useSate} from 'react';
 import './App.css';
 
 function App() {
-  if(true){
-    React.useState();
-  }
 
+  if(true){ React.useState()}
+  
   return (
     <div className="App">
+
     </div>
   );
 }
