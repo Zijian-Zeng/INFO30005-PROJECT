@@ -1,10 +1,10 @@
 //载入所需要的各种包
-const createError = require('./node_modules/http-errors');
-const express = require('./node_modules/express');
-const path = require('path');
-const cookieParser = require('./node_modules/cookie-parser');
-const bodyParser = require('./node_modules/body-parser');
-const morgan = require('./node_modules/morgan');
+const createError = require("./node_modules/http-errors");
+const express = require("./node_modules/express");
+const path = require("path");
+const cookieParser = require("./node_modules/cookie-parser");
+const bodyParser = require("./node_modules/body-parser");
+const morgan = require("./node_modules/morgan");
 
 const app = express();
 
@@ -15,20 +15,22 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 //载入数据库
-require('./Models/db');
+require("./Models/db");
 
 //载入日志
-app.use(morgan('common'));
+app.use(morgan("common"));
 
 //载入路由
-app.use('/api/members', require('./routes/api/members'));
-
+app.use("/api/members", require("./routes/api/members"));
 
 //port setup
-app.set('port', process.env.PORT || 5000);
-app.listen(app.get('port'), function(){
-  console.log( 'Express started on http://localhost:' +
-           app.get('port') + '; press Ctrl-C to terminate.' );
-       });
+app.set("port", process.env.PORT || 5000);
+app.listen(app.get("port"), function() {
+  console.log(
+    "Express started on http://localhost:" +
+      app.get("port") +
+      "; press Ctrl-C to terminate."
+  );
+});
 
 module.exports = app;
