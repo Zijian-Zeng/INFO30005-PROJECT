@@ -21,16 +21,20 @@ require("./Models/db");
 app.use(morgan("common"));
 
 //载入路由
+app.use((req, res, next) => {
+	res.header("Access-Control-Allow-Origin", "*");
+	next();
+});
 app.use("/api/members", require("./routes/api/members"));
 
 //port setup
 app.set("port", process.env.PORT || 5000);
 app.listen(app.get("port"), function() {
-  console.log(
-    "Express started on http://localhost:" +
-      app.get("port") +
-      "; press Ctrl-C to terminate."
-  );
+	console.log(
+		"Express started on http://localhost:" +
+			app.get("port") +
+			"; press Ctrl-C to terminate."
+	);
 });
 
 module.exports = app;

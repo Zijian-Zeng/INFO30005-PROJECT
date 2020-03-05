@@ -1,12 +1,14 @@
 import React from "react";
 import "./App.css";
+import Member from "./component/Member.js";
 
-const App = () => {
+export default () => {
 	return (
 		<div className="App">
-			<h1>Hello world</h1>
+			<input className="login" type="text"></input>
+			<Member num={0} />
+			<Member num={1} />
+			<Member num={2} />
 		</div>
 	);
 };
-
-export default App;
