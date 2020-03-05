@@ -1,25 +1,22 @@
-import React from "react";
-import { useFetch } from "./Methods.js";
+import React, { useState } from "react";
+import style from "../CSS_Module/member.module.css";
 
-export default ({ num }) => {
-	let name, password, id;
-	const { data, loading } = useFetch("http://localhost:5000/api/members/");
+export default ({ member }) => {
+	const [mouseFlag, SetmouseFlag] = useState(style.MouseOut);
 
-	if (loading) {
-		return (
-			<div>
-				<h1>loading...</h1>
-				{console.log("loading..")}
-			</div>
-		);
-	} else {
-		name = data[num].user_name;
-		password = data[num].password;
-		id = data[num]._id;
-		return (
-			<h1>
-				{name} => {password}, id: {id}
-			</h1>
-		);
-	}
+	return (
+		<div
+			className={mouseFlag}
+			onMouseMove={() => {
+				SetmouseFlag(style.MouseIn);
+			}}
+			onMouseOut={() => {
+				SetmouseFlag(style.MouseOut);
+			}}
+		>
+			<h1>{member.user_name}</h1>
+			<p>{member.password}</p>
+			<p>{member._id}</p>
+		</div>
+	);
 };

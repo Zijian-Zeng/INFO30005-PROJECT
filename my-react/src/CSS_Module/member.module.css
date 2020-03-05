@@ -1,0 +1,21 @@
+.MouseOut {
+	border-radius: 10px;
+	margin: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	background: white;
+	align-items: center;
+	min-width: 40%;
+}
+.MouseIn {
+	border-radius: 10px;
+	box-shadow: 0px 5px 20px rgb(76, 69, 69);
+	margin: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	background: white;
+	align-items: center;
+	min-width: 40%;
+}

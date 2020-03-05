@@ -1,14 +1,23 @@
 import React from "react";
 import "./App.css";
 import Member from "./component/Member.js";
+import { useFetch } from "./component/Methods.js";
 
 export default () => {
+	// GET the information of all members
+	const { data, loading } = useFetch("http://localhost:5000/api/members/");
+
 	return (
 		<div className="App">
-			<input className="login" type="text"></input>
-			<Member num={0} />
-			<Member num={1} />
-			<Member num={2} />
+			<div className="Members">
+				{loading ? (
+					<h1>loading...</h1>
+				) : (
+					data.map((member) => (
+						<Member member={member} key={member._id} />
+					))
+				)}
+			</div>
 		</div>
 	);
 };
