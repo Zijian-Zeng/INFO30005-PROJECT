@@ -26,6 +26,7 @@ app.use((req, res, next) => {
 	next();
 });
 app.use("/api/members", require("./routes/api/members"));
+app.use("/api/images", require("./routes/api/images"));
 
 //port setup
 app.set("port", process.env.PORT || 5000);

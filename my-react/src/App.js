@@ -1,23 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
-import Member from "./component/Member.js";
-import { useFetch } from "./component/Methods.js";
+import Content from "./component/content.js";
+import LoginForm from "./component/loginForm.js";
+import Login from "./component/login.js";
+import { ThemeProvider } from "@material-ui/core/styles";
 
 export default () => {
-	// GET the information of all members
-	const { data, loading } = useFetch("http://localhost:5000/api/members/");
+	const [step, setStep] = useState(0);
 
-	return (
-		<div className="App">
-			<div className="Members">
-				{loading ? (
-					<h1>loading...</h1>
-				) : (
-					data.map((member) => (
-						<Member member={member} key={member._id} />
-					))
-				)}
-			</div>
-		</div>
-	);
+	switch (step) {
+		case 0:
+			return <Login setStep={setStep} />;
+			break;
+		case 1:
+			return <Content />;
+	}
 };
