@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import style from "../CSS_Module/member.module.css";
+import style from "./../../CSS_Module/member.module.css";
 
 export default ({ member }) => {
 	const [mouseFlag, SetmouseFlag] = useState(style.MouseOut);

@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import "./App.css";
-import Content from "./component/content.js";
-import LoginForm from "./component/loginForm.js";
-import Login from "./component/login.js";
-import { ThemeProvider } from "@material-ui/core/styles";
+import Content from "./component/Home/content";
+import Login from "./component/Login/login";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import AppBar from "./component/AppBar";
 
 export default () => {
-	const [step, setStep] = useState(0);
-
-	switch (step) {
-		case 0:
-			return <Login setStep={setStep} />;
-			break;
-		case 1:
-			return <Content />;
-	}
+	return (
+		<div>
+			<AppBar title="Linder - Language Tinder" />
+			<Router>
+				<Switch>
+					<Route exact path="/" component={Login} />
+					<Route exact path="/home" component={Content} />
+				</Switch>
+			</Router>
+		</div>
+	);
 };

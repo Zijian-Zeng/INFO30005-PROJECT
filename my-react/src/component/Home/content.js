@@ -1,7 +1,7 @@
 import React from "react";
-import "./../App.css";
+import "./../../App.css";
 import Member from "./Member.js";
-import { useFetch } from "./Methods.js";
+import { useFetch } from "./../Methods.js";
 
 export default () => {
 	// GET the information of all members
