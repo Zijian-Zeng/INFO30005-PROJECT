@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import { Avatar } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
 	menuButton: {
@@ -16,10 +17,6 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 		align: "center",
 		textAlign: "center"
-	},
-	background: {
-		backgroundImage:
-			"linear-gradient(to right, #eea2a2 0%, #bbc1bf 19%, #57c6e1 42%, #b49fda 79%, #7ac5d8 100%)"
 	}
 }));
 
@@ -37,6 +34,7 @@ export default function ButtonAppBar({ title }) {
 				>
 					<MenuIcon />
 				</IconButton>
+				<Avatar src="http://localhost:5000/api/images/unimelb" />
 				<Typography variant="h4" className={classes.title}>
 					{title}
 				</Typography>

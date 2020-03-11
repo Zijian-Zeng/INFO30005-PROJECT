@@ -5,9 +5,8 @@ import LoginForm from "./loginForm.jsx";
 
 const useStyles = makeStyles(() => ({
 	root: {
-		backgroundImage:
-			"url(http://localhost:5000/api/images/loginBackground)",
-		height: "vh",
+		backgroundImage: "url(http://localhost:5000/api/images/melb)",
+		height: "100vh",
 		width: "100vw"
 	}
 }));

@@ -9,5 +9,8 @@ router.get("/loginBackground", async (req, res, next) => {
 router.get("/unimelb", async (req, res, next) => {
 	res.sendFile(path.join(__dirname, "/unimelb.png"));
 });
+router.get("/melb", async (req, res, next) => {
+	res.sendFile(path.join(__dirname, "/melb.png"));
+});
 
 module.exports = router;

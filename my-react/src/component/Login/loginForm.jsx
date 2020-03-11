@@ -22,9 +22,7 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: "column",
 		alignItems: "center",
 		width: "100%",
-		height: "60vh",
-		backgroundImage:
-			"linear-gradient(to right, #eea2a2 0%, #bbc1bf 19%, #57c6e1 42%, #b49fda 79%, #7ac5d8 100%)"
+		height: "60vh"
 	},
 	avatar: {
 		margin: theme.spacing(3),
@@ -60,7 +58,11 @@ export default function LoginForm({ setStep }) {
 			<Grid container spacing={3}></Grid>
 			<CssBaseline />
 			<Card className={classes.paper}>
-				<Avatar className={classes.avatar}></Avatar>
+				<Avatar
+					className={classes.avatar}
+					src="http://localhost:5000/api/images/unimelb"
+					shape="square"
+				></Avatar>
 				<form className={classes.form} onSubmit={login}>
 					<MyField
 						label="Email"
