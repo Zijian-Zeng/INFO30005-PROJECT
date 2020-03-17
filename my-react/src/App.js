@@ -8,7 +8,7 @@ import AppBar from "./component/AppBar";
 export default () => {
 	return (
 		<div>
-			<AppBar title="Linder - Language Tinder" />
+			<AppBar title="MeeTute" />
 			<Router>
 				<Switch>
 					<Route exact path="/" component={Login} />

@@ -5,7 +5,7 @@ import { useFetch } from "./../Methods.js";
 
 export default () => {
 	// GET the information of all members
-	const { data, loading } = useFetch("http://localhost:5000/api/members/");
+	const { data, loading } = useFetch("http://localhost:5000/api/posts/");
 
 	return (
 		<div className="Page">

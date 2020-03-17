@@ -25,8 +25,8 @@ app.use((req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*");
 	next();
 });
-app.use("/api/members", require("./routes/api/members"));
-app.use("/api/images", require("./routes/api/images"));
+app.use("/api/posts", require("./routes/api/posts"));
+app.use("/api/images", require("./routes/images/index"));
 
 //port setup
 app.set("port", process.env.PORT || 5000);
