@@ -22,11 +22,18 @@ app.use(morgan("common"));
 
 //载入路由
 app.use((req, res, next) => {
-	res.header("Access-Control-Allow-Origin", "*");
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	res.setHeader("Access-Control-Allow-Credentials", "true");
+	res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+	res.setHeader(
+		"Access-Control-Allow-Headers",
+		"Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+	);
 	next();
 });
 app.use("/api/posts", require("./routes/api/posts"));
 app.use("/api/images", require("./routes/images/index"));
+app.use("/api/users", require("./routes/api/users"));
 
 //port setup
 app.set("port", process.env.PORT || 5000);

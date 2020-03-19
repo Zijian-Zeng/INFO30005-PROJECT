@@ -14,8 +14,8 @@ export default ({ member }) => {
 				SetmouseFlag(style.MouseOut);
 			}}
 		>
-			<h1>{member.user_name}</h1>
-			<p>{member.password}</p>
+			<h1>{member.firstName + " " + member.lastName}</h1>
+			<p>{member.email}</p>
 			<p>{member._id}</p>
 		</div>
 	);

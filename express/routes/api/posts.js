@@ -88,7 +88,7 @@ async function getPost(req, res, next) {
 			return res.json({ message: "no post found" });
 		}
 	} catch (error) {
-		return res.json({ message: error });
+		res.status(400).json({ error: error.message });
 	}
 	res.post = post;
 	next();

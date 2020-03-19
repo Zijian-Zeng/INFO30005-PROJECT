@@ -9,10 +9,12 @@ import {
 	Grid,
 	Container,
 	Card,
-	CardActions
+	CardActions,
+	Grow
 } from "@material-ui/core";
-import { Link, withRouter } from "react-router-dom";
-import MyField from "../MyField.jsx";
+import MyField from "./MyField";
+import Error from "./Error";
+import MuiAlert from "@material-ui/lab/Alert";
 
 // Extension Styles
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: "column",
 		alignItems: "center",
 		width: "100%",
-		height: "60vh"
+		height: "100%"
 	},
 	avatar: {
 		margin: theme.spacing(3),
@@ -31,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	form: {
 		width: "85%", // Fix IE 11 issue.
-		height: "55%",
 		marginTop: theme.spacing(0)
 	},
 	submit: {
@@ -43,14 +44,32 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function LoginForm({ setStep }) {
+export default ({ approve }) => {
 	const classes = useStyles();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [error, setError] = useState("");
 
-	const login = (e) => {
+	const login = async (e) => {
 		e.preventDefault();
-		console.log(email + password);
+		console.log(password + email);
+		const res = await fetch("http://localhost:5000/api/users/login", {
+			method: "post",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				email: email,
+				password: password
+			})
+		});
+		const msg = await res.json();
+
+		if (msg.success) approve();
+		else {
+			console.log(msg);
+			setError(msg.message);
+		}
 	};
 
 	return (
@@ -63,31 +82,45 @@ export default function LoginForm({ setStep }) {
 					src="http://localhost:5000/api/images/unimelb"
 					shape="square"
 				></Avatar>
+				{error !== "" ? (
+					<Grow in={true}>
+						<MuiAlert
+							open={false}
+							onClose={() => {
+								setError("");
+							}}
+							severity="error"
+						>
+							{error}
+						</MuiAlert>
+					</Grow>
+				) : null}
+
 				<form className={classes.form} onSubmit={login}>
 					<MyField
 						label="Email"
 						setState={setEmail}
 						required={true}
+						error={error}
 					/>
 					<MyField
 						label="Password"
 						setState={setPassword}
 						required={true}
 						type={"password"}
+						error={error}
 					/>
 					<FormControlLabel
 						control={<Checkbox value="remember" color="primary" />}
 						label="Remember me"
 					/>
 					<Button
-						component={Link}
 						type="submit"
 						fullWidth
 						variant="contained"
 						color="primary"
 						className={classes.submit}
 						size="large"
-						to="/home"
 					>
 						Login In
 					</Button>
@@ -104,7 +137,9 @@ export default function LoginForm({ setStep }) {
 						Don't have an account? Sign Up
 					</Button>
 				</CardActions>
+				<br />
+				<br />
 			</Card>
 		</Container>
 	);
-}
+};

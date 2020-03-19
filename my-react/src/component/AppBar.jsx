@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Avatar } from "@material-ui/core";
+import Cookies from "js-cookie";
 
 const useStyles = makeStyles((theme) => ({
 	menuButton: {
@@ -20,8 +21,13 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function ButtonAppBar({ title }) {
+export default ({ title, auth, setAuth, his }) => {
 	const classes = useStyles();
+
+	const logOut = () => {
+		setAuth(false);
+		Cookies.remove("user");
+	};
 
 	return (
 		<AppBar position="relative" title="Hi" className={classes.background}>
@@ -38,10 +44,23 @@ export default function ButtonAppBar({ title }) {
 				<Typography variant="h4" className={classes.title}>
 					{title}
 				</Typography>
-				<Button color="inherit" size="large">
-					Sign Up
-				</Button>
+				{auth ? (
+					<Button color="inherit" size="large" onClick={logOut}>
+						Logout
+					</Button>
+				) : (
+					<Button
+						color="inherit"
+						size="large"
+						onClick={() => {
+							//his.push("/signup");
+							console.log(his);
+						}}
+					>
+						signup
+					</Button>
+				)}
 			</Toolbar>
 		</AppBar>
 	);
-}
+};
