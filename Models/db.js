@@ -1,9 +1,12 @@
 var mongoose = require("mongoose"); //引入mongoose
 
-mongoose.connect("mongodb://localhost:27017/first_express_db", {
-	useNewUrlParser: true,
-	useUnifiedTopology: true
-});
+mongoose.connect(
+	"mongodb+srv://regina:webinfo30005h1@cluster0-jtgmr.mongodb.net/meetute",
+	{
+		useNewUrlParser: true,
+		useUnifiedTopology: true
+	}
+);
 //连接到mongoDB的todo数据库
 //该地址格式：mongodb://[username:password@]host:port/database[?options]
 //默认port为27017

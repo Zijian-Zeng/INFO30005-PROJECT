@@ -1,26 +1,21 @@
-//载入所需要的各种包
-const createError = require("./node_modules/http-errors");
-const express = require("./node_modules/express");
+const createError = require("http-errors");
+const express = require("express");
 const path = require("path");
-const cookieParser = require("./node_modules/cookie-parser");
-const bodyParser = require("./node_modules/body-parser");
-const morgan = require("./node_modules/morgan");
-
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+const morgan = require("morgan");
+//const path = require("path");
 const app = express();
 
-//use function 用于使用中间件(middleware)
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-//载入数据库
 require("./Models/db");
 
-//载入日志
 app.use(morgan("common"));
 
-//载入路由
 app.use((req, res, next) => {
 	res.setHeader("Access-Control-Allow-Origin", "*");
 	res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -34,6 +29,14 @@ app.use((req, res, next) => {
 app.use("/api/posts", require("./routes/api/posts"));
 app.use("/api/images", require("./routes/images/index"));
 app.use("/api/users", require("./routes/api/users"));
+
+process.env.NODE_ENV = "production";
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static("my-react/build"));
+	app.get("*", (req, res) => {
+		res.sendFile(path.join(__dirname, "my-react", "build", "index.html"));
+	});
+}
 
 //port setup
 app.set("port", process.env.PORT || 5000);
