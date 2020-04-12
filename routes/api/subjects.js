@@ -10,7 +10,7 @@ router.post("/", async (req, res, next) => {
 
 		const subject = new subjectModel({
 			code: code,
-            name: name,
+            subjName: subjName,
             staff: staff
 		});
 
@@ -20,5 +20,6 @@ router.post("/", async (req, res, next) => {
 		res.status(400).json({ message: error.message });
 	}
 });
+
 
 module.exports = router;
