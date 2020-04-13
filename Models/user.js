@@ -5,7 +5,8 @@ var UserSchema = new mongoose.Schema({
 	firstName: { default: "", type: String },
 	lastName: { default: "", type: String },
 	email: { required: true, type: String },
-	password: { required: true, type: String }
+	password: { required: true, type: String },
+	subjects: { type: Array },
 });
 
 UserSchema.methods.hash = (password) => {

@@ -5,7 +5,7 @@ const userModel = require("../../Models/user");
 router.post("/signup", async (req, res, next) => {
 	try {
 		const { body } = req;
-		const { firstName, lastName, email, password } = body;
+		const { firstName, lastName, email, password, subjects } = body;
 
 		// Verify the request.
 		if (!firstName) {
@@ -24,13 +24,16 @@ router.post("/signup", async (req, res, next) => {
 		// Verify the email does not exist.
 		occupiedEmail = await userModel.find({ email: email });
 		if (occupiedEmail.length > 0) {
-			return res.json({ message: "Error! email already exist" });
+			return res
+				.status(400)
+				.json({ message: "Error! email already exist" });
 		} else {
 			//Save the new user
 			const newUser = new userModel({
 				firstName: firstName,
 				lastName: lastName,
-				email: email
+				email: email,
+				subjects: subjects,
 			});
 			newUser.password = newUser.hash(password);
 

@@ -29,18 +29,19 @@ app.use((req, res, next) => {
 app.use("/api/posts", require("./routes/api/posts"));
 app.use("/api/images", require("./routes/images/index"));
 app.use("/api/users", require("./routes/api/users"));
+app.use("/api/subjects", require("./routes/api/subjects"));
 
 process.env.NODE_ENV = "production";
 if (process.env.NODE_ENV === "production") {
-	app.use(express.static("my-react/build"));
+	app.use(express.static("client/build"));
 	app.get("*", (req, res) => {
-		res.sendFile(path.join(__dirname, "my-react", "build", "index.html"));
+		res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 	});
 }
 
 //port setup
 app.set("port", process.env.PORT || 5000);
-app.listen(app.get("port"), function() {
+app.listen(app.get("port"), function () {
 	console.log(
 		"Express started on http://localhost:" +
 			app.get("port") +

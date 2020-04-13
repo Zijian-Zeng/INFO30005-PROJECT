@@ -1,23 +1,17 @@
-var mongoose = require("mongoose"); //引入mongoose
+var mongoose = require("mongoose");
 
-mongoose.connect(
-	"mongodb+srv://regina:webinfo30005h1@cluster0-jtgmr.mongodb.net/meetute",
-	{
-		useNewUrlParser: true,
-		useUnifiedTopology: true
-	}
-);
-//连接到mongoDB的todo数据库
-//该地址格式：mongodb://[username:password@]host:port/database[?options]
-//默认port为27017
+const testEnv =
+	"mongodb+srv://meetute:info30005@meetute-wxtad.mongodb.net/test?retryWrites=true&w=majority";
+
+mongoose.connect(process.env.MONGODB_URI || testEnv, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+});
 
 var db = mongoose.connection;
 
-//监听是否有异常
 db.on("error", (error) => console.log("Connection error"));
 
-//监听一次打开
-//在这里创建你的模式和模型
 db.once("open", () => console.log("connected!"));
 
 module.exports = mongoose;
