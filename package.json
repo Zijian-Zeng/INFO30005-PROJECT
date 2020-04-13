@@ -5,7 +5,7 @@
 	"scripts": {
 		"start": "node server.js",
 		"dev": "nodemon server.js",
-		"heroku-postbuild": "cd my-react && npm install && npm run build"
+		"heroku-postbuild": "cd my-react && npm install"
 	},
 	"dependencies": {
 		"acorn": "^6.4.0",
