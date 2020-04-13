@@ -2,8 +2,23 @@ express = require("express");
 const router = express.Router();
 const subjectModel = require("../../Models/subject");
 
-//GET all subjects according to current user
+// CREATE a new post
+router.post("/", async (req, res, next) => {
+	try {
+		const { body } = req;
+		const { code, name, staff } = body;
 
-//ADD subject...
+		const subject = new subjectModel({
+			code: code,
+			subjName: subjName,
+			staff: staff,
+		});
 
-//DELETE subject...
+		const newSubject = await subject.save();
+		res.status(201).json(newSubject);
+	} catch (error) {
+		res.status(400).json({ message: error.message });
+	}
+});
+
+module.exports = router;
