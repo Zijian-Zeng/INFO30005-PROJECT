@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 
 var SubjectSchema = new mongoose.Schema({
-	code: { required: true, default: "", type: String },
+	subjectCode: { required: true, default: "", type: String },
 	subjectName: { default: "", type: String },
+	// each subject includes staff, students, study hubs, question boards and consultations
 	staffID: { type: Array },
 	studentID:{ type: Array},
 	hubID: { type: Array },
@@ -10,4 +11,4 @@ var SubjectSchema = new mongoose.Schema({
 	consultationID: { type: Array },
 });
 
-module.exports = mongoose.model("question", SubjectSchema);
+module.exports = mongoose.model("subject", SubjectSchema);
