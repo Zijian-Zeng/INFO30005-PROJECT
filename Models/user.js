@@ -17,4 +17,4 @@ UserSchema.methods.validatePassword = (input, password) => {
 	return bcrypt.compareSync(input, password);
 };
 
-module.exports = mongoose.model("user", UserSchema); //将该Schema发布为Model,user就是集合名称
+module.exports = mongoose.model("user", UserSchema); 

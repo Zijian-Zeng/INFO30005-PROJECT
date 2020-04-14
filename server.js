@@ -26,10 +26,13 @@ app.use((req, res, next) => {
 	);
 	next();
 });
+
+
 app.use("/api/posts", require("./routes/api/posts"));
 app.use("/api/images", require("./routes/images/index"));
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/subjects", require("./routes/api/subjects"));
+
 
 process.env.NODE_ENV = "production";
 if (process.env.NODE_ENV === "production") {

@@ -1,9 +1,14 @@
 const mongoose = require("mongoose");
 
 var SubjectSchema = new mongoose.Schema({
-	code: { required: true, default: "", type: String },
-	subjName: { default: "", type: String },
-	staff: { type: Array },
+	subjectCode: { required: true, default: "", type: String },
+	subjectName: { default: "", type: String },
+	// each subject includes staff, students, study hubs, question boards and consultations
+	staffID: { type: Array },
+	studentID:{ type: Array},
+	hubID: { type: Array },
+	questionID:{ type: Array},
+	consultationID: { type: Array },
 });
 
-module.exports = mongoose.model("subject", SubjectSchema); //将该Schema发布为Model,user就是集合名称
+module.exports = mongoose.model("subject", SubjectSchema);
