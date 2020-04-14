@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
-var SubjectSchema = new mongoose.Schema({
+var questionSchema = new mongoose.Schema({
 	code: { required: true, default: "", type: String },
-	subjectName: { default: "", type: String },
+	subjName: { default: "", type: String },
 	staffID: { type: Array },
 	studentID:{ type: Array},
 	hubID: { type: Array },
@@ -10,4 +10,4 @@ var SubjectSchema = new mongoose.Schema({
 	consultationID: { type: Array },
 });
 
-module.exports = mongoose.model("question", SubjectSchema);
+module.exports = mongoose.model("subject", questionSchema);

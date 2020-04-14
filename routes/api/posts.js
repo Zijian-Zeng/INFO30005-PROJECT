@@ -75,7 +75,7 @@ router.get("/searchBy/title", async (req, res, next) => {
 			});
 		}
 	} catch (error) {
-		res.json({ message: error.message });
+		res.json({ error: error.message });
 	}
 });
 
