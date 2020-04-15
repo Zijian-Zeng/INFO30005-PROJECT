@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const testEnv =
-    "mongodb+srv://meetute:info30005@meetute-wxtad.mongodb.net/test?retryWrites=true&w=majority";
+	"mongodb+srv://meetute:info30005@meetute-wxtad.mongodb.net/test?retryWrites=true&w=majority";
 
 mongoose.connect(process.env.MONGODB_URI || testEnv, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
 });
 
 const db = mongoose.connection;

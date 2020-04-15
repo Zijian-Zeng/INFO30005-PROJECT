@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 
 app.use((req, res, next) => {
-    console.log("testing!");
-    next();
+	console.log("testing!");
+	next();
 });
 
 app.use("/subjects", require("./subjectApi"));

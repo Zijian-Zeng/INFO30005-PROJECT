@@ -1,13 +1,11 @@
 express = require("express");
 const router = express.Router();
-const studentModel = require("../../Models/student");
-const staffModel = require("../../Models/staff");
 
 const {
-    signup,
-    login,
-    getAllSubjects,
-} = require("../../Controllers/shared/usersController");
+	signup,
+	login,
+	getAllSubjects,
+} = require("../../../Controllers/shared/usersController");
 
 router.post("/signup", signup);
 
