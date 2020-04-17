@@ -5,11 +5,11 @@ const SubjectSchema = new mongoose.Schema({
 	subjectName: { default: "", type: String },
 
 	// each subject includes staff, students, study hubs, question boards and consultations
-	staffID: { type: Array },
-	studentID: { type: Array },
-	hubID: { type: Array },
-	questionID: { type: Array },
-	consultationID: { type: Array },
+	staffs: { type: Array },
+	students: { type: Array },
+	hubs: { type: Array },
+	questions: { type: Array },
+	consultations: { type: Array },
 });
 
 module.exports = mongoose.model("subject", SubjectSchema);

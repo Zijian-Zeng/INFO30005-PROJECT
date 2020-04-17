@@ -1,1 +1,4 @@
-//GET available consultations
+express = require("express");
+const router = express.Router();
+
+module.exports = router;

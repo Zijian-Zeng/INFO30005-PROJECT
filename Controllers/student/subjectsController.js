@@ -1,19 +1,33 @@
-const studentModel = require("../../Models/student");
+const subjectModel = require("../../models/subject");
 
-const addSubject = async (req, res, next) => {
+const joinSubject = async (req, res, next) => {
 	try {
 		const { body, student } = req;
 		const { subjectCode } = body;
 		const { subjects } = student;
 
+		//Validate subjectCode.
+		let subjectInvalid = true;
+		if (subjectCode) {
+			const subjects = await subjectModel.find();
+			subjects.map((subject) => {
+				if (subject.subjectCode == subjectCode) {
+					subjectInvalid = false;
+				}
+			});
+		}
+		if (subjectInvalid) {
+			return res.status(200).json({
+				success: false,
+				error: "Subject code invalid.",
+			});
+		}
+
 		//Duplicate detection.
-		console.log(student);
-		console.log(subjects);
-		console.log(subjectCode);
 		if (subjects.filter((subject) => subject === subjectCode).length > 0) {
 			return res.status(200).json({
 				success: false,
-				error: "you have already selected the subjects.",
+				error: "This subject is already in your account.",
 			});
 		}
 
@@ -26,18 +40,17 @@ const addSubject = async (req, res, next) => {
 	}
 };
 
-const deleteSubject = async (req, res, next) => {
+const leaveSubject = async (req, res, next) => {
 	try {
 		const { body, student } = req;
 		const { subjectCode } = body;
-
 		const { subjects } = student;
 
 		//Verify the subjectCode that is about to be deleted.
 		const subjectsAfterDelete = subjects.filter(
 			(subject) => subject != subjectCode
 		);
-		if (subjects.length == subjectsAfterDelete) {
+		if (subjects.length == subjectsAfterDelete.length) {
 			return res.status(200).json({
 				success: false,
 				error:
@@ -45,7 +58,7 @@ const deleteSubject = async (req, res, next) => {
 			});
 		}
 
-		subjects = subjectsAfterDelete;
+		student.subjects = subjectsAfterDelete;
 		const studentChanged = await student.save();
 		res.status(200).json({ success: true, ChangedTo: studentChanged });
 	} catch (error) {
@@ -55,8 +68,9 @@ const deleteSubject = async (req, res, next) => {
 
 const getAllSubjects = async (req, res, next) => {
 	try {
-		const student = await studentModel.findById(req.user.id);
+		console.log(req.student);
 
+		const { subjects } = req.student;
 		if (subjects.length == 0) {
 			res.status(201).json({
 				success: true,
@@ -64,11 +78,11 @@ const getAllSubjects = async (req, res, next) => {
 				subjects,
 			});
 		} else {
-			res.json({ success: true, subjects });
+			res.json({ success: true, subjects: subjects });
 		}
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
 };
 
-module.exports = { addSubject, deleteSubject };
+module.exports = { joinSubject, leaveSubject, getAllSubjects };

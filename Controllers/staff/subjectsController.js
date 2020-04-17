@@ -1,4 +1,4 @@
-const subjectModel = require("../../Models/subject");
+const subjectModel = require("../../models/subject");
 
 const createSubject = async (req, res, next) => {
 	try {
@@ -32,24 +32,25 @@ const createSubject = async (req, res, next) => {
 	}
 };
 
-const getAllSubjects = async (req, res, next) => {
+//  delete subject from database
+const deleteSubject = async (req, res, next) => {
 	try {
-		const subjects = await subjectModel.find();
-
-		if (subjects.length == 0) {
-			res.status(201).json({
-				success: true,
-				message: "no subjects available",
-				subjects,
+		const { subjectCode, subjectName, staff } = req.body;
+		// find the subject to be deleted
+		subject = await subjectModel.findOne({
+			subjectCode: subjectCode,
+		});
+		if (!subject) {
+			res.status(400).json({
+				error: "deleting a subject that does not exist.",
 			});
-		} else {
-			res.json({ success: true, subjects });
 		}
+
+		const deletedSubject = await subject.remove();
+		res.status(200).json({ success: true, deleted: deletedSubject });
 	} catch (error) {
-		res.status(500).json({ error: error.message });
+		res.json({ message: error.message });
 	}
 };
 
-const getQuestionByTag = async (req, res, next) => {};
-
-module.exports = { createSubject, getAllSubjects };
+module.exports = { createSubject, deleteSubject };

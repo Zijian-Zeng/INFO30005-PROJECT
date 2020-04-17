@@ -1,6 +1,7 @@
 express = require("express");
-const studentModel = require("../../Models/student");
-const staffModel = require("../../Models/staff");
+const studentModel = require("../../models/student");
+const staffModel = require("../../models/staff");
+const subjectModel = require("../../models/subject");
 
 const { signUpValidate, loginValidate, jwt } = require("./auth");
 
@@ -52,8 +53,37 @@ const signup = async (req, res, next) => {
 		newUser.password = newUser.hash(password);
 		const savedUser = await newUser.save();
 
+		//Assign this user to the selected subject database.
+		const invalidSubject = false;
+		for (subjectCode of subjects) {
+			subject = await subjectModel.findOne({
+				subjectCode: subjectCode,
+			});
+			if (!subject) {
+				invalidSubject = true;
+				continue;
+			}
+			console.log(subject);
+			if (userType == "student") {
+				subject.students.push(newUser._id);
+			} else {
+				subject.staffs.push(newUser._id);
+			}
+			subject.save();
+		}
+
+		//If adding subjects that have not been created yet, response warning.
+		if (invalidSubject) {
+			return res.status(200).json({
+				success: true,
+				details: savedUser,
+				warning:
+					"you are selecting unavailable subjects, please confirm your subject code and try it later.",
+			});
+		}
+
 		//Sign up successful.
-		res.status(200).json({ success: true, message: savedUser });
+		res.status(200).json({ success: true, details: savedUser });
 	} catch (error) {
 		res.status(400).json({ error: error.message });
 	}
@@ -94,13 +124,33 @@ const login = async (req, res, next) => {
 
 		//Create and assign a token.
 		const token = jwt.sign({ id: userExist._id }, "info30005");
-		res.header("meetute-token", token).send(token);
 
 		//Login successful.
-		return res.status(200).json({ success: true });
+		return res
+			.status(200)
+			.header("meetute-token", token)
+			.json({ success: true, token: token });
 	} catch (error) {
 		res.status(400).json({ error: error.message });
 	}
 };
 
-module.exports = { login, signup };
+//Get all the available subjects in database.
+const getAllSubjects = async (req, res, next) => {
+	try {
+		const subjects = await subjectModel.find();
+
+		const subjectsList = [];
+		subjects.map(({ subjectCode }) => {
+			subjectsList.push(subjectCode);
+		});
+		res.status(200).json({
+			success: true,
+			subjectList: subjectsList,
+		});
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
+module.exports = { login, signup, getAllSubjects };

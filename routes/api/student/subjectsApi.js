@@ -2,15 +2,17 @@ express = require("express");
 const router = express.Router();
 
 const {
-	addSubject,
-	deleteSubject,
-} = require("../../../Controllers/student/subjectsController");
+	joinSubject,
+	leaveSubject,
+	getAllSubjects,
+} = require("../../../controllers/student/subjectsController");
 
 // Add a new subjects to current subjects list.
-router.post("/add", addSubject);
+router.post("/join", joinSubject);
 
-router.post("/delete", deleteSubject);
+router.post("/leave", leaveSubject);
 
-//GET all available subjects
-//router.get("/allSubjects", getAllSubjects);
+//GET all selected subjects
+router.get("/all", getAllSubjects);
+
 module.exports = router;

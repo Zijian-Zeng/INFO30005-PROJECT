@@ -7,6 +7,8 @@ var StudentSchema = new mongoose.Schema({
 	email: { required: true, type: String, min: 6 },
 	password: { required: true, type: String, min: 6 },
 	subjects: { type: Array },
+	studyHub: { type: Array },
+	appointment: { type: Array },
 });
 
 StudentSchema.methods.hash = (password) => {
