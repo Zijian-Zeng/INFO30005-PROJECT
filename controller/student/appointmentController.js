@@ -1,4 +1,4 @@
-const appointmentModel = require("../../models/appointment");
+const appointmentModel = require("../../model/appointment");
 
 //Request an appointment.
 const requestAppointment = (req, res, next) => {

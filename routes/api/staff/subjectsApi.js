@@ -4,7 +4,7 @@ const router = express.Router();
 const {
 	createSubject,
 	deleteSubject,
-} = require("../../../controllers/staff/subjectsController");
+} = require("../../../controller/staff/subjectsController");
 
 //Create a new subjects in database (staff only)
 router.post("/create", createSubject);

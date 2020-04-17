@@ -7,7 +7,7 @@ const {
 	joinHub,
 	leaveHub,
 	updateHub,
-} = require("../../../controllers/student/studyHubController");
+} = require("../../../controller/student/studyHubController");
 
 //Create a study hub.
 router.post("/create", createHub);

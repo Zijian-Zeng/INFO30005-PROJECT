@@ -1,4 +1,4 @@
-const subjectModel = require("../../models/subject");
+const subjectModel = require("../../model/subject");
 
 const createSubject = async (req, res, next) => {
 	try {

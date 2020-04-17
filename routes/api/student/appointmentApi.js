@@ -5,7 +5,7 @@ const {
 	requestAppointment,
 	deleteAppointment,
 	getAll,
-} = require("../../../controllers/student/appointmentController");
+} = require("../../../controller/student/appointmentController");
 
 //Request an appointment.
 router.post("/request", requestAppointment);

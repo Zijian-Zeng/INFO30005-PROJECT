@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-require("./models/db");
+require("./model/db");
 
 app.use(morgan("common"));
 
