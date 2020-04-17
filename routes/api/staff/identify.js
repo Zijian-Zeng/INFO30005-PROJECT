@@ -1,4 +1,4 @@
-const staffModel = require("../../../model/staff");
+const staffModel = require("../../../Models/staff");
 
 module.exports = async (req, res, next) => {
 	try {

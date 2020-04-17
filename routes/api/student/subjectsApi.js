@@ -5,7 +5,7 @@ const {
 	joinSubject,
 	leaveSubject,
 	getAllSubjects,
-} = require("../../../controller/student/subjectsController");
+} = require("../../../Controllers/student/subjectsController");
 
 // Add a new subjects to current subjects list.
 router.post("/join", joinSubject);

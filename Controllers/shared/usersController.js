@@ -1,7 +1,7 @@
 express = require("express");
-const studentModel = require("../../model/student");
-const staffModel = require("../../model/staff");
-const subjectModel = require("../../model/subject");
+const studentModel = require("../../Models/student");
+const staffModel = require("../../Models/staff");
+const subjectModel = require("../../Models/subject");
 
 const { signUpValidate, loginValidate, jwt } = require("./auth");
 

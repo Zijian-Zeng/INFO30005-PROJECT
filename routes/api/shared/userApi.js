@@ -5,7 +5,7 @@ const {
 	signup,
 	login,
 	getAllSubjects,
-} = require("../../../controller/shared/usersController");
+} = require("../../../Controllers/shared/usersController");
 
 router.post("/signup", signup);
 

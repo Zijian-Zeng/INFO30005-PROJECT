@@ -1,4 +1,4 @@
-const appointmentModel = require("../../model/studyHub");
+const appointmentModel = require("../../Models/studyHub");
 
 //Create a study hub.
 const createHub = (req, res, next) => {

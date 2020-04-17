@@ -1,4 +1,4 @@
-const subjectModel = require("../../model/subject");
+const subjectModel = require("../../Models/subject");
 
 const joinSubject = async (req, res, next) => {
 	try {

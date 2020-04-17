@@ -4,7 +4,7 @@ const router = express.Router();
 const {
 	pendAppointment,
 	getAll,
-} = require("../../../controller/staff/appointmentController");
+} = require("../../../Controllers/staff/appointmentController");
 
 //Request an appointment.
 router.post("/pend", pendAppointment);
