@@ -42,7 +42,6 @@ const viewRegistConsult = async (req, res, next) => {
         const consultations = [];
         const invalidIds = [];
         for (consultationId of req.student.registeredConsult) {
-            console.log(consultationId);
             const consultation = await consultModel.findById(consultationId);
             if (consultation) {
                 consultations.push(consultation);
@@ -53,9 +52,7 @@ const viewRegistConsult = async (req, res, next) => {
         }
 
         //Delete all those invalid consultation.
-        console.log(invalidIds);
         for (invalidId of invalidIds) {
-            console.log(invalidId);
             req.student.registeredConsult = req.student.registeredConsult.filter(
                 (each) => each !== invalidId
             );
