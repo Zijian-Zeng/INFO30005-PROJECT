@@ -1,6 +1,55 @@
 const consultModel = require("../../Models/consultation");
 const subjectModel = require("../../Models/subject");
 
+//View the consultations created by this account.
+const viewCreatedConsult = async (req, res, next) => {
+    try {
+        const consultations = [];
+        for (each of req.staff.consultations) {
+            const consultation = await consultModel.findById(each);
+            consultations.push(consultation);
+        }
+        res.status(200).json(consultations);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+//View all the consultations of a subject.
+const viewAllConsult = async (req, res, next) => {
+    try {
+        const { subjectCode } = req.body;
+
+        //
+        const consultations = [];
+        const invalidIds = [];
+        subject = await consultModel.findOne({ subjectCode: subjectCode });
+        if (!subject) {
+            return res.status(400).json({ error: "Invalid subject code." });
+        }
+
+        console.log(subject);
+        subject.consultations.map(async (consultaionId) => {
+            const consultation = await consultModel.findById(consultaionId);
+            if (consultation) {
+                consultations.push(consultation);
+            } else {
+                invalidIds.push(consultaionId);
+                console.log(consultaionId);
+            }
+        });
+
+        //Delete the invalid consultaion ids in this account.
+        invalidIds.map((id) => {
+            subject.consultations.filter((each) => each != id);
+        });
+
+        res.status(200).json(consultations);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 //creat a new weekly consultation for a subject
 const createConsult = async (req, res, next) => {
     try {
@@ -115,6 +164,7 @@ const updateConsult = async (req, res, next) => {
                     error: "Updating a consultation that does not exist.",
                 });
             }
+            // update the fields where the values passed in are not empty
             if (startDate) {
                 updatingConsult.startDate = startDate;
             }
@@ -140,4 +190,10 @@ const updateConsult = async (req, res, next) => {
     }
 };
 
-module.exports = { createConsult, deleteConsult, updateConsult };
+module.exports = {
+    createConsult,
+    deleteConsult,
+    updateConsult,
+    viewCreatedConsult,
+    viewAllConsult,
+};

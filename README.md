@@ -86,6 +86,9 @@
 
     consultation: /api/staff/consult/...
 
+        //Get all of the available consultations of a subject.
+        GET /api/staff/consult/bySubject []
+
         //Create a new weekly consultation time for a subject.
         POST /api/staff/consult/create [done]
 

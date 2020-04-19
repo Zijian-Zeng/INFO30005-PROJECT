@@ -5,7 +5,15 @@ const {
     createConsult,
     deleteConsult,
     updateConsult,
+    viewCreatedConsult,
+    viewAllConsult,
 } = require("../../../Controllers/staff/consultationController");
+
+//View the consultations created by this account.
+router.get("/viewCreated", viewCreatedConsult);
+
+//View all the consultations of a subject.
+router.get("/viewAll", viewAllConsult);
 
 //Create a consultation
 router.post("/create", createConsult);
