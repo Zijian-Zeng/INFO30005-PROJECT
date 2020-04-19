@@ -4,13 +4,13 @@
 
     users: /api/shared/users/...
         //Login.
-        1. POST /api/shared/users/signup [done]
+        POST /api/shared/users/signup [done]
 
         //Sign up.
-        2. POST /api/shared/users/login [done]
+        POST /api/shared/users/login [done]
 
         //Get all available subjects in database.
-        3. GET /api/shared/users/allSubjects [done]
+        GET /api/shared/users/allSubjects [done]
 
         * once successfully login, server responses "meetute-token" header as a token for client to verify their identity.
 
@@ -30,13 +30,16 @@
 
     consultation: /api/student/consult/...
         //Get all of the available consultations of a subject.
-        GET /api/student/consult/bySubject []
+        GET /api/student/consult/viewAll [done]
+
+        //Get all of registered consultations in the current account.
+        GET /api/student/consult/viewRegistered [done]
 
         //Book an available consultation.
-        POST /api/student/consult/book []
+        POST /api/student/consult/book [done]
 
         //Cancel the booking of a consultation.
-        POST /api/student/consult/cancel []
+        POST /api/student/consult/cancel [done]
 
 
     Appointment: /api/student/appointment/...
@@ -79,24 +82,27 @@
         DELETE /api/staff/subjects/delete [done]
 
         //Join a subject.
-        POST /api/student/subjects/join []
+        POST /api/student/subjects/join [done]
 
         //Leave a subject.
-        POST /api/student/subjects/leave []
+        POST /api/student/subjects/leave [done]
 
     consultation: /api/staff/consult/...
 
         //Get all of the available consultations of a subject.
-        GET /api/staff/consult/bySubject []
+        GET /api/staff/consult/viewAll [done]
+
+        //View the consultations created by this account.
+         GET /api/staff/consult/viewCreated [done]
 
         //Create a new weekly consultation time for a subject.
         POST /api/staff/consult/create [done]
 
         //Delete an existing consultation time of a subject.
-        DELETE /api/staff/consult/delete []
+        DELETE /api/staff/consult/delete [done]
 
         //Update the information of an existing consultation time.
-        PATCH /api/staff/consult/patch []
+        PATCH /api/staff/consult/patch [done]
 
 
     Appointment: /api/staff/appointment/...

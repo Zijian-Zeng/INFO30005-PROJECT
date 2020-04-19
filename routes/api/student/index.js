@@ -9,7 +9,7 @@ app.use("/subjects", require("./subjectsApi"));
 
 app.use("/appointment", require("./appointmentApi"));
 
-app.use("/consultation", require("./consultationApi"));
+app.use("/consult", require("./consultationApi"));
 
 app.use("/hub", require("./studyHubApi"));
 
