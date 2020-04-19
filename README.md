@@ -87,7 +87,7 @@
     consultation: /api/staff/consult/...
 
         //Create a new weekly consultation time for a subject.
-        POST /api/staff/consult/create []
+        POST /api/staff/consult/create [done]
 
         //Delete an existing consultation time of a subject.
         DELETE /api/staff/consult/delete []

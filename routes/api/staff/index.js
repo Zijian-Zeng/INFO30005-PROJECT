@@ -7,6 +7,9 @@ app.use(require("../verify"));
 // verify staff account identity.
 app.use(require("./identify"));
 
+// routes for consultation
+app.use("/consult", require("./consultationApi"));
+
 // routes for subject
 app.use("/subjects", require("./subjectsApi"));
 
