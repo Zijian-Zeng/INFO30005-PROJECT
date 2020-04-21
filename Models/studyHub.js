@@ -3,7 +3,9 @@ var mongoose = require("mongoose");
 var StudyHubSchema = new mongoose.Schema({
 	subjectCode: { required: true, type: String },
 
-	time: { required: true, type: Date },
+	startDate: { required: true, type: Date },
+
+	endDate: { required: true, type: Date },
 
 	location: { required: true, type: String },
 

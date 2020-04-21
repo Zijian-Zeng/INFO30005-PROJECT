@@ -61,6 +61,10 @@
         //Get all of the study hubs of a subject.
         GET /api/student/hub/all [Chloe]
 
+
+        //Get all of the study hubs of a subject.
+        GET /api/student/hub/registered [Chloe]
+
         //Join a study hub.
         POST /api/student/hub/join [Chloe]
 

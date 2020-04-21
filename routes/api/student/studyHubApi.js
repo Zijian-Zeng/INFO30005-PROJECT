@@ -7,6 +7,7 @@ const {
 	joinHub,
 	leaveHub,
 	updateHub,
+	getRegistered,
 } = require("../../../Controllers/student/studyHubController");
 
 //Create a study hub.
@@ -14,6 +15,9 @@ router.post("/create", createHub);
 
 //Get all of the study hubs of a subject.
 router.get("/all", getAll);
+
+//Get all of the study hubs of a subject.
+router.get("/registered", getRegistered);
 
 //Join a study hub.
 router.post("/join", joinHub);
