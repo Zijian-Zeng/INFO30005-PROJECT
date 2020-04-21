@@ -9,6 +9,8 @@ const SubjectSchema = new mongoose.Schema({
     students: { type: Array },
 
     consultations: { type: Array },
+    studyhubs: { type: Array },
+    appointments: { type: Array },
 });
 
 module.exports = mongoose.model("subject", SubjectSchema);
