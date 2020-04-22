@@ -7,7 +7,7 @@ const {
 } = require("../../../Controllers/staff/appointmentController");
 
 //Request an appointment.
-router.post("/pend", pendAppointment);
+router.patch("/pend", pendAppointment);
 
 //Get all requests of appointment.
 router.get("/all", getAll);

@@ -53,6 +53,9 @@
         //Get all requests of appointment.
         GET /api/student/appointment/all [Jamie]
 
+        //Resubmit or update the information of an appointment.
+        PATH /api/student/appointment/update [Jamie]
+
 
     studyHub: /api/student/hub/...
         //Create a study hub.
@@ -112,7 +115,7 @@
     Appointment: /api/staff/appointment/...
 
         //Pending a request of appointments.
-        POST /api/staff/appointment/pend [Jamie]
+        PATCH /api/staff/appointment/pend [Jamie]
 
         //Get all of the requests of appointments from students.
         GET /api/staff/appointment/all [Jamie]

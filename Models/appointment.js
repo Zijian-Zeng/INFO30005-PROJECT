@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const requestSchema = new mongoose.Schema({
+const appointSchema = new mongoose.Schema({
 	subjectCode: { required: true, default: "", type: String },
 	staff: { type: String },
 	student: { type: String },
@@ -11,7 +11,15 @@ const requestSchema = new mongoose.Schema({
 	location: { required: true, type: String },
 	summary: { type: String },
 
-	status: { type: String },
+	status: {
+		type: String,
+
+		enum: ["PENDING", "APPROVED", "DECLINED"],
+
+		default: "PENDING",
+	},
+
+	comment: { type: String },
 });
 
-module.exports = mongoose.model("request", requestSchema);
+module.exports = mongoose.model("appointments", appointSchema);

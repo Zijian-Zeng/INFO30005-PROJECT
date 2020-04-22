@@ -10,7 +10,7 @@ var StudentSchema = new mongoose.Schema({
 
 	subjects: { type: Array },
 	registeredHubs: { type: Array },
-	registeredAppts: { type: Array },
+	appointments: { type: Array },
 	registeredConsult: { type: Array },
 });
 
