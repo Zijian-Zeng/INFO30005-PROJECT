@@ -16,4 +16,6 @@ app.use("/subjects", require("./subjectsApi"));
 //routes for appointment
 app.use("/appointment", require("./appointmentApi"));
 
+app.use("/analytic", require("./analyticApi"));
+
 module.exports = app;

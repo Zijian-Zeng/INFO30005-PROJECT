@@ -13,4 +13,6 @@ app.use("/consult", require("./consultationApi"));
 
 app.use("/hub", require("./studyHubApi"));
 
+app.use("/analytic", require("./analyticApi"));
+
 module.exports = app;

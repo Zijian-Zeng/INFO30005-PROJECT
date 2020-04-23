@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-import "./App.css";
 import Content from "./component/Dashboard/content";
 import Signup from "./component/Signup/Signup";
 import Cookies from "js-cookie";
@@ -12,7 +11,7 @@ import {
 } from "react-router-dom";
 import { AuthApi } from "./component/Methods";
 
-const HomeRoute = ({ component: Component, ...rest }) => {
+const DashboardRoute = ({ component: Component, ...rest }) => {
 	const { auth } = useContext(AuthApi);
 
 	return (
@@ -23,7 +22,7 @@ const HomeRoute = ({ component: Component, ...rest }) => {
 	);
 };
 
-const LoginRoute = ({ component: Component, ...rest }) => {
+const HomeRoute = ({ component: Component, ...rest }) => {
 	const { auth } = useContext(AuthApi);
 	console.log(Component);
 	return (
@@ -43,7 +42,7 @@ export default () => {
 
 	useEffect(() => {
 		const readCookie = () => {
-			const cookie = Cookies.get("user");
+			const cookie = Cookies.get("meetute");
 			if (cookie) setAuth(true);
 		};
 		readCookie();
@@ -62,8 +61,12 @@ export default () => {
 		>
 			<Router>
 				<Switch>
-					<LoginRoute exact path="/" component={Home} />
-					<HomeRoute exact path="/dashboard" component={Content} />
+					<HomeRoute exact path="/" component={Home} />
+					<DashboardRoute
+						exact
+						path="/dashboard"
+						component={Content}
+					/>
 					<Route exact path="/signup" component={Signup} />
 				</Switch>
 			</Router>

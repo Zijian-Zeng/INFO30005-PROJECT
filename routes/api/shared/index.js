@@ -6,8 +6,8 @@ app.use((req, res, next) => {
 	next();
 });
 
-//app.use("/subjects", require("./subjectApi"));
-
 app.use("/users", require("./userApi"));
+
+app.use("/analytic", require("./analyticApi"));
 
 module.exports = app;

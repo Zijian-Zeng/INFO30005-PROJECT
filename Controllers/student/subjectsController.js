@@ -1,23 +1,17 @@
 const subjectModel = require("../../Models/subject");
+const staffModel = require("../../Models/staff");
 
 const joinSubject = async (req, res, next) => {
 	try {
-		const { body, student } = req;
-		const { subjectCode } = body;
-		const { subjects } = student;
+		const { subjectCode } = req.body;
+		const { subjects } = req.student;
 
 		//Validate subjectCode.
-		let subjectInvalid = true;
-		if (subjectCode) {
-			const subjects = await subjectModel.find();
-			subjects.map((subject) => {
-				if (subject.subjectCode == subjectCode) {
-					subjectInvalid = false;
-				}
-			});
-		}
-		if (subjectInvalid) {
-			return res.status(200).json({
+		const subject = await subjectModel.findOne({
+			subjectCode: subjectCode,
+		});
+		if (!subject) {
+			return res.status(400).json({
 				success: false,
 				error: "Subject code invalid.",
 			});
@@ -31,10 +25,15 @@ const joinSubject = async (req, res, next) => {
 			});
 		}
 
-		//Update the subjects list for this users.
+		//Update the subjects list in this account.
 		subjects.push(subjectCode);
-		const studentChanged = await student.save();
-		res.status(200).json({ success: true, ChangedTo: studentChanged });
+		const studentChangedTo = await req.student.save();
+
+		//Add this account under subject collection.
+		subject.students.push(req.user.id);
+		subject.save();
+
+		res.status(200).json({ success: true, studentChangedTo });
 	} catch (error) {
 		res.status(400).json({ error: error.message });
 	}
@@ -42,47 +41,76 @@ const joinSubject = async (req, res, next) => {
 
 const leaveSubject = async (req, res, next) => {
 	try {
-		const { body, student } = req;
-		const { subjectCode } = body;
-		const { subjects } = student;
-
-		//Verify the subjectCode that is about to be deleted.
-		const subjectsAfterDelete = subjects.filter(
-			(subject) => subject != subjectCode
-		);
-		if (subjects.length == subjectsAfterDelete.length) {
-			return res.status(200).json({
-				success: false,
-				error:
-					"You are deleting a subjects that do not exist in your account.",
-			});
-		}
-
-		student.subjects = subjectsAfterDelete;
-		const studentChanged = await student.save();
-		res.status(200).json({ success: true, ChangedTo: studentChanged });
-	} catch (error) {
-		res.status(400).json({ error: error.message });
-	}
-};
-
-const getAllSubjects = async (req, res, next) => {
-	try {
-		console.log(req.student);
-
+		const { subjectCode } = req.body;
 		const { subjects } = req.student;
-		if (subjects.length == 0) {
-			res.status(201).json({
-				success: true,
-				message: "no subjects available",
-				subjects,
+
+		//Validate the subject code.
+		const subject = await subjectModel.findOne({
+			subjectCode: subjectCode,
+		});
+		if (!subject) {
+			return res.status(400).json({
+				success: false,
+				error: "Subject code invalid.",
 			});
-		} else {
-			res.json({ success: true, subjects: subjects });
 		}
+
+		//Delete the subjectCode in this account.
+		req.student.subjects = subjects.filter((each) => each != subjectCode);
+		req.student.save();
+
+		//Delete the user id under this subject.
+		subject.students = subject.students.filter(
+			(each) => each != req.user.id
+		);
+		subject.save();
+		res.status(200).json({ success: true, userInfo: req.student, subject });
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
 };
 
-module.exports = { joinSubject, leaveSubject, getAllSubjects };
+const getAllSubjects = async (req, res, next) => {
+	try {
+		const { subjects } = req.student;
+		const subjectsInfo = [];
+
+		for (subjectCode of subjects) {
+			const subject = await subjectModel.findOne({
+				subjectCode: subjectCode,
+			});
+			if (subject) {
+				subjectsInfo.push(subject);
+			}
+		}
+
+		res.status(200).json({ success: true, subjectsInfo });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
+const getAllStaffs = async (req, res, next) => {
+	try {
+		const { staffs } = await subjectModel.findOne({
+			subjectCode: req.body.subjectCode,
+		});
+		if (!staffs) {
+			res.status(400).json({ error: "Invalid subject code." });
+		}
+
+		const staffsInfo = [];
+		for (staffId of staffs) {
+			const staff = await staffModel.findById(staffId);
+			if (staff) {
+				staffsInfo.push(staff);
+			}
+		}
+
+		res.status(200).json({ staffsInfo });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
+module.exports = { joinSubject, leaveSubject, getAllSubjects, getAllStaffs };

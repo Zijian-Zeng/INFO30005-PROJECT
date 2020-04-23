@@ -64,7 +64,7 @@ const viewAllConsult = async (req, res, next) => {
 	}
 };
 
-//creat a new weekly consultation for a subject
+//Create a new weekly consultation for a subject.
 const createConsult = async (req, res, next) => {
 	try {
 		const {
