@@ -2,9 +2,6 @@
 
 [https://meetute.herokuapp.com](https://meetute.herokuapp.com)
 
-Database =
-"mongodb+srv://meetute:info30005@meetute-wxtad.mongodb.net/test?retryWrites=true&w=majority"
-
 ---
 
 ---
@@ -16,10 +13,17 @@ Database =
     1.  ### Login.
 
             POST /api/shared/users/signup [done]
+            {
+                    "email":"test1@email.com",
+                    "password:"123456"
+            }
 
     2.  ### Sign up.
 
             POST /api/shared/users/login [done]
+            {
+
+            }
 
     3.  ### Get all available subjects in database.
             GET /api/shared/users/allSubjects [done]

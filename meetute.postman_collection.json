@@ -1,0 +1,1320 @@
+{
+	"info": {
+		"_postman_id": "2765db6a-fb5a-4eb3-8e37-2c37e944482d",
+		"name": "meetute",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "shared",
+			"item": [
+				{
+					"name": "login as student",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "meetute-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOTdiOTAxYWMxMTI4NTRjMTJkYzMyNSIsImlhdCI6MTU4NzI5MDY5N30.publGA4ArgIgfM7WNisUfIdMjVmWyTvnQz9ZHdLhGvM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"test1@email.com\",\n\t\"password\":\"123456\",\n\t\"userType\":\"student\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/shared/users/login",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"shared",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login as staff",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"test1@email.com\",\n\t\"password\":\"123456\",\n\t\"userType\":\"staff\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/shared/users/login",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"shared",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sign up as student",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test1@email.com\",\n\t\"password\":\"123456\",\n\t\"userType\":\"student\",\n\t\"firstName\":\"test\",\n\t\"lastName\":\"0\",\n\t\"subjects\":[\"INFO30005\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/shared/users/signup",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"shared",
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sign up as staff",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test1@email.com\",\n\t\"password\":\"123456\",\n\t\"userType\":\"staff\",\n\t\"firstName\":\"test\",\n\t\"lastName\":\"0\",\n\t\"subjects\":[\"INFO30005\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/shared/users/signup",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"shared",
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "data analytic",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/api/shared/analytic",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"shared",
+								"analytic"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "student",
+			"item": [
+				{
+					"name": "subjects",
+					"item": [
+						{
+							"name": "Get all of staffs in a subject",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{student token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"subjectCode\":\"COMP10001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/student/subjects/allStaff",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"student",
+										"subjects",
+										"allStaff"
+									]
+								},
+								"description": "Get all of staff information in a subject."
+							},
+							"response": []
+						},
+						{
+							"name": "join a subject",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{student token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"subjectCode\":\"COMP10001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/student/subjects/join",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"student",
+										"subjects",
+										"join"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "leave a subject",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{student token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"subjectCode\":\"COMP10001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/student/subjects/leave",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"student",
+										"subjects",
+										"leave"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all enrolled subject",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{student token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/student/subjects/all",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"student",
+										"subjects",
+										"all"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "studyHubs",
+					"item": [
+						{
+							"name": "create a study  hub",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{student token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"subjectCode\": \"INFO30005\",\n\t\"location\": \"At home\",\n\t\"startDate\": \"12 24 2020 12:00\",\n\t\"endDate\":\"12 25 2020 1:00\",\n\t\"summary\": \"Web info tech project\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/student/hub/create",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"student",
+										"hub",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all study hubs in this account",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{student token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"subjectCode\":\"INFO30005\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/student/hub/all",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"student",
+										"hub",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get registered study hubs in this account",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{student token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{server}}/api/student/hub/registered",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"student",
+										"hub",
+										"registered"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "leave a study hub",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{student token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\":\"5e9ee5f694bab21460388853\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/student/hub/leave",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"student",
+										"hub",
+										"leave"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update a study hub information",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{student token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"location\":\"Building A\",\n\t\"id\":\"5e9ed8f8107bb612d815e33b\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/student/hub/update",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"student",
+										"hub",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "join a study hub",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "appointments",
+					"item": [
+						{
+							"name": "create an appointment",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{student token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"subjectCode\":\"INFO30005\",\n\t\"startDate\":\"12 24 2020 17:00\",\n\t\"endDate\":\"12 24 2020 17:00\",\n\t\"location\":\"building A\",\n\t\"id\":\"5e9fb1fa78b6cf259d5382d0\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/student/appointment/request",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"student",
+										"appointment",
+										"request"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all appointments in this account.",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{student token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{server}}/api/student/appointment/all",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"student",
+										"appointment",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete an appointment",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{student token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\":\"5e9fb4f7adc1d0267ab6f363\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/student/appointment/delete",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"student",
+										"appointment",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update the information of an appointment",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{student token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\":\"5e9fb9cd467d2a2759af4cf1\",\n\t\"comment\": \"how about this time?\",\n\t\"startDate\":\"12 2 2020 19:00\",\n\t\"endDate\":\"12 2 2020 20:00\",\n\t\"location\":\"building B\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/student/appointment/update",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"student",
+										"appointment",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "consultations",
+					"item": [
+						{
+							"name": "Get all consultations of a subject",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{student token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"subjectCode\":\"COMP10001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/student/consult/viewAll",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"student",
+										"consult",
+										"viewAll"
+									]
+								},
+								"description": "Get all of the available consultations of a subject."
+							},
+							"response": []
+						},
+						{
+							"name": "Get all of registered consultations",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{student token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{server}}/api/student/consult/viewRegistered",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"student",
+										"consult",
+										"viewRegistered"
+									]
+								},
+								"description": "Get all of registered consultations in the current account."
+							},
+							"response": []
+						},
+						{
+							"name": "Book an available consultation",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{student token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\":\"5ea1b9520a527654944b0f45\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/student/consult/book",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"student",
+										"consult",
+										"book"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "cancel the booking of an consultation",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "meetute-token",
+										"type": "text",
+										"value": "{{student token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\":\"5ea1b9520a527654944b0f45\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/student/consult/cancel",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"student",
+										"consult",
+										"cancel"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "data analytic",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "meetute-token",
+								"value": "{{student token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{server}}/api/student/analytic",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"student",
+								"analytic"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "staff",
+			"item": [
+				{
+					"name": "consultation",
+					"item": [
+						{
+							"name": "all created consultations",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{staff token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/staff/consult/viewCreated",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"staff",
+										"consult",
+										"viewCreated"
+									]
+								},
+								"description": "Get all the created subjects in this account.\n"
+							},
+							"response": []
+						},
+						{
+							"name": "create a consultaion",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{staff token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"subjectCode\":\"COMP10001\",\n\t\"startDate\": \"12 24 2020 19:00\",\n\t\"endDate\": \"12 24 2020 20:00\",\n\t\"location\": \"Building D\",\n\t\"slotsAvailable\": 20\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/staff/consult/create",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"staff",
+										"consult",
+										"create"
+									]
+								},
+								"description": "create a consultaion for students in this subject to register."
+							},
+							"response": []
+						},
+						{
+							"name": "delete a consultaion",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{staff token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\":\"5ea1ba4e0a527654944b0f46\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/staff/consult/delete",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"staff",
+										"consult",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "all consultaions in a subject",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{staff token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"subjectCode\":\"COMP10001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/staff/consult/viewAll",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"staff",
+										"consult",
+										"viewAll"
+									]
+								},
+								"description": "get all consultaion in a subject"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "subject",
+					"item": [
+						{
+							"name": "create a subject",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{staff token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"subjectCode\":\"COMP10001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/staff/subjects/create",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"staff",
+										"subjects",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "join a subject",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{staff token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"subjectCode\":\"COMP10001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/staff/subjects/join",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"staff",
+										"subjects",
+										"join"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "leave a subject",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "meetute-token",
+										"type": "text",
+										"value": "{{staff token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"subjectCode\":\"COMP10001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/staff/subjects/leave",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"staff",
+										"subjects",
+										"leave"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete a subject",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{staff token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"subjectCode\":\"COMP10001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/staff/subjects/delete",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"staff",
+										"subjects",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all enrolled subjects",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{staff token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{server}}/api/staff/subjects/all",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"staff",
+										"subjects",
+										"all"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "37212266-f066-4a49-97b8-b86704b120e9",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "ddd89eae-f66c-4d61-90a6-988be1dd37de",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "appointments",
+					"item": [
+						{
+							"name": "pend a request of an appointment",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{staff token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\":\"5e9fb9cd467d2a2759af4cf1\",\n\t\"status\":\"DECLINED\",\n\t\"comment\":\"No, another time my friend.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/staff/appointment/pend",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"staff",
+										"appointment",
+										"pend"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all of appointments in t his account.",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "meetute-token",
+										"value": "{{staff token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/staff/appointment/all",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"staff",
+										"appointment",
+										"all"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "data analytic",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "meetute-token",
+								"value": "{{staff token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{server}}/api/staff/analytic",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"staff",
+								"analytic"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "05b34a31-1cc2-418c-b49d-bf8dc0598714",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "10f03adf-d3bf-4f95-a63a-2462cffd336a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "8e0f9b1b-3d71-4b57-9905-e26537ddc9b4",
+			"key": "server",
+			"value": "http://localhost:5000",
+			"type": "string"
+		},
+		{
+			"id": "b0c63708-91d4-4990-9429-691f700725d9",
+			"key": "student token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOTdiOTAxYWMxMTI4NTRjMTJkYzMyNSIsImlhdCI6MTU4NzI5MDY5N30.publGA4ArgIgfM7WNisUfIdMjVmWyTvnQz9ZHdLhGvM",
+			"type": "string"
+		},
+		{
+			"id": "89957dfd-4a7e-4124-8616-811bc927d3ca",
+			"key": "staff token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOTdiOTAxYWMxMTI4NTRjMTJkYzMyNSIsImlhdCI6MTU4NzI5MTQ0MX0.A3jyq7iBa4O0D-3joBB1NeySCYw3jnbgmRnL_6Z00eo",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
