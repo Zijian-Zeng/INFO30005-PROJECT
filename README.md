@@ -1,38 +1,46 @@
+# INFO30005 Project - MeeTute
+
+MeeTute is a platform that wants to make consultation and support services more accessible for students and more manageable for staff.
+
 # Guides for back-end APIs: /api/...
 
-[https://meetute.herokuapp.com](https://meetute.herokuapp.com)
+Production environment: [https://meetute.herokuapp.com](https://meetute.herokuapp.com)
 
 ---
 
 ---
 
-## public Routes: /api/shared/...
+## Public routes: /api/shared/...
 
 -   ### users: /api/shared/users/...
 
-    1.  ### Login.
+    1.  ### Sign up.
 
             POST /api/shared/users/signup [done]
-            {
-                    "email":"test1@email.com",
-                    "password:"123456"
-            }
 
-    2.  ### Sign up.
+    2.  ### Login.
 
             POST /api/shared/users/login [done]
-            {
 
+            Login as student:
+            {
+                "email":"test1@email.com",
+                "password":"123456",
+                "userType":"student"
             }
+
+            Login as staff:
+            {
+                "email":"test1@email.com",
+                "password":"123456",
+                "userType":"staff"
+            }
+
 
     3.  ### Get all available subjects in database.
             GET /api/shared/users/allSubjects [done]
 
--   ### once successfully login, server responses "meetute-token" header as a token for client to verify their identity.
-
--   ### Data Analytic: /api/shared/analytic
-    1.  ### Grab some useful data from database, Charts are displayed by front-end.
-            GET /api/shared/analytic [to be continued]
+-   ### Once the user successfully logins, server responses a "meetute-token" header as a token for client to verify their identity.
 
 ---
 
