@@ -1,5 +1,10 @@
 # Guides for back-end APIs: /api/...
 
+[https://meetute.herokuapp.com](https://meetute.herokuapp.com)
+
+Database =
+"mongodb+srv://meetute:info30005@meetute-wxtad.mongodb.net/test?retryWrites=true&w=majority"
+
 ---
 
 ---
