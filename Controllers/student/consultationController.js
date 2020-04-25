@@ -5,9 +5,15 @@ const subjectModel = require("../../Models/subject");
 const viewAllConsult = async (req, res, next) => {
     try {
         const { subjectCode } = req.body;
+
         subject = await subjectModel.findOne({ subjectCode: subjectCode });
         if (!subject) {
             return res.status(400).json({ error: "Invalid subject code." });
+        }
+        if (!req.student.subjects.some((each) => each == subjectCode)) {
+            return res
+                .status(400)
+                .json({ error: "Subject not found in your managed account." });
         }
 
         //Extract all the consultation information under this subject.

@@ -1,7 +1,11 @@
 express = require("express");
 const router = express.Router();
 
-//Grab some useful data in this account, Charts are displayed by front-end.
-router.get("/", require("../../../Controllers/staff/analyticController"));
+const {
+    getConsultData,
+} = require("../../../Controllers/staff/analyticController");
+
+//Request an appointment.
+router.get("/consult", getConsultData);
 
 module.exports = router;
