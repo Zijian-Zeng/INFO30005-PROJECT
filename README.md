@@ -2,6 +2,15 @@
 
 MeeTute is a platform that wants to make consultation and support services more accessible for students and more manageable for staff.
 
+Steps to test our backend:
+
+1. Staff must create subjects first for students to enroll in the subject
+2. For consultations, staff must create the consultation in order for students to register
+3. For appointment, students must create the appointment first in order for staff to approve or decline
+4. Study hubs are only for students, and analytics are only for staff
+
+All the request data can be found in the JSON file attached.
+
 ## Guides for back-end APIs: /api/...
 
 Production environment: [https://meetute.herokuapp.com](https://meetute.herokuapp.com)
