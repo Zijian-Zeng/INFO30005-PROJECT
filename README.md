@@ -9,7 +9,7 @@ Steps to test our backend:
 3. For appointment, students must create the appointment first in order for staff to approve or decline
 4. Study hubs are only for students, and analytics are only for staff
 
-All the request data can be found in the JSON file attached.
+All the API testing request data can be found in the "meetute_API_testing" JSON file for Postman to import.
 
 ## Guides for back-end APIs: /api/...
 
