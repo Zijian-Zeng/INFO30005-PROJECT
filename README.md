@@ -13,7 +13,9 @@ All the API testing request data can be found in the "[meetute_API_testing](http
 
 ## Guides for back-end APIs: /api/...
 
-Production environment: [https://meetute.herokuapp.com](https://meetute.herokuapp.com)
+### Production environment: https://meetute.herokuapp.com
+
+### Postman Document: https://documenter.getpostman.com/view/11130247/SzmY8gZr
 
 ---
 
@@ -82,58 +84,59 @@ Production environment: [https://meetute.herokuapp.com](https://meetute.herokuap
                 "subjectCode":"COMP10001"
             }
 
-    2.  ### Join a subject.
-
-            POST /api/student/subjects/join [done]
-            {
-                "subjectCode":"COMP10001"
-            }
-
-    3.  ### Leave a subject.
-
-            POST /api/student/subjects/leave [done]
-            {
-                "subjectCode":"COMP10001"
-            }
-
-    4.  ### Get all enrolled subjects
-
-            GET /api/student/subjects/all [done]
-
-    5.  ### Delete a subject from database.
+    2.  ### Delete a subject from database.
 
             DELETE /api/staff/subjects/delete [done]
             {
                 "subjectCode":"COMP10001"
             }
 
-*   ### student routes: /api/student/subjects/..
-
-    1.  ### Join a subject
+    3.  ### Join a subject.
 
             POST /api/student/subjects/join [done]
             {
-                "subjectCode":"COMP10001"
+                "subjectCode":"COMP10002"
             }
 
-
-    2.  ### Leave a subject.
+    4.  ### Leave a subject.
 
             POST /api/student/subjects/leave [done]
             {
-                "subjectCode":"COMP10001"
+                "subjectCode":"COMP10002"
             }
 
-    3.  ### Get all of staff information in a subject.
+    5.  ### Get all enrolled subjects
+
+            GET /api/student/subjects/all [done]
+
+*   ### student routes: /api/student/subjects/..
+
+
+    1.  ### Get all of staff information in a subject.
 
             GET /api/shared/users/allStaff [done]
             {
-                "subjectCode":"COMP10001"
+                "subjectCode":"INFO30005"
             }
 
-    4.  ### Get all enrolled subjects
+    2.  ### Get all enrolled subjects
 
             GET /api/student/subjects/all [done]
+
+
+    3.  ### Leave a subject.
+
+            POST /api/student/subjects/leave [done]
+            {
+                "subjectCode":"COMP10002"
+            }
+
+    4.  ### Join a subject
+
+            POST /api/student/subjects/join [done]
+            {
+                "subjectCode":"COMP10002"
+            }
 
 ---
 
@@ -147,37 +150,38 @@ Production environment: [https://meetute.herokuapp.com](https://meetute.herokuap
 
             GET /api/staff/consult/viewAll [done]
             {
-                "subjectCode":"INFO20003"
+                "subjectCode":"INFO30005"
             }
 
     2.  ### View the consultations created by this account.
 
             GET /api/staff/consult/viewCreated [done]
 
-    3.  ### Create a new weekly consultation time for a subject.
+    3.  ### Update the information of an existing consultation time. The id is the consultation ID from the consultation created beforehand.
+
+            PATCH /api/staff/consult/patch [done]
+            {
+                "id":"5ea440828a1fceb262c857aa",
+                "slotsAvailable": 30
+            }
+
+    4.  ### Create a new weekly consultation time for a subject.
 
             POST /api/staff/consult/create [done]
             {
                 "subjectCode":"INFO30005",
-                "startDate": "12 24 2020 20:00",
-                "endDate": "12 24 2020 21:00",
-                "location": "Building D",
+                "startDate": "12 24 2020 14:00",
+                "endDate": "12 24 2020 15:00",
+                "location": "Building A",
                 "slotsAvailable": 20
             }
 
 
-    4.  ### Update the information of an existing consultation time. The id is the consultation ID from the consultation created beforehand.
-
-            PATCH /api/staff/consult/patch [done]
-            {
-                "id": "5ea39df7e4674dab002046be",
-                "slotsAvailable": 30
-            }
     5.  ### Delete an existing consultation time of a subject.
 
             DELETE /api/staff/consult/delete [done]
             {
-                "id":"5ea39df7e4674dab002046be"
+                "id":"5eaa5f5af6c2fa3e160d6efc"
             }
 
 -   ### student Routes: /api/student/consult/...
@@ -193,18 +197,18 @@ Production environment: [https://meetute.herokuapp.com](https://meetute.herokuap
 
             GET /api/student/consult/viewRegistered [done]
 
-    3.  ### Book an available consultation.
-
-            POST /api/student/consult/book [done]
-            {
-                "id":"5ea39df7e4674dab002046be"
-            }
-
-    4.  ### Cancel the booking of a consultation.
+    3.  ### Cancel the booking of a consultation.
 
             POST /api/student/consult/cancel [done]
             {
-                "id":"5ea39df7e4674dab002046be"
+                "id":"5ea440828a1fceb262c857aa"
+            }
+
+    4.  ### Book an available consultation.
+
+            POST /api/student/consult/book [done]
+            {
+                "id":"5ea440828a1fceb262c857aa"
             }
 
 ---
@@ -215,54 +219,53 @@ Production environment: [https://meetute.herokuapp.com](https://meetute.herokuap
 
 -   ### student Routes: /api/student/appointment/...
 
-    1.  ### Request an appointment.
+    1.  ### Get all requests of appointments.
+
+            GET /api/student/appointment/all [done]
+
+    2.  ### Resubmit and update the information of an appointment.
+
+            PATH /api/student/appointment/update [done]
+            {
+                "id":"5eaa4fd0b2ccd03c832c75bf",
+                "comment": "how about this time?",
+                "startDate":"12 2 2020 19:00",
+                "endDate":"12 2 2020 20:00",
+                "location":"building B"
+            }
+
+    3.  ### Request an appointment.
 
             POST /api/student/appointment/request [done]
             {
                 "subjectCode":"INFO30005",
-                "startDate":"8 27 2020 18:20",
-                "endDate":"8 27 2020 20:00",
+                "startDate":"8 27 2020 11:00",
+                "endDate":"8 27 2020 12:00",
                 "location":"building ABC",
                 "staffId":"5ea3952ee4674dab002046bc"
             }
-
-
-    2.  ### Get all requests of appointments.
-
-            GET /api/student/appointment/all [done]
-
-    3.  ### Resubmit and update the information of an appointment.
-
-            PATH /api/student/appointment/update [done]
-            {
-                "id":"5ea42612f3c36eb11c775156",
-                "comment": "how about this time?",
-                "startDate":"12 2 2020 19:00",
-                "endDate":"12 2 2020 23:00",
-                "location":"building B"
-            }
-
 
     4.  ### Delete a request of an appointment.
 
             DELETE /api/student/appointment/delete [done]
             {
-                "id":"5ea42612f3c36eb11c775156"
+                "id":"5eaa5efff6c2fa3e160d6efb"
             }
 
 -   ### staff Routes: /api/staff/appointment/...
 
-    1.  ### Review and edit an appointment request.
+    1.  ### Get all of the requests of appointments from students.
+
+            GET /api/staff/appointment/all [done]
+
+    2.  ### Review and edit an appointment request.
 
             PATCH /api/staff/appointment/pend [done]
             {
-                "id":"5ea42612f3c36eb11c775156",
+                "id":"5eaa4fd0b2ccd03c832c75bf",
                 "status":"DECLINED",
                 "comment":"No, another time my friend."
             }
-
-    2.  ### Get all of the requests of appointments from students.
-            GET /api/staff/appointment/all [done]
 
 ---
 
@@ -272,48 +275,48 @@ Production environment: [https://meetute.herokuapp.com](https://meetute.herokuap
 
 -   ### student routes: /api/student/hub/...
 
-    1.  ### Create a study hub.
-
-            POST /api/student/hub/create [done]
-            {
-                "subjectCode": "INFO30005",
-                "location": "Baillieu Library",
-                "startDate": "12 25 2020 12:00",
-                "endDate":"12 25 2020 1:00",
-                "summary": "Web info tech project"
-            }
-
-    2.  ### Get all of the study hubs of a subject.
+    1.  ### Get all of the study hubs of a subject.
 
             GET /api/student/hub/all [done]
             {
                 "subjectCode":"INFO30005"
             }
 
-    3.  ### Get all of the registered study hubs
+    2.  ### Get all of the registered study hubs
 
             GET /api/student/hub/registered [done]
 
-    4.  ### Join a study hub.
-
-            POST /api/student/hub/join [done]
-            {
-                "id": "5ea443d7ada7d4b2a3010efd"
-            }
-
-    5.  ### Update the information of a study hub.
+    3.  ### Update the information of a study hub.
 
             PATCH /api/student/hub/update [done]
             {
                 "location":"Building B",
-                "id":"5ea443b4ada7d4b2a3010efc"
+                "id":"5eaa4ee4b2ccd03c832c75bd"
             }
 
-    6.  ### Leave a study hub.
+    4.  ### Create a study hub.
+
+            POST /api/student/hub/create [done]
+            {
+                "subjectCode": "INFO30005",
+                "location": "Building A",
+                "startDate": "12 24 2020 12:00",
+                "endDate":"12 25 2020 1:00",
+                "summary": "Web info studyhub 1"
+            }
+
+    5.  ### Leave a study hub.
 
             POST /api/student/hub/leave [done]
             {
-                "id":"5ea443b4ada7d4b2a3010efc"
+                "id":"5ea99e70fccbbd34ea7b460a"
+            }
+
+    6.  ### Join a study hub.
+
+            POST /api/student/hub/join [done]
+            {
+                "id":"5ea99e70fccbbd34ea7b460a"
             }
 
 ---
@@ -324,7 +327,7 @@ Production environment: [https://meetute.herokuapp.com](https://meetute.herokuap
 
 -   ### staff routes: /api/staff/analytic/...
 
-    1.  ### Analyse consultation sign up data, visualisations will be implemented by front-end.
+    1.  ### Analyse consultation sign up data, visualizations will be implemented by front-end.
             GET /api/staff/analytic [done]
 
 ---

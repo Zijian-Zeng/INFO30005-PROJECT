@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
+//Describe the staffs in the system.
 var StaffSchema = new mongoose.Schema({
 	firstName: { default: "", type: String, max: 255 },
 	lastName: { default: "", type: String, max: 255 },
@@ -11,10 +12,12 @@ var StaffSchema = new mongoose.Schema({
 	appointments: { type: Array },
 });
 
+//When system stores a password, it will be encoded for privacy and safety issues.
 StaffSchema.methods.hash = (password) => {
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 };
 
+//Verify the password.
 StaffSchema.methods.validatePassword = (input, password) => {
 	return bcrypt.compareSync(input, password);
 };

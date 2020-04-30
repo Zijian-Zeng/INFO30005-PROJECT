@@ -13,6 +13,4 @@ router.post("/login", login);
 
 router.get("/allSubjects", getAllSubjects);
 
-//router.post("/subjects", getAllSubjects);
-
 module.exports = router;

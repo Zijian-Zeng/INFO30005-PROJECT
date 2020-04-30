@@ -1,16 +1,14 @@
 const mongoose = require("mongoose");
 
+//Describe the appointments in the system.
 const appointSchema = new mongoose.Schema({
 	subjectCode: { required: true, default: "", type: String },
 	staff: { type: String },
 	student: { type: String },
-
 	startDate: { required: true, type: Date },
 	endDate: { required: true, type: Date },
-
 	location: { required: true, type: String },
 	summary: { type: String },
-
 	status: {
 		type: String,
 
@@ -18,7 +16,6 @@ const appointSchema = new mongoose.Schema({
 
 		default: "PENDING",
 	},
-
 	comment: { type: String },
 });
 

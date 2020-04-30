@@ -92,13 +92,14 @@ const getAllSubjects = async (req, res, next) => {
 
 const getAllStaffs = async (req, res, next) => {
 	try {
-		const { staffs } = await subjectModel.findOne({
+		const subject = await subjectModel.findOne({
 			subjectCode: req.body.subjectCode,
 		});
-		if (!staffs) {
+		if (!subject) {
 			res.status(400).json({ error: "Invalid subject code." });
 		}
 
+		const { staffs } = subject;
 		const staffsInfo = [];
 		for (staffId of staffs) {
 			const staff = await staffModel.findById(staffId);

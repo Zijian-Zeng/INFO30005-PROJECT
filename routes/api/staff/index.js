@@ -1,21 +1,22 @@
 const express = require("express");
 const app = express();
 
-// verify token.
+//Verify token.
 app.use(require("../verify"));
 
-// verify staff account identity.
+//Verify staff account identity.
 app.use(require("./identify"));
 
-// routes for consultation
+//APIs for consultations.
 app.use("/consult", require("./consultationApi"));
 
-// routes for subject
+//APIs for subjects.
 app.use("/subjects", require("./subjectsApi"));
 
-//routes for appointment
+//APIs for appointments.
 app.use("/appointment", require("./appointmentApi"));
 
+//APIs for data analytic.
 app.use("/analytic", require("./analyticApi"));
 
 module.exports = app;

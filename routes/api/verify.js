@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
+	//Verify the meetute-token header in the request.
 	const token = req.header("meetute-token");
 	if (!token) {
 		return res
