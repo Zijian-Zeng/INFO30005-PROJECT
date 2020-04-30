@@ -14,8 +14,8 @@
 						"method": "POST",
 						"header": [
 							{
-								"key": "meetute-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOTdiOTAxYWMxMTI4NTRjMTJkYzMyNSIsImlhdCI6MTU4NzI5MDY5N30.publGA4ArgIgfM7WNisUfIdMjVmWyTvnQz9ZHdLhGvM",
+								"key": "",
+								"value": "",
 								"type": "text"
 							}
 						],
@@ -1342,21 +1342,21 @@
 	],
 	"variable": [
 		{
-			"id": "58a137c2-4d6b-46e2-b4e1-c9df9bbbf989",
+			"id": "91c72258-04a9-47e1-a602-6dbd6da60e35",
 			"key": "server",
-			"value": "http://localhost:5000",
+			"value": "https://meetute.herokuapp.com",
 			"type": "string"
 		},
 		{
-			"id": "501b1c95-f546-4bbf-b451-40b2c27ed920",
+			"id": "7171fb57-a14a-403e-a7b0-78dc68a8981f",
 			"key": "student token",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOTdiOTAxYWMxMTI4NTRjMTJkYzMyNSIsImlhdCI6MTU4NzI5MDY5N30.publGA4ArgIgfM7WNisUfIdMjVmWyTvnQz9ZHdLhGvM",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYTM5NTE2ZTQ2NzRkYWIwMDIwNDZiYiIsImlhdCI6MTU4ODIxMzY4Nn0.KSVqg_z1OeZtvEDUZCM5iSth8cQMjRlWVpxYpPCdjEQ",
 			"type": "string"
 		},
 		{
-			"id": "d09b502e-750c-4444-887c-fffa1d0e361d",
+			"id": "cdc77cb5-91be-4321-b806-6ad92e4e8f48",
 			"key": "staff token",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOTdiOTAxYWMxMTI4NTRjMTJkYzMyNSIsImlhdCI6MTU4NzI5MTQ0MX0.A3jyq7iBa4O0D-3joBB1NeySCYw3jnbgmRnL_6Z00eo",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYTM5NTJlZTQ2NzRkYWIwMDIwNDZiYyIsImlhdCI6MTU4ODIxMzI2Nn0.PmAyarA-yLHuvk-Ej3H_Mc_pATHDKExlKv5ghCEP4BY",
 			"type": "string"
 		}
 	],

@@ -2,12 +2,20 @@
 
 MeeTute is a platform that wants to make consultations and support services more accessible for students and more manageable for staff.
 
-Steps to test our backend:
+-   Steps to use our backend:
 
-1. Staff must create subjects first for students to enroll in the subject
-2. For consultations, staff must create the consultation in order for students to register
-3. For appointment, students must create the appointment first in order for staff to approve or decline
-4. Study hubs are only for students, and user analytics are only for staff
+    1. Staff must create subjects first for students to enroll in the subject
+    2. For consultations, staff must create the consultation in order for students to register
+    3. For appointment, students must create the appointment first in order for staff to approve or decline
+    4. Study hubs are only for students, and user analytics are only for staff
+
+-   Note:
+
+    1. The order of the APIs presented below has been explicitly designed to perform consistent testing.
+
+    2. Some of the requests below are not idempotent, you might get different results if you run it for multiple times.
+
+    3. If the token is not working, you can always log in using the below user details to get a new one.
 
 All the API testing request data can be found in the "[meetute_API_testing](https://github.com/Zijian-Zeng/INFO30005-PROJECT/blob/master/meetute_API_testing.json)" JSON file for Postman to import.
 
