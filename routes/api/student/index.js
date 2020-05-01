@@ -2,10 +2,10 @@ const express = require("express");
 const app = express();
 
 //Verify the meetute-token header in requests.
-app.use(require("../verify"));
+app.use(require("../../../Controllers/verify"));
 
 //Identify the student of the request.
-app.use(require("./identify"));
+app.use(require("../../../Controllers/student/identify"));
 
 //APIs for subjects.
 app.use("/subjects", require("./subjectsApi"));

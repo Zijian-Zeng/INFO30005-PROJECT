@@ -2,10 +2,10 @@ const express = require("express");
 const app = express();
 
 //Verify token.
-app.use(require("../verify"));
+app.use(require("../../../Controllers/verify"));
 
 //Verify staff account identity.
-app.use(require("./identify"));
+app.use(require("../../../Controllers/staff/identify"));
 
 //APIs for consultations.
 app.use("/consult", require("./consultationApi"));

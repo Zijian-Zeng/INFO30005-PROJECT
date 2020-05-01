@@ -4,7 +4,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-//const path = require("path");
+require("dotenv").config();
 const app = express();
 
 app.use(express.json());
