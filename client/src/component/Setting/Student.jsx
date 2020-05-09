@@ -1,11 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
 	Grid,
-	CardContent,
 	withWidth,
 	isWidthUp,
-	Button,
-	Paper,
 	Typography,
 	Tooltip,
 	Fab,
@@ -18,22 +15,13 @@ import {
 	Avatar,
 	Grow,
 	Divider,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogContentText,
-	DialogTitle,
-	TextField,
 	Snackbar,
 } from "@material-ui/core";
-import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
-import { useFetch } from "../Methods";
-import Cookies from "js-cookie";
+import { makeStyles } from "@material-ui/core/styles";
 
 import FolderIcon from "@material-ui/icons/Folder";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import Add from "./Add";
 import Alert from "@material-ui/lab/Alert";
 

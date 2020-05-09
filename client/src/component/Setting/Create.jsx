@@ -11,6 +11,7 @@ import {
 	DialogContentText,
 	DialogTitle,
 	TextField,
+	Paper,
 	Snackbar,
 } from "@material-ui/core";
 import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
@@ -23,56 +24,22 @@ export default ({
 	open,
 	subjectCode,
 	setSubjectCode,
+	subjectName,
+	setSubjectName,
 	handleDialogClose,
 	setError,
 	setAdded,
-	userType,
 }) => {
-	const history = useHistory();
+	const create = async () => {
+		console.log(subjectCode + subjectName);
 
-	const [allSubjects, loadingAll] = useFetch(
-		"/api/shared/users/allSubjects",
-		"GET",
-		Cookies.get("meetute")
-	);
-
-	if (loadingAll) return null;
-
-	const GetField = () => {
-		if (loadingAll) return null;
-		return (
-			<Autocomplete
-				id="addSubject"
-				options={allSubjects.subjectList}
-				getOptionLabel={(option) => option}
-				value={subjectCode}
-				onChange={(event, newValue) => {
-					setSubjectCode(newValue);
-				}}
-				renderInput={(params) => {
-					return (
-						<TextField
-							{...params}
-							label="Please choose a subject"
-							variant="filled"
-							required
-						/>
-					);
-				}}
-			/>
-		);
-	};
-
-	const join = async (e) => {
-		e.preventDefault();
-		let url = "/api/student/subjects/join";
-		if (userType === "staff") url = "/api/staff/subjects/join";
-		const msg = await myFetch(url, "POST", {
+		const msg = await myFetch("/api/staff/subjects/create", "POST", {
 			subjectCode: subjectCode,
+			subjectName: subjectName,
 		});
 		console.log(msg);
 		if (msg.success) {
-			setAdded("You have successfully joined the subject.");
+			setAdded(`You have successfully created subject ${subjectCode}.`);
 			handleDialogClose();
 		} else {
 			setError(msg.error);
@@ -86,10 +53,31 @@ export default ({
 			aria-labelledby="form-dialog-title"
 			fullWidth
 		>
-			<DialogTitle id="form-dialog-title">Join a new Subject</DialogTitle>
+			<DialogTitle id="form-dialog-title">
+				Create a new Subject
+			</DialogTitle>
 			<DialogContent>
 				<DialogContentText>bla bla bla...</DialogContentText>
-				<GetField />
+
+				<TextField
+					label="Subject Code"
+					required
+					onChange={(event) => {
+						setSubjectCode(event.target.value);
+					}}
+					fullWidth
+				/>
+				<br />
+				<br />
+
+				<TextField
+					label="Subject Name"
+					required
+					onChange={(event) => {
+						setSubjectName(event.target.value);
+					}}
+					fullWidth
+				/>
 			</DialogContent>
 
 			<DialogActions>
@@ -100,9 +88,9 @@ export default ({
 					fullWidth
 					color="primary"
 					variant="contained"
-					onClick={join}
+					onClick={create}
 				>
-					Join
+					Create
 				</Button>
 			</DialogActions>
 		</Dialog>
