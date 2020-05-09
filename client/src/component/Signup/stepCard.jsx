@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
 	Grid,
 	Paper,
@@ -6,11 +6,10 @@ import {
 	Collapse,
 	Button,
 	Container,
-	Chip,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -57,10 +56,10 @@ export default (props) => {
 		handleBack,
 		text,
 		cardID,
-		handleReset,
 		handleSubmit,
 	} = props;
 
+	const history = useHistory();
 	const getButton = (cardID) => {
 		switch (cardID) {
 			case 5:
@@ -69,7 +68,9 @@ export default (props) => {
 						<Grid item xs={12}>
 							<Link to="/" className={classes.noDecoration}>
 								<Button
-									onClick={handleReset}
+									onClick={() => {
+										history.push("/consultations");
+									}}
 									size="large"
 									fullWidth
 									variant="contained"
@@ -136,6 +137,8 @@ export default (props) => {
 
 	const {
 		setEmail,
+		userType,
+		setUserType,
 		setFirstName,
 		setLasName,
 		setPassword,
@@ -144,22 +147,19 @@ export default (props) => {
 		setSubjects,
 	} = props;
 
-	console.log(status === "Error! email cannot be blank");
-
-	const handleForm = (e) => {
-		e.preventdefault();
-		console.log("test");
-	};
-
 	const getField = (cardID) => {
 		switch (cardID) {
 			case 0:
 				return (
 					<Autocomplete
 						id="combo-box-demo"
-						options={["Student", "Staff"]}
-						defaultValue="Student"
+						options={["student", "staff"]}
+						defaultValue="student"
 						getOptionLabel={(option) => option}
+						value={userType}
+						onChange={(event, newValue) => {
+							setUserType(newValue);
+						}}
 						renderInput={(params) => {
 							return (
 								<TextField

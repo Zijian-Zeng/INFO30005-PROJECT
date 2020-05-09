@@ -22,4 +22,6 @@ const useFetch = (url, method, body) => {
 
 const AuthApi = createContext();
 
-export { useFetch, AuthApi };
+const UserContext = createContext();
+
+export { useFetch, AuthApi, UserContext };

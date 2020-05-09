@@ -4,7 +4,6 @@ import {
 	Grid,
 	Container,
 	Hidden,
-	withStyles,
 	withWidth,
 	isWidthUp,
 	Typography,

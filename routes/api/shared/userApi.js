@@ -2,9 +2,9 @@ express = require("express");
 const router = express.Router();
 
 const {
-    signup,
-    login,
-    getAllSubjects,
+	signup,
+	login,
+	getAllSubjects,
 } = require("../../../Controllers/shared/usersController");
 
 //Sign up

@@ -3,22 +3,21 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
 	Avatar,
 	Button,
-	CssBaseline,
 	FormControlLabel,
-	Checkbox,
-	Grid,
-	Container,
+	FormControl,
+	RadioGroup,
+	FormLabel,
+	Radio,
 	Card,
 	Paper,
-	CardHeader,
-	CardActions,
 	Grow,
-	IconButton,
 } from "@material-ui/core";
 import MyField from "./MyField";
-import { Close, ErrorOutline } from "@material-ui/icons";
+
 import { AuthApi } from "./../Methods";
 import Cookies from "js-cookie";
+import Alert from "@material-ui/lab/Alert";
+import { useHistory } from "react-router-dom";
 
 // Extension Styles
 const useStyles = makeStyles((theme) => ({
@@ -30,9 +29,7 @@ const useStyles = makeStyles((theme) => ({
 		height: "90%",
 	},
 	error: {
-		width: "85%",
-		backgroundImage: "linear-gradient(-20deg, #f794a4 0%, #fdd6bd 100%)",
-		fontSize: "30%",
+		marginTop: theme.spacing(2),
 	},
 	avatar: {
 		width: theme.spacing(10),
@@ -40,17 +37,16 @@ const useStyles = makeStyles((theme) => ({
 	},
 	form: {
 		marginTop: theme.spacing(3),
-		// Fix IE 11 issue.
 	},
 	submit: {
 		margin: theme.spacing(2, 0, 0),
 	},
-	lowerCase: {
+	signUpButton: {
 		textTransform: "none",
 		flexGrow: "1",
+		color: "#31a065",
 	},
 	text: {
-		fontSize: "130%",
 		fontWeight: "500",
 		margin: "auto",
 	},
@@ -69,25 +65,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default ({ closeLoginWindow }) => {
+	const history = useHistory();
 	const classes = useStyles();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [userType, setUserType] = useState("student");
 	const [error, setError] = useState("");
 	const { setAuth, setUserInfo } = useContext(AuthApi);
 
 	const login = async (e) => {
 		e.preventDefault();
 		setError("");
-		console.log(password + email);
-
-		const res = await fetch("/api/users/login", {
+		const res = await fetch("/api/shared/users/login", {
 			method: "post",
 			headers: {
 				"Content-Type": "application/json",
+				Accept: "application/json",
 			},
 			body: JSON.stringify({
 				email: email,
 				password: password,
+				userType: userType,
 			}),
 		});
 		const msg = await res.json();
@@ -95,39 +93,27 @@ export default ({ closeLoginWindow }) => {
 		if (msg.success) {
 			setAuth(true);
 			Cookies.set("meetute", msg.token);
-
-			closeLoginWindow();
+			history.push("/consultations");
 		} else {
 			console.log(msg);
-			setError(msg.message);
+			setError(msg.error);
 		}
 	};
 
 	return (
 		<Paper elevation={0} className={classes.paper}>
-			<Avatar
-				className={classes.avatar}
-				src="http:/api/images/unimelb"
-				shape="square"
-			></Avatar>
+			<Avatar className={classes.avatar}></Avatar>
 			{error !== "" ? (
 				<Grow in={true}>
 					<Card className={classes.error}>
-						<CardHeader
-							avatar={<ErrorOutline className={classes.warn} />}
-							action={
-								<IconButton
-									onClick={() => {
-										setError("");
-									}}
-									size="small"
-									className={classes.cancel}
-								>
-									<Close />
-								</IconButton>
-							}
-							title={<p className={classes.text}>{error}</p>}
-						></CardHeader>
+						<Alert
+							severity="error"
+							onClose={() => {
+								setError("");
+							}}
+						>
+							{error}
+						</Alert>
 					</Card>
 				</Grow>
 			) : null}
@@ -146,10 +132,33 @@ export default ({ closeLoginWindow }) => {
 					type={"password"}
 					error={error}
 				/>
-				<FormControlLabel
-					control={<Checkbox value="remember" color="primary" />}
-					label="Remember me"
-				/>
+				<FormControl component="fieldset">
+					<FormLabel component="legend">login as</FormLabel>
+					<RadioGroup
+						row
+						aria-label="position"
+						name="position"
+						value={userType}
+					>
+						<FormControlLabel
+							value="student"
+							control={<Radio color="primary" />}
+							onChange={(event) => {
+								setUserType(event.target.value);
+							}}
+							label="Student"
+						/>
+
+						<FormControlLabel
+							value="Staff"
+							control={<Radio color="primary" />}
+							onChange={(event) => {
+								setUserType(event.target.value);
+							}}
+							label="Staff"
+						/>
+					</RadioGroup>
+				</FormControl>
 				<Button
 					type="submit"
 					fullWidth
@@ -161,19 +170,19 @@ export default ({ closeLoginWindow }) => {
 					Login In
 				</Button>
 			</form>
-			<CardActions>
-				<Button size="small" className={classes.lowerCase}>
-					Forgot Password?
-				</Button>
-				<Button
-					size="small"
-					color="primary"
-					className={classes.lowerCase}
-				>
-					Don't have an account? Sign Up
-				</Button>
-			</CardActions>
 			<br />
+			<Button
+				size="small"
+				color="primary"
+				className={classes.signUpButton}
+				fullWidth
+				onClick={() => {
+					closeLoginWindow();
+					history.push("/signup");
+				}}
+			>
+				Don't have an account? Sign Up
+			</Button>
 			<br />
 		</Paper>
 	);

@@ -1,52 +1,62 @@
 import React, { useState, useContext, useEffect } from "react";
-import Content from "./component/Dashboard/content";
 import Signup from "./component/Signup/Signup";
 import Cookies from "js-cookie";
 import Home from "./component/Home/home";
+import Test from "./component/Test/Test";
+import Appointment from "./component/Appointment/Appointment";
+import Consultation from "./component/Consultation/Consultation";
+import Setting from "./component/Setting/Setting";
+import Hub from "./component/StudyHub/Hub";
 import {
 	BrowserRouter as Router,
 	Switch,
 	Route,
 	Redirect,
 } from "react-router-dom";
-import { AuthApi } from "./component/Methods";
+import { AuthApi, UserContext } from "./component/Methods";
 
-const DashboardRoute = ({ component: Component, ...rest }) => {
+const HomeRoute = ({ component: Component, ...rest }) => {
 	const { auth } = useContext(AuthApi);
-
 	return (
 		<Route
 			{...rest}
-			render={() => (auth ? <Component /> : <Redirect to="/" />)}
+			render={() => (!auth ? <Component /> : <Redirect to="/Settings" />)}
 		/>
 	);
 };
 
-const HomeRoute = ({ component: Component, ...rest }) => {
+const ProtectedRoute = ({ component: Component, ...rest }) => {
 	const { auth } = useContext(AuthApi);
-	console.log(Component);
+	let checkAuth = false;
+
+	const cookie = Cookies.get("meetute");
+	if (cookie) {
+		checkAuth = true;
+	}
+
 	return (
 		<Route
 			{...rest}
 			render={() =>
-				!auth ? <Component /> : <Redirect to="/dashboard" />
+				checkAuth || auth ? <Component /> : <Redirect to="/" />
 			}
 		/>
 	);
 };
 
 export default () => {
+	//Authentication state...
 	const [auth, setAuth] = useState(false);
-	const [userInfo, setUserInfo] = useState(null);
 	const [loginEl, setLoginEl] = useState(null);
 
+	//user state...
+	const [selectedRoute, setSelectedRoute] = useState("settings");
+	const [userInfo, setUserInfo] = useState(null);
+
 	useEffect(() => {
-		const readCookie = () => {
-			const cookie = Cookies.get("meetute");
-			if (cookie) setAuth(true);
-		};
-		readCookie();
-	}, []);
+		const cookie = Cookies.get("meetute");
+		if (cookie) setAuth(true);
+	}, [auth]);
 
 	return (
 		<AuthApi.Provider
@@ -59,17 +69,37 @@ export default () => {
 				setLoginEl,
 			}}
 		>
-			<Router>
-				<Switch>
-					<HomeRoute exact path="/" component={Home} />
-					<DashboardRoute
-						exact
-						path="/dashboard"
-						component={Content}
-					/>
-					<Route exact path="/signup" component={Signup} />
-				</Switch>
-			</Router>
+			<UserContext.Provider
+				value={{
+					selectedRoute,
+					setSelectedRoute,
+				}}
+			>
+				<Router>
+					<Switch>
+						<ProtectedRoute
+							exact
+							path="/Consultations"
+							component={Consultation}
+						/>
+						<ProtectedRoute exact path="/Hubs" component={Hub} />
+						<ProtectedRoute
+							exact
+							path="/Appointments"
+							component={Appointment}
+						/>
+						<ProtectedRoute
+							exact
+							path="/Settings"
+							component={Setting}
+						/>
+						<HomeRoute exact path="/" component={Home} />
+
+						<Route exact path="/signup" component={Signup} />
+						<Route exact path="/test" component={Test} />
+					</Switch>
+				</Router>
+			</UserContext.Provider>
 		</AuthApi.Provider>
 	);
 };

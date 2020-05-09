@@ -1,22 +1,6 @@
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import {
-	Box,
-	Card,
-	Grid,
-	Container,
-	GridList,
-	GridListTile,
-	GridListTileBar,
-	Hidden,
-	withStyles,
-	withWidth,
-	isWidthUp,
-	Paper,
-	Typography,
-	Grow,
-	Button,
-} from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 
 //Icons
 import SwipeableViews from "react-swipeable-views";
@@ -77,14 +61,6 @@ export default ({ width }) => {
 
 	const [activeStep, setActiveStep] = useState(0);
 	const maxSteps = features.length;
-
-	const handleNext = () => {
-		setActiveStep((prevActiveStep) => prevActiveStep + 1);
-	};
-
-	const handleBack = () => {
-		setActiveStep((prevActiveStep) => prevActiveStep - 1);
-	};
 
 	const handleStepChange = (step) => {
 		setActiveStep(step);

@@ -1,14 +1,9 @@
-import React, { Fragment } from "react";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
+import React from "react";
+
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Paper from "@material-ui/core/Paper";
-import { Link } from "react-router-dom";
 
-import AppBar from "../AppBar";
+import AppBar from "../Navigation/AppBar";
 import Header from "./header";
 import WaveBorder from "./waveBorder";
 import Features from "./features";

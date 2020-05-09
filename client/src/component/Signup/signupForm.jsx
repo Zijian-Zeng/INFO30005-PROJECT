@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Typography, Container, Grow, Paper } from "@material-ui/core";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { AuthApi } from "./../Methods";
 import Cookies from "js-cookie";
 
@@ -71,6 +71,7 @@ export default () => {
 
 	//Sign up states
 	const [email, setEmail] = useState("");
+	const [userType, setUserType] = useState("student");
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLasName] = useState("");
 	const [password, setPassword] = useState("");
@@ -83,27 +84,29 @@ export default () => {
 	const handleNext = () => {
 		switch (activeStep) {
 			case 1:
-				if (firstName == "" || lastName == "") {
+				if (firstName === "" || lastName === "") {
 					return;
 				}
 				break;
 			case 2:
-				if (email == "" || !email.includes("@")) {
+				if (email === "" || !email.includes("@")) {
 					return;
 				}
 				break;
 			case 3:
-				if (password == "" || confirmPassword == "") {
+				if (password === "" || confirmPassword === "") {
 					return;
 				}
-				if (password != confirmPassword) {
+				if (password !== confirmPassword) {
 					setStatus("Sorry password does not match");
-
 					return;
 				}
 				break;
+			default:
+				break;
 		}
 		setActiveStep((prevActiveStep) => prevActiveStep + 1);
+		console.log(userType);
 	};
 
 	const handleBack = () => {
@@ -111,7 +114,7 @@ export default () => {
 	};
 
 	const HandleStatus = () => {
-		if (status == "success") {
+		if (status === "success") {
 			return <Alert severity="success">You are good to go!</Alert>;
 		}
 		return (
@@ -129,12 +132,12 @@ export default () => {
 	const { setAuth } = useContext(AuthApi);
 	const signUp = async (e) => {
 		setStatus("");
-		console.log(password + email);
-
-		const res = await fetch("/api/users/signup", {
+		console.log(userType);
+		const res = await fetch("/api/shared/users/signup", {
 			method: "post",
 			headers: {
 				"Content-Type": "application/json",
+				Accept: "application/json",
 			},
 			body: JSON.stringify({
 				email: email,
@@ -142,6 +145,7 @@ export default () => {
 				firstName: firstName,
 				lastName: lastName,
 				subjects: subjects,
+				userType: userType,
 			}),
 		});
 		const msg = await res.json();
@@ -150,20 +154,20 @@ export default () => {
 			setStatus("success");
 			handleNext();
 			setAuth(true);
-			Cookies.set("user", "loginTrue");
+			Cookies.set("meetute", msg.token);
 		} else {
 			console.log(msg);
-			setStatus(msg.message);
-			if (msg.message === "Error! FirstName cannot be blank") {
+			setStatus(msg.error);
+			if (msg.error.includes("ype")) {
+				setActiveStep(0);
+			}
+			if (msg.error.includes("Name")) {
 				setActiveStep(1);
 			}
-			if (msg.message === "Error! LastName cannot be blank") {
-				setActiveStep(1);
-			}
-			if (msg.message === "Error! email cannot be blank") {
+			if (msg.error.includes("email")) {
 				setActiveStep(2);
 			}
-			if (msg.message === "Error! password cannot be blank") {
+			if (msg.error.includes("password")) {
 				setActiveStep(3);
 			}
 		}
@@ -193,6 +197,8 @@ export default () => {
 						handleBack={handleBack}
 						handleNext={handleNext}
 						activeStep={activeStep}
+						userType={userType}
+						setUserType={setUserType}
 						setEmail={setEmail}
 						setFirstName={setFirstName}
 						setLasName={setLasName}
@@ -201,6 +207,7 @@ export default () => {
 						status={status}
 						setSubjects={setSubjects}
 						handleSubmit={signUp}
+						key={cardID}
 					></StepCard>
 				))}
 			</div>

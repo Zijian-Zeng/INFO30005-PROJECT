@@ -20,7 +20,7 @@ const signup = async (req, res, next) => {
 		//Validate the sign up request.
 		const { error } = await signUpValidate.validateAsync(req.body);
 		if (error) {
-			return res.send(error.details[0].message);
+			return res.status(400).json({ error: error.details[0].message });
 		}
 
 		//Recognize and validate the user type.
@@ -95,8 +95,9 @@ const login = async (req, res, next) => {
 		const { email, password, userType } = body;
 
 		const { error } = loginValidate.validate(req.body);
+		loginValidate.v;
 		if (error) {
-			return res.send(error.details[0].message);
+			return res.status(401).json({ error: error.details[0].message });
 		}
 
 		//Recognize and validate the user type.
@@ -106,9 +107,7 @@ const login = async (req, res, next) => {
 		} else if (userType == "staff") {
 			userModel = staffModel;
 		} else {
-			return res
-				.status(401)
-				.json({ message: "Error! invalid user type" });
+			return res.status(401).json({ error: "Error! invalid user type" });
 		}
 
 		// Verify the email.
@@ -149,7 +148,7 @@ const getAllSubjects = async (req, res, next) => {
 			subjectList: subjectsList,
 		});
 	} catch (error) {
-		res.status(500).json({ error: error.message });
+		res.status(500).json({ message: error.message });
 	}
 };
 

@@ -6,7 +6,6 @@ import {
 	StepButton,
 	StepLabel,
 	StepConnector,
-	Container,
 } from "@material-ui/core";
 import clsx from "clsx";
 

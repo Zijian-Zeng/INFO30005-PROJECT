@@ -17,9 +17,8 @@ export default ({ setSubjects }) => {
 				renderTags={(value, getTagProps) =>
 					value.map((option, index) => (
 						<Chip
-							variant="outlined"
 							label={option}
-							size="large"
+							size="medium"
 							{...getTagProps({ index })}
 							color="primary"
 							variant="default"

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import {
 	StepConnector,
 	Stepper,
@@ -26,12 +26,6 @@ const ColorlibConnector = withStyles({
 			backgroundImage:
 				"linear-gradient(to right, #47cc89 0%, #47cc89 100%)",
 		},
-	},
-	line: {
-		height: 3,
-		border: 0,
-		backgroundColor: "#eaeaf0",
-		borderRadius: 1,
 	},
 })(StepConnector);
 

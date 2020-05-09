@@ -1,9 +1,8 @@
-import React, { useState, useContext } from "react";
-import { Container, CssBaseline, Grow, Typography } from "@material-ui/core";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import React, { useState } from "react";
+
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
-import AppBar from "../AppBar";
+import AppBar from "../Navigation/AppBar";
 
 import Login from "../Login/login";
 
