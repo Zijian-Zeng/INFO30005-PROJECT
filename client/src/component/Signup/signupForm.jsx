@@ -181,7 +181,7 @@ export default () => {
 			<Stepper activeStep={activeStep} getSteps={getSteps} />
 
 			<Container maxWidth="md">
-				<Grow in={status != ""}>
+				<Grow in={status !== ""}>
 					<Paper elevation={0}>
 						<HandleStatus />
 					</Paper>
