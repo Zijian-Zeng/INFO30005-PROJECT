@@ -18,6 +18,7 @@ import AlarmIcon from "@material-ui/icons/Alarm";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import SettingsIcon from "@material-ui/icons/Settings";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
+import TimelineIcon from "@material-ui/icons/Timeline";
 import { Grid, Paper } from "@material-ui/core";
 
 import AppBar from "./AppBar";
@@ -68,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	content: {
 		flexGrow: 1,
-		padding: theme.spacing(3),
+		padding: theme.spacing(10),
 	},
 	bottom: {
 		position: "fixed",
@@ -80,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default ({ content }) => {
+export default ({ content, type }) => {
 	const classes = useStyles();
 	const theme = useTheme();
 
@@ -161,19 +162,35 @@ export default ({ content }) => {
 						</ListItemIcon>
 						<ListItemText primary="1v1 Appointments" />
 					</ListItem>
-					<ListItem
-						button
-						onClick={() => {
-							//setSelectedRoute("hubs");
-							history.push("/hubs");
-						}}
-						selected={selectedRoute === "hubs"}
-					>
-						<ListItemIcon className={classes.icon}>
-							<GroupAddIcon />
-						</ListItemIcon>
-						<ListItemText primary="Study Hubs" />
-					</ListItem>
+					{type === "student" ? (
+						<ListItem
+							button
+							onClick={() => {
+								//setSelectedRoute("hubs");
+								history.push("/hubs");
+							}}
+							selected={selectedRoute === "hubs"}
+						>
+							<ListItemIcon className={classes.icon}>
+								<GroupAddIcon />
+							</ListItemIcon>
+							<ListItemText primary="Study Hubs" />
+						</ListItem>
+					) : (
+						<ListItem
+							button
+							onClick={() => {
+								//setSelectedRoute("hubs");
+								history.push("/analytic");
+							}}
+							selected={selectedRoute === "analytic"}
+						>
+							<ListItemIcon className={classes.icon}>
+								<TimelineIcon />
+							</ListItemIcon>
+							<ListItemText primary="Analytic" />
+						</ListItem>
+					)}
 				</List>
 				<Divider />
 				<List>

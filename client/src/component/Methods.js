@@ -1,18 +1,22 @@
 import { useState, useEffect, createContext } from "react";
 
-const useFetch = (url, method, body) => {
+const useFetch = (url, method, token, body) => {
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
-
 	useEffect(() => {
 		const fetchData = async () => {
-			const response = await fetch(url, {
+			const response = await fetch("http://localhost:5000" + url, {
 				method: method,
 				body: JSON.stringify(body),
+				headers: {
+					"meetute-token": token,
+				},
 			});
 			const data = await response.json();
-			setData(data);
-			setLoading(false);
+			setTimeout(() => {
+				setData(data);
+				setLoading(false);
+			}, 500);
 		};
 		fetchData();
 	}, [url, method, body]);

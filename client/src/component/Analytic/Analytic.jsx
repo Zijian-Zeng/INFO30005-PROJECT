@@ -15,7 +15,9 @@ import {
 	withStyles,
 	lighten,
 } from "@material-ui/core/styles";
-import { UserContext, useFetch, getUser } from "../Methods";
+import { useHistory } from "react-router-dom";
+
+import { UserContext, useFetch } from "../Methods";
 import Layout from "../Navigation/Layout";
 import Cookies from "js-cookie";
 import { localeData } from "moment";
@@ -41,11 +43,13 @@ const Loading = withStyles({
 
 export default () => {
 	const classes = useStyles();
+	const history = useHistory();
 
 	//Set the routes.
 	const { setSelectedRoute } = useContext(UserContext);
+
 	useEffect(() => {
-		setSelectedRoute("settings");
+		setSelectedRoute("analytic");
 	}, []);
 
 	//Loading user information.
@@ -59,11 +63,17 @@ export default () => {
 	const { type, userInfo } = user;
 	const { firstName, lastName } = userInfo;
 
+	if (type === "student") history.push("/");
+
 	const Content = () => {
 		return (
-			<h1>
-				Welcome {type} {firstName} {lastName}
-			</h1>
+			<div>
+				<h1>
+					Welcome {type} {firstName} {lastName}
+				</h1>
+				<br />
+				<h1>Analytic page</h1>
+			</div>
 		);
 	};
 

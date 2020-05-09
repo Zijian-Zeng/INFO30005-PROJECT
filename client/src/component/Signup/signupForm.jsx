@@ -133,21 +133,24 @@ export default () => {
 	const signUp = async (e) => {
 		setStatus("");
 		console.log(userType);
-		const res = await fetch("/api/shared/users/signup", {
-			method: "post",
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-			},
-			body: JSON.stringify({
-				email: email,
-				password: password,
-				firstName: firstName,
-				lastName: lastName,
-				subjects: subjects,
-				userType: userType,
-			}),
-		});
+		const res = await fetch(
+			"http://localhost:5000/api/shared/users/signup",
+			{
+				method: "post",
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "application/json",
+				},
+				body: JSON.stringify({
+					email: email,
+					password: password,
+					firstName: firstName,
+					lastName: lastName,
+					subjects: subjects,
+					userType: userType,
+				}),
+			}
+		);
 		const msg = await res.json();
 
 		if (msg.success) {

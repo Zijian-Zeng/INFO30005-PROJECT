@@ -76,18 +76,21 @@ export default ({ closeLoginWindow }) => {
 	const login = async (e) => {
 		e.preventDefault();
 		setError("");
-		const res = await fetch("/api/shared/users/login", {
-			method: "post",
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-			},
-			body: JSON.stringify({
-				email: email,
-				password: password,
-				userType: userType,
-			}),
-		});
+		const res = await fetch(
+			"http://localhost:5000/api/shared/users/login",
+			{
+				method: "post",
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "application/json",
+				},
+				body: JSON.stringify({
+					email: email,
+					password: password,
+					userType: userType,
+				}),
+			}
+		);
 		const msg = await res.json();
 
 		if (msg.success) {
@@ -95,7 +98,6 @@ export default ({ closeLoginWindow }) => {
 			Cookies.set("meetute", msg.token);
 			history.push("/consultations");
 		} else {
-			console.log(msg);
 			setError(msg.error);
 		}
 	};
@@ -150,7 +152,7 @@ export default ({ closeLoginWindow }) => {
 						/>
 
 						<FormControlLabel
-							value="Staff"
+							value="staff"
 							control={<Radio color="primary" />}
 							onChange={(event) => {
 								setUserType(event.target.value);

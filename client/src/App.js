@@ -7,6 +7,8 @@ import Appointment from "./component/Appointment/Appointment";
 import Consultation from "./component/Consultation/Consultation";
 import Setting from "./component/Setting/Setting";
 import Hub from "./component/StudyHub/Hub";
+import Analytic from "./component/Analytic/Analytic";
+
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -83,6 +85,11 @@ export default () => {
 							component={Consultation}
 						/>
 						<ProtectedRoute exact path="/Hubs" component={Hub} />
+						<ProtectedRoute
+							exact
+							path="/Analytic"
+							component={Analytic}
+						/>
 						<ProtectedRoute
 							exact
 							path="/Appointments"

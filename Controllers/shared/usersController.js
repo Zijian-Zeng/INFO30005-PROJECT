@@ -152,4 +152,29 @@ const getAllSubjects = async (req, res, next) => {
 	}
 };
 
-module.exports = { login, signup, getAllSubjects };
+const getInfo = async (req, res, next) => {
+	try {
+		const staff = await staffModel.findById(req.user.id);
+		const student = await studentModel.findById(req.user.id);
+
+		if (staff) {
+			return res
+				.status(200)
+				.json({ success: true, userInfo: staff, type: "staff" });
+		}
+		if (student) {
+			return res.status(200).json({
+				success: true,
+				userInfo: student,
+				type: "student",
+			});
+		}
+		return res
+			.status(400)
+			.json({ success: false, error: "Invalid Token ID." });
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+};
+
+module.exports = { login, signup, getAllSubjects, getInfo };
