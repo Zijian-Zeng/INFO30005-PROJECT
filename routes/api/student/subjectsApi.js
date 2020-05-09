@@ -1,5 +1,7 @@
 express = require("express");
 const router = express.Router();
+const verify = require("../../../Controllers/verify");
+const identify = require("../../../Controllers/student/identify");
 
 const {
 	joinSubject,
@@ -9,15 +11,15 @@ const {
 } = require("../../../Controllers/student/subjectsController");
 
 //Join a subject.
-router.post("/join", joinSubject);
+router.post("/join", verify, identify, joinSubject);
 
 //Leave a subject.
-router.post("/leave", leaveSubject);
+router.post("/leave", verify, identify, leaveSubject);
 
 //Get all of staff information in a subject.
-router.get("/allStaff", getAllStaffs);
+router.get("/allStaff", verify, identify, getAllStaffs);
 
 //GET all selected subjects
-router.get("/all", getAllSubjects);
+router.get("/all", verify, identify, getAllSubjects);
 
 module.exports = router;

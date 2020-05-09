@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default ({ user }) => {
 	const classes = useStyles();
-
 	const { type, userInfo } = user;
 	const { firstName, lastName } = userInfo;
 

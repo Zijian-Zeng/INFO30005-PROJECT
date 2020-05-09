@@ -1,5 +1,7 @@
 express = require("express");
 const router = express.Router();
+const verify = require("../../../Controllers/verify");
+const identify = require("../../../Controllers/student/identify");
 
 const {
 	createHub,
@@ -11,21 +13,21 @@ const {
 } = require("../../../Controllers/student/studyHubController");
 
 //Create a study hub.
-router.post("/create", createHub);
+router.post("/create", verify, identify, createHub);
 
 //Get all of the study hubs of a subject.
-router.get("/all", getAll);
+router.get("/all", verify, identify, getAll);
 
 //Get all of the study hubs of a subject.
-router.get("/registered", getRegistered);
+router.get("/registered", verify, identify, getRegistered);
 
 //Join a study hub.
-router.post("/join", joinHub);
+router.post("/join", verify, identify, joinHub);
 
 //Leave a study hub.
-router.post("/leave", leaveHub);
+router.post("/leave", verify, identify, leaveHub);
 
 //Update the information of a study hub.
-router.patch("/update", updateHub);
+router.patch("/update", verify, identify, updateHub);
 
 module.exports = router;

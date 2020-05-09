@@ -18,6 +18,7 @@ import { AuthApi } from "./../Methods";
 import Cookies from "js-cookie";
 import Alert from "@material-ui/lab/Alert";
 import { useHistory } from "react-router-dom";
+import { myFetch } from "../Methods";
 
 // Extension Styles
 const useStyles = makeStyles((theme) => ({
@@ -76,22 +77,11 @@ export default ({ closeLoginWindow }) => {
 	const login = async (e) => {
 		e.preventDefault();
 		setError("");
-		const res = await fetch(
-			"http://localhost:5000/api/shared/users/login",
-			{
-				method: "post",
-				headers: {
-					"Content-Type": "application/json",
-					Accept: "application/json",
-				},
-				body: JSON.stringify({
-					email: email,
-					password: password,
-					userType: userType,
-				}),
-			}
-		);
-		const msg = await res.json();
+		const msg = await myFetch("/api/shared/users/login", "POST", {
+			email: email,
+			password: password,
+			userType: userType,
+		});
 
 		if (msg.success) {
 			setAuth(true);

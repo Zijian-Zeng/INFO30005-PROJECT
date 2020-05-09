@@ -10,6 +10,8 @@ import Stepper from "./stepper";
 
 import StepCard from "./stepCard";
 
+import { myFetch } from "../Methods";
+
 function getSteps() {
 	return ["User Type", "Name", "Email", "Password", "Subjects"];
 }
@@ -132,26 +134,14 @@ export default () => {
 	const { setAuth } = useContext(AuthApi);
 	const signUp = async (e) => {
 		setStatus("");
-		console.log(userType);
-		const res = await fetch(
-			"http://localhost:5000/api/shared/users/signup",
-			{
-				method: "post",
-				headers: {
-					"Content-Type": "application/json",
-					Accept: "application/json",
-				},
-				body: JSON.stringify({
-					email: email,
-					password: password,
-					firstName: firstName,
-					lastName: lastName,
-					subjects: subjects,
-					userType: userType,
-				}),
-			}
-		);
-		const msg = await res.json();
+		const msg = await myFetch("/api/shared/users/login", "POST", {
+			email: email,
+			password: password,
+			firstName: firstName,
+			lastName: lastName,
+			subjects: subjects,
+			userType: userType,
+		});
 
 		if (msg.success) {
 			setStatus("success");
