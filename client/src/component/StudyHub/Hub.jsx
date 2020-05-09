@@ -72,7 +72,7 @@ export default () => {
 					Welcome {type} {firstName} {lastName}
 				</h1>
 				<br />
-				<h1>Analytic page</h1>
+				<h1>Study hubs</h1>
 			</div>
 		);
 	};

@@ -13,10 +13,8 @@ const useFetch = (url, method, token, body) => {
 				},
 			});
 			const data = await response.json();
-			setTimeout(() => {
-				setData(data);
-				setLoading(false);
-			}, 500);
+			setData(data);
+			setLoading(false);
 		};
 		fetchData();
 	}, [url, method, body]);

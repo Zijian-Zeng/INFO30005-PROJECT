@@ -1,31 +1,11 @@
 import React, { useContext, useEffect } from "react";
-import {
-	Grid,
-	CardContent,
-	withWidth,
-	isWidthUp,
-	Button,
-	Paper,
-	Typography,
-	LinearProgress,
-} from "@material-ui/core";
-import {
-	makeStyles,
-	useTheme,
-	withStyles,
-	lighten,
-} from "@material-ui/core/styles";
+import { LinearProgress } from "@material-ui/core";
+import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
 import { UserContext, useFetch, getUser } from "../Methods";
 import Layout from "../Navigation/Layout";
 import Cookies from "js-cookie";
-import { localeData } from "moment";
-
-const useStyles = makeStyles((theme) => ({
-	paper: {
-		maxWidth: "100%",
-		marginTop: theme.spacing(10),
-	},
-}));
+import Student from "./Student";
+import Staff from "./Staff";
 
 const Loading = withStyles({
 	root: {
@@ -40,8 +20,6 @@ const Loading = withStyles({
 })(LinearProgress);
 
 export default () => {
-	const classes = useStyles();
-
 	//Set the routes.
 	const { setSelectedRoute } = useContext(UserContext);
 	useEffect(() => {
@@ -56,16 +34,16 @@ export default () => {
 	);
 	if (loading) return <Loading />;
 
-	const { type, userInfo } = user;
-	const { firstName, lastName } = userInfo;
-
-	const Content = () => {
-		return (
-			<h1>
-				Welcome {type} {firstName} {lastName}
-			</h1>
-		);
-	};
-
-	return <Layout content={<Content />} type={type} />;
+	return (
+		<Layout
+			content={
+				user.type === "student" ? (
+					<Student user={user} />
+				) : (
+					<Staff user={user} />
+				)
+			}
+			type={user.type}
+		/>
+	);
 };
