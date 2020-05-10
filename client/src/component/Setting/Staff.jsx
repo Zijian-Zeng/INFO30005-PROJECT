@@ -19,7 +19,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import FolderIcon from "@material-ui/icons/Folder";
+import SchoolIcon from "@material-ui/icons/School";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import CreateIcon from "@material-ui/icons/Create";
@@ -45,8 +45,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default ({ user }) => {
-	//
+export default ({ user, setMySubjects, mySubjects }) => {
 	const classes = useStyles();
 	const [openJoin, setOpenJoin] = useState(false);
 	const [openCreate, setOpenCreate] = useState(false);
@@ -56,23 +55,16 @@ export default ({ user }) => {
 	const [error, setError] = useState("");
 	const [added, setAdded] = useState("");
 
-	const [mySubjects, setMySubjects] = useState(null);
-	const [loading, setLoading] = useState(true);
-
 	const { type, userInfo } = user;
 	const { firstName, lastName } = userInfo;
 
 	useEffect(() => {
-		const fetchData = async () => {
+		const fetchSubject = async () => {
 			const subjects = await myFetch("/api/staff/subjects/all", "GET");
-			console.log();
 			setMySubjects(subjects);
-			setLoading(false);
 		};
-		fetchData();
+		fetchSubject();
 	}, [added]);
-
-	if (loading) return null;
 
 	const handleAlertClose = () => {
 		setError("");
@@ -82,8 +74,8 @@ export default ({ user }) => {
 
 	const handleJoinOpen = () => {
 		handleAlertClose();
-		if (mySubjects.subjectsInfo.length >= 4) {
-			setError("Maximum 4 subjects.");
+		if (mySubjects.subjectsInfo.length > 4) {
+			setError("Maximum 5 subjects.");
 			return;
 		}
 		setOpenJoin(true);
@@ -135,12 +127,6 @@ export default ({ user }) => {
 					{added}
 				</Alert>
 			</Snackbar>
-			<Grow in timeout={100}>
-				<h1>
-					Welcome {type} {firstName} {lastName}
-				</h1>
-			</Grow>
-
 			<SpeedDial
 				ariaLabel="SpeedDial example"
 				className={classes.fab}
@@ -205,7 +191,7 @@ export default ({ user }) => {
 									<ListItem>
 										<ListItemAvatar>
 											<Avatar>
-												<FolderIcon />
+												<SchoolIcon />
 											</Avatar>
 										</ListItemAvatar>
 										<ListItemText

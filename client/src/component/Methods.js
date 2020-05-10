@@ -6,7 +6,7 @@ const useFetch = (url, method, token, body) => {
 	const [loading, setLoading] = useState(true);
 	useEffect(() => {
 		const fetchData = async () => {
-			const response = await fetch("http://localhost:5000" + url, {
+			const response = await fetch(url, {
 				method: method,
 				body: JSON.stringify(body),
 				headers: {
@@ -25,7 +25,7 @@ const useFetch = (url, method, token, body) => {
 };
 
 const myFetch = async (url, method, body) => {
-	const res = await fetch("http://localhost:5000" + url, {
+	const res = await fetch(url, {
 		method: method,
 		body: JSON.stringify(body),
 		headers: {

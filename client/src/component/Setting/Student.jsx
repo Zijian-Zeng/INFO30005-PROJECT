@@ -19,7 +19,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import FolderIcon from "@material-ui/icons/Folder";
+import SchoolIcon from "@material-ui/icons/School";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import Add from "./Add";
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default ({ user }) => {
+export default ({ user, setMySubjects, mySubjects }) => {
 	//
 	const classes = useStyles();
 	const { type, userInfo } = user;
@@ -49,25 +49,18 @@ export default ({ user }) => {
 	const [error, setError] = useState("");
 	const [added, setAdded] = useState("");
 
-	const [mySubjects, setMySubjects] = useState(null);
-	const [loading, setLoading] = useState(true);
-
 	useEffect(() => {
-		const fetchData = async () => {
+		const fetchSubject = async () => {
 			const subjects = await myFetch("/api/student/subjects/all", "GET");
-
 			setMySubjects(subjects);
-			setLoading(false);
 		};
-		fetchData();
+		fetchSubject();
 	}, [added]);
-
-	if (loading) return null;
 
 	const handleDialogOpen = () => {
 		setAdded("");
-		if (mySubjects.subjectsInfo.length >= 4) {
-			setError("Maximum 4 subjects.");
+		if (mySubjects.subjectsInfo.length > 4) {
+			setError("Maximum 5 subjects.");
 			return;
 		}
 		setOpen(true);
@@ -86,7 +79,6 @@ export default ({ user }) => {
 		const msg = await myFetch("/api/student/subjects/leave", "POST", {
 			subjectCode: subjectCode,
 		});
-		console.log(msg);
 		if (msg.success) {
 			setAdded("You have successfully left the subject.");
 		} else {
@@ -128,11 +120,7 @@ export default ({ user }) => {
 					{added}
 				</Alert>
 			</Snackbar>
-			<Grow in timeout={100}>
-				<h1>
-					Welcome {type} {firstName} {lastName}
-				</h1>
-			</Grow>
+
 			<Tooltip title="Join new subject" aria-label="add">
 				<Fab
 					color="primary"
@@ -157,13 +145,13 @@ export default ({ user }) => {
 				<Grid item xs={12}>
 					{mySubjects.subjectsInfo.map(
 						({ subjectCode, subjectName }, index) => (
-							<Grow in timeout={index + 1 * 200} key={index}>
+							<Grow in timeout={index + 1 * 500} key={index}>
 								<List>
 									<Divider />
 									<ListItem>
 										<ListItemAvatar>
 											<Avatar>
-												<FolderIcon />
+												<SchoolIcon />
 											</Avatar>
 										</ListItemAvatar>
 										<ListItemText

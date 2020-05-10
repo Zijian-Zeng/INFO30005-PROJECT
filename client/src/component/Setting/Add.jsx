@@ -70,7 +70,6 @@ export default ({
 		const msg = await myFetch(url, "POST", {
 			subjectCode: subjectCode,
 		});
-		console.log(msg);
 		if (msg.success) {
 			setAdded("You have successfully joined the subject.");
 			handleDialogClose();

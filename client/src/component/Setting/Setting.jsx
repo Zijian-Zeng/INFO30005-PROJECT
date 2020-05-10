@@ -1,49 +1,75 @@
-import React, { useContext, useEffect } from "react";
-import { LinearProgress } from "@material-ui/core";
-import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
+import React, { useState, useContext, useEffect } from "react";
+
 import { UserContext, useFetch, getUser } from "../Methods";
 import Layout from "../Navigation/Layout";
-import Cookies from "js-cookie";
+
+import { myFetch } from "../Methods";
 import Student from "./Student";
 import Staff from "./Staff";
-
-const Loading = withStyles({
-	root: {
-		display: "block",
-		margin: "auto",
-		backgroundColor: lighten("#00bfb8", 0.5),
-	},
-	bar: {
-		borderRadius: 50,
-		backgroundColor: "#00bfb8",
-	},
-})(LinearProgress);
+import Loading from "../Loading";
 
 export default () => {
-	//Set the routes.
+	const [userInfo, setUserInfo] = useState(null);
+	const [subjectInfo, setSubjectInfo] = useState(null);
+	const [loading, setLoading] = useState(true);
 	const { setSelectedRoute } = useContext(UserContext);
+
 	useEffect(() => {
+		//Set Navigation to this page.
 		setSelectedRoute("settings");
+
+		//Loading user information.
+		const fetchUser = async () => {
+			const userInfo = await myFetch("/api/shared/users/info", "GET");
+			setUserInfo(userInfo);
+			return userInfo.type;
+		};
+		const fetchSubject = async (type) => {
+			if (type === "student") {
+				const subjects = await myFetch(
+					"/api/student/subjects/all",
+					"GET"
+				);
+				setSubjectInfo(subjects);
+				setLoading(false);
+			} else {
+				const subjects = await myFetch(
+					"/api/staff/subjects/all",
+					"GET"
+				);
+				setSubjectInfo(subjects);
+				setLoading(false);
+			}
+		};
+		const fetchData = async () => {
+			const type = await fetchUser();
+			fetchSubject(type);
+		};
+		fetchData();
 	}, []);
 
-	//Loading user information.
-	const [user, loading] = useFetch(
-		"/api/shared/users/info",
-		"GET",
-		Cookies.get("meetute")
-	);
-	if (loading) return <Loading />;
+	if (loading) {
+		return <Loading />;
+	}
 
 	return (
 		<Layout
 			content={
-				user.type === "student" ? (
-					<Student user={user} />
+				userInfo.type === "student" ? (
+					<Student
+						user={userInfo}
+						mySubjects={subjectInfo}
+						setMySubjects={setSubjectInfo}
+					/>
 				) : (
-					<Staff user={user} />
+					<Staff
+						user={userInfo}
+						mySubjects={subjectInfo}
+						setMySubjects={setSubjectInfo}
+					/>
 				)
 			}
-			type={user.type}
+			type={userInfo.type}
 		/>
 	);
 };
