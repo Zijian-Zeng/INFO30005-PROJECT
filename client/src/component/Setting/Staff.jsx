@@ -29,7 +29,7 @@ import SpeedDial from "@material-ui/lab/SpeedDial";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
 import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
 
-import { myFetch } from "../Methods";
+import { myFetch, UserContext } from "../Methods";
 import Add from "./Add";
 import Create from "./Create";
 
@@ -39,9 +39,9 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: theme.spacing(10),
 	},
 	fab: {
-		position: "absolute",
-		bottom: theme.spacing(10),
-		right: theme.spacing(10),
+		position: "fixed",
+		bottom: theme.spacing(6),
+		right: theme.spacing(6),
 	},
 }));
 
@@ -52,81 +52,51 @@ export default ({ user, setMySubjects, mySubjects }) => {
 	const [openSpeed, setOpenSpeed] = useState(false);
 	const [subjectCode, setSubjectCode] = useState("");
 	const [newName, setNewName] = useState("");
-	const [error, setError] = useState("");
-	const [added, setAdded] = useState("");
 
 	const { type, userInfo } = user;
 	const { firstName, lastName } = userInfo;
 
-	useEffect(() => {
-		const fetchSubject = async () => {
-			const subjects = await myFetch("/api/staff/subjects/all", "GET");
-			setMySubjects(subjects);
-		};
-		fetchSubject();
-	}, [added]);
+	const {
+		setLoadingRoute,
+		alert,
+		setAlert,
+		detectAlert,
+		closeAlert,
+	} = useContext(UserContext);
 
-	const handleAlertClose = () => {
-		setError("");
-		setAdded("");
-		setSubjectCode("");
-	};
+	useEffect(() => {
+		const fetchMySubject = async () => {
+			const res = await myFetch("/api/staff/subjects/all", "GET");
+			detectAlert(res);
+			setMySubjects(res);
+		};
+
+		fetchMySubject();
+	}, [alert.status]);
 
 	const handleJoinOpen = () => {
-		handleAlertClose();
 		if (mySubjects.subjectsInfo.length > 4) {
-			setError("Maximum 5 subjects.");
+			setAlert({
+				status: "warning",
+				message: "Maximum 5 subjects in your account.",
+			});
 			return;
 		}
 		setOpenJoin(true);
 	};
 
 	const leave = async (subjectCode) => {
-		const msg = await myFetch("/api/staff/subjects/leave", "POST", {
+		setLoadingRoute(true);
+		const res = await myFetch("/api/staff/subjects/leave", "POST", {
 			subjectCode: subjectCode,
 		});
-		console.log(msg);
-		if (msg.success) {
-			setAdded("You have successfully left the subject.");
-		} else {
-			setError(msg.error);
-		}
+		detectAlert(res, `You have successfully left subject ${subjectCode}.`);
+
+		setLoadingRoute(false);
 	};
 
 	return (
 		<div>
-			<Snackbar
-				open={error !== ""}
-				autoHideDuration={3000}
-				onClose={handleAlertClose}
-			>
-				<Alert
-					elevation={6}
-					variant="filled"
-					onClose={() => {
-						setError("");
-					}}
-					severity="error"
-				>
-					{error}
-				</Alert>
-			</Snackbar>
-			<Snackbar
-				open={added !== ""}
-				autoHideDuration={3000}
-				onClose={handleAlertClose}
-			>
-				<Alert
-					elevation={6}
-					variant="filled"
-					onClose={() => {
-						setAdded("");
-					}}
-					severity="success"
-				>
-					{added}
-				</Alert>
-			</Snackbar>
 			<SpeedDial
 				ariaLabel="SpeedDial example"
 				className={classes.fab}
@@ -149,7 +119,7 @@ export default ({ user, setMySubjects, mySubjects }) => {
 					icon={<CreateIcon />}
 					tooltipTitle="Create new subject"
 					onClick={() => {
-						handleAlertClose();
+						closeAlert();
 						setOpenCreate(true);
 					}}
 				/>
@@ -162,10 +132,7 @@ export default ({ user, setMySubjects, mySubjects }) => {
 				}}
 				subjectCode={subjectCode}
 				setSubjectCode={setSubjectCode}
-				error={error}
-				setError={setError}
-				setAdded={setAdded}
-				userType={"staff"}
+				userType="staff"
 			/>
 			<Create
 				open={openCreate}
@@ -176,9 +143,6 @@ export default ({ user, setMySubjects, mySubjects }) => {
 				setSubjectCode={setSubjectCode}
 				subjectName={newName}
 				setSubjectName={setNewName}
-				error={error}
-				setError={setError}
-				setAdded={setAdded}
 			/>
 
 			<Grid container justify="center" alignItems="center">

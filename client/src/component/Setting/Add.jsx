@@ -12,9 +12,11 @@ import {
 	DialogTitle,
 	TextField,
 	Snackbar,
+	Backdrop,
+	CircularProgress,
 } from "@material-ui/core";
 import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
-import { useFetch, myFetch } from "../Methods";
+import { myFetch, UserContext } from "../Methods";
 import Cookies from "js-cookie";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { useHistory } from "react-router-dom";
@@ -24,26 +26,28 @@ export default ({
 	subjectCode,
 	setSubjectCode,
 	handleDialogClose,
-	setError,
-	setAdded,
 	userType,
 }) => {
-	const history = useHistory();
-
-	const [allSubjects, loadingAll] = useFetch(
-		"/api/shared/users/allSubjects",
-		"GET",
-		Cookies.get("meetute")
+	const { detectAlert, loadingRoute, setLoadingRoute } = useContext(
+		UserContext
 	);
+	const [allSubjects, setAllSubjects] = useState([]);
 
-	if (loadingAll) return null;
+	useEffect(() => {
+		const fetchAllSubject = async () => {
+			const res = await myFetch("/api/shared/users/allSubjects", "GET");
+			setAllSubjects(res.subjectList);
+			detectAlert(res);
+			console.log(res.subjectList);
+		};
+		fetchAllSubject();
+	}, []);
 
 	const GetField = () => {
-		if (loadingAll) return null;
 		return (
 			<Autocomplete
 				id="addSubject"
-				options={allSubjects.subjectList}
+				options={allSubjects}
 				getOptionLabel={(option) => option}
 				value={subjectCode}
 				onChange={(event, newValue) => {
@@ -67,15 +71,16 @@ export default ({
 		e.preventDefault();
 		let url = "/api/student/subjects/join";
 		if (userType === "staff") url = "/api/staff/subjects/join";
-		const msg = await myFetch(url, "POST", {
+		setLoadingRoute(true);
+		const res = await myFetch(url, "POST", {
 			subjectCode: subjectCode,
 		});
-		if (msg.success) {
-			setAdded("You have successfully joined the subject.");
-			handleDialogClose();
-		} else {
-			setError(msg.error);
-		}
+		detectAlert(
+			res,
+			`You have successfully joined subject ${subjectCode}.`
+		);
+
+		setLoadingRoute(false);
 	};
 
 	return (

@@ -16,7 +16,7 @@ import { useHistory } from "react-router-dom";
 
 import { Link } from "react-router-dom";
 
-import { AuthApi } from "../Methods";
+import { AuthApi, UserContext } from "../Methods";
 
 import MenuIcon from "@material-ui/icons/Menu";
 

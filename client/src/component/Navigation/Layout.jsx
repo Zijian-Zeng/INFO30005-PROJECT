@@ -19,13 +19,15 @@ import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import SettingsIcon from "@material-ui/icons/Settings";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import TimelineIcon from "@material-ui/icons/Timeline";
-import { Grid, Paper } from "@material-ui/core";
+import { Grid, Paper, Grow, Snackbar } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 
 import AppBar from "./AppBar";
-import ButtonNav from "./BottonNav";
 import { UserContext, AuthApi } from "../Methods";
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
+
+import Loading from "./Loading";
 
 const drawerWidth = 240;
 
@@ -70,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
 	content: {
 		flexGrow: 1,
 		padding: theme.spacing(10),
+		maxWidth: "100%",
 	},
 	bottom: {
 		position: "fixed",
@@ -87,7 +90,10 @@ export default ({ content, type }) => {
 
 	//Navigation Drawer...
 	const history = useHistory();
-	const { selectedRoute } = useContext(UserContext);
+	const { selectedRoute, alert, closeAlert, setLoadingRoute } = useContext(
+		UserContext
+	);
+	const { loadingRoute } = useContext(UserContext);
 	const [open, setOpen] = useState(true);
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -112,6 +118,24 @@ export default ({ content, type }) => {
 				handleDrawerClose={handleDrawerClose}
 				logOut={logOut}
 			/>
+
+			<Snackbar
+				open={alert.status !== ""}
+				autoHideDuration={3000}
+				onClose={closeAlert}
+			>
+				{alert.status !== "" ? (
+					<Alert
+						elevation={6}
+						variant="filled"
+						severity={alert.status}
+						onClose={closeAlert}
+					>
+						{alert.message}
+					</Alert>
+				) : null}
+			</Snackbar>
+
 			<Drawer
 				variant="permanent"
 				className={clsx(classes.drawer, {
@@ -134,88 +158,111 @@ export default ({ content, type }) => {
 						)}
 					</IconButton>
 				</div>
-				<List>
-					<ListItem
-						button
-						onClick={() => {
-							//setSelectedRoute("consultations");
-							history.push("/consultations");
-						}}
-						selected={selectedRoute === "consultations"}
-					>
-						<ListItemIcon className={classes.icon}>
-							<TodayIcon />
-						</ListItemIcon>
-						<ListItemText primary="Consultations" />
-					</ListItem>
+				{loadingRoute ? null : (
+					<div>
+						<List>
+							<Grow in={!loadingRoute} timeout={500}>
+								<ListItem
+									button
+									onClick={() => {
+										setLoadingRoute(true);
+										history.push("/consultations");
+									}}
+									selected={selectedRoute === "consultations"}
+								>
+									<ListItemIcon className={classes.icon}>
+										<TodayIcon />
+									</ListItemIcon>
+									<ListItemText primary="Consultations" />
+								</ListItem>
+							</Grow>
+							<Grow in={!loadingRoute} timeout={700}>
+								<ListItem
+									button
+									onClick={() => {
+										setLoadingRoute(true);
+										history.push("/appointments");
+									}}
+									selected={selectedRoute === "appointments"}
+								>
+									<ListItemIcon className={classes.icon}>
+										<AlarmIcon />
+									</ListItemIcon>
+									<ListItemText primary="1v1 Appointments" />
+								</ListItem>
+							</Grow>
 
-					<ListItem
-						button
-						onClick={() => {
-							//setSelectedRoute("appointments");
-							history.push("/appointments");
-						}}
-						selected={selectedRoute === "appointments"}
-					>
-						<ListItemIcon className={classes.icon}>
-							<AlarmIcon />
-						</ListItemIcon>
-						<ListItemText primary="1v1 Appointments" />
-					</ListItem>
-					{type === "student" ? (
-						<ListItem
-							button
-							onClick={() => {
-								//setSelectedRoute("hubs");
-								history.push("/hubs");
-							}}
-							selected={selectedRoute === "hubs"}
-						>
-							<ListItemIcon className={classes.icon}>
-								<GroupAddIcon />
-							</ListItemIcon>
-							<ListItemText primary="Study Hubs" />
-						</ListItem>
-					) : (
-						<ListItem
-							button
-							onClick={() => {
-								//setSelectedRoute("hubs");
-								history.push("/analytic");
-							}}
-							selected={selectedRoute === "analytic"}
-						>
-							<ListItemIcon className={classes.icon}>
-								<TimelineIcon />
-							</ListItemIcon>
-							<ListItemText primary="Analytic" />
-						</ListItem>
-					)}
-				</List>
-				<Divider />
-				<List>
-					<ListItem
-						button
-						onClick={() => {
-							//etSelectedRoute("settings");
-							history.push("/settings");
-						}}
-						selected={selectedRoute === "settings"}
-					>
-						<ListItemIcon className={classes.icon}>
-							<SettingsIcon />
-						</ListItemIcon>
-						<ListItemText primary="Settings" />
-					</ListItem>
-					<ListItem button onClick={logOut}>
-						<ListItemIcon className={classes.icon}>
-							<PowerSettingsNewIcon />
-						</ListItemIcon>
-						<ListItemText primary="Log out" />
-					</ListItem>
-				</List>
+							{type === "student" ? (
+								<Grow in={!loadingRoute} timeout={900}>
+									<ListItem
+										button
+										onClick={() => {
+											setLoadingRoute(true);
+											history.push("/hubs");
+										}}
+										selected={selectedRoute === "hubs"}
+									>
+										<ListItemIcon className={classes.icon}>
+											<GroupAddIcon />
+										</ListItemIcon>
+										<ListItemText primary="Study Hubs" />
+									</ListItem>
+								</Grow>
+							) : (
+								<Grow in={!loadingRoute} timeout={900}>
+									<ListItem
+										button
+										onClick={() => {
+											setLoadingRoute(true);
+											history.push("/analytic");
+										}}
+										selected={selectedRoute === "analytic"}
+									>
+										<ListItemIcon className={classes.icon}>
+											<TimelineIcon />
+										</ListItemIcon>
+										<ListItemText primary="Analytic" />
+									</ListItem>
+								</Grow>
+							)}
+						</List>
+
+						<Divider />
+
+						<List>
+							<Grow in={!loadingRoute} timeout={1100}>
+								<ListItem
+									button
+									onClick={() => {
+										setLoadingRoute(true);
+										history.push("/settings");
+									}}
+									selected={selectedRoute === "settings"}
+								>
+									<ListItemIcon className={classes.icon}>
+										<SettingsIcon />
+									</ListItemIcon>
+									<ListItemText primary="Settings" />
+								</ListItem>
+							</Grow>
+							<Grow in={!loadingRoute} timeout={1300}>
+								<ListItem button onClick={logOut}>
+									<ListItemIcon className={classes.icon}>
+										<PowerSettingsNewIcon />
+									</ListItemIcon>
+									<ListItemText primary="Log out" />
+								</ListItem>
+							</Grow>
+						</List>
+					</div>
+				)}
 			</Drawer>
-			<main className={classes.content}>{content}</main>
+
+			{loadingRoute ? (
+				<Loading />
+			) : (
+				<main className={classes.content}>{content}</main>
+			)}
 		</div>
 	);
 };

@@ -82,11 +82,12 @@ export default ({ closeLoginWindow }) => {
 			password: password,
 			userType: userType,
 		});
-
 		if (msg.success) {
-			setAuth(true);
 			Cookies.set("meetute", msg.token);
-			history.push("/consultations");
+			setTimeout(() => {
+				setAuth(true);
+				history.push("/settings");
+			}, 100);
 		} else {
 			setError(msg.error);
 		}

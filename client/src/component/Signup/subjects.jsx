@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Autocomplete from "@material-ui/lab/autocomplete";
 import { TextField, Chip } from "@material-ui/core";
-import { useFetch } from "../Methods";
-
-//const subjects = ["COMP30023", "INFO30005", "TEST10000", "TEST10002"];
+import { myFetch } from "../Methods";
 
 export default ({ setSubjects }) => {
-	const [subjectData, loading] = useFetch("/api/shared/users/allSubjects");
+	const [loading, setLoading] = useState(true);
+	const [allSubjects, setAllSubjects] = useState([]);
+
+	useEffect(() => {
+		const fetchSubjects = async () => {
+			const { subjectList } = await myFetch(
+				"/api/shared/users/allSubjects",
+				"GET"
+			);
+			setAllSubjects(subjectList);
+			setLoading(false);
+		};
+		fetchSubjects();
+	}, []);
 
 	if (loading) return null;
-
-	const subjects = subjectData.subjectList;
 
 	return (
 		<div>
@@ -18,9 +27,9 @@ export default ({ setSubjects }) => {
 				multiple
 				id="size-small-filled-multi"
 				size="small"
-				options={subjects}
+				options={allSubjects}
 				getOptionLabel={(option) => option}
-				defaultValue={[subjects[1]]}
+				defaultValue={allSubjects[1]}
 				renderTags={(value, getTagProps) =>
 					value.map((option, index) => (
 						<Chip

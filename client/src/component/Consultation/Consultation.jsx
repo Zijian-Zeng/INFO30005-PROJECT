@@ -1,49 +1,48 @@
-import React, { useContext, useEffect } from "react";
-import { LinearProgress } from "@material-ui/core";
-import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
-import { UserContext, useFetch, getUser } from "../Methods";
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext, myFetch } from "../Methods";
 import Layout from "../Navigation/Layout";
-import Cookies from "js-cookie";
 import Student from "./Student";
 import Staff from "./Staff";
 
-const Loading = withStyles({
-	root: {
-		display: "block",
-		margin: "auto",
-		backgroundColor: lighten("#00bfb8", 0.5),
-	},
-	bar: {
-		borderRadius: 50,
-		backgroundColor: "#00bfb8",
-	},
-})(LinearProgress);
-
 export default () => {
 	//Set the routes.
-	const { setSelectedRoute } = useContext(UserContext);
-	useEffect(() => {
-		setSelectedRoute("consultations");
-	}, []);
+	const {
+		setSelectedRoute,
+		closeAlert,
+		detectAlert,
+		loadingRoute,
+		setLoadingRoute,
+	} = useContext(UserContext);
 
 	//Loading user information.
-	const [user, loading] = useFetch(
-		"/api/shared/users/info",
-		"GET",
-		Cookies.get("meetute")
-	);
-	if (loading) return <Loading />;
+	const [userInfo, setUserInfo] = useState({});
+	useEffect(() => {
+		setSelectedRoute("consultations");
+		setLoadingRoute(true);
+		closeAlert();
+
+		//Loading user information.
+		const fetchUser = async () => {
+			const user = await myFetch("/api/shared/users/info", "GET");
+			detectAlert(user);
+			setUserInfo(user);
+			setLoadingRoute(false);
+		};
+		fetchUser();
+	}, []);
+
+	if (loadingRoute) return <Layout />;
 
 	return (
 		<Layout
 			content={
-				user.type === "student" ? (
-					<Student user={user} />
+				userInfo.type === "student" ? (
+					<Student user={userInfo} />
 				) : (
-					<Staff user={user} />
+					<Staff user={userInfo} />
 				)
 			}
-			type={user.type}
+			type={userInfo.type}
 		/>
 	);
 };

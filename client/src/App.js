@@ -3,6 +3,7 @@ import Signup from "./component/Signup/Signup";
 import Cookies from "js-cookie";
 import Home from "./component/Home/home";
 import Test from "./component/Test/Test";
+import Test2 from "./component/Test/Test2";
 import Appointment from "./component/Appointment/Appointment";
 import Consultation from "./component/Consultation/Consultation";
 import Setting from "./component/Setting/Setting";
@@ -51,10 +52,42 @@ export default () => {
 	const [auth, setAuth] = useState(false);
 	const [loginEl, setLoginEl] = useState(null);
 
-	//user state...
+	//Loading routes context...
 	const [selectedRoute, setSelectedRoute] = useState("settings");
+	const [loadingRoute, setLoadingRoute] = useState(true);
+
+	//user information...
 	const [userInfo, setUserInfo] = useState(null);
 
+	//Alerting responses from back end (eg. back end error)...
+	const [alert, setAlert] = useState({ status: "", message: "" });
+	const closeAlert = () => setAlert({ status: "", message: "" });
+	const detectAlert = (res, succeed, info) => {
+		if (res.success) {
+			if (succeed) {
+				setAlert({
+					status: "success",
+					message: succeed,
+				});
+			} else if (info) {
+				setAlert({
+					status: "info",
+					message: info,
+				});
+			}
+		} else {
+			let message = "Unknown error.";
+			if (res.error) message = res.error;
+			else if (res.message) message = res.message;
+
+			setAlert({
+				status: "error",
+				message: message,
+			});
+		}
+	};
+
+	//Make authentication.
 	useEffect(() => {
 		const cookie = Cookies.get("meetute");
 		if (cookie) setAuth(true);
@@ -75,6 +108,12 @@ export default () => {
 				value={{
 					selectedRoute,
 					setSelectedRoute,
+					alert,
+					detectAlert,
+					closeAlert,
+					setAlert,
+					loadingRoute,
+					setLoadingRoute,
 				}}
 			>
 				<Router>
@@ -104,6 +143,7 @@ export default () => {
 
 						<Route exact path="/signup" component={Signup} />
 						<Route exact path="/test" component={Test} />
+						<Route exact path="/test2" component={Test2} />
 					</Switch>
 				</Router>
 			</UserContext.Provider>

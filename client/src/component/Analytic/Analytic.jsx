@@ -1,81 +1,39 @@
-import React, { useContext, useEffect } from "react";
-import {
-	Grid,
-	CardContent,
-	withWidth,
-	isWidthUp,
-	Button,
-	Paper,
-	Typography,
-	LinearProgress,
-} from "@material-ui/core";
-import {
-	makeStyles,
-	useTheme,
-	withStyles,
-	lighten,
-} from "@material-ui/core/styles";
-import { useHistory } from "react-router-dom";
-
-import { UserContext, useFetch } from "../Methods";
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext, myFetch } from "../Methods";
 import Layout from "../Navigation/Layout";
-import Cookies from "js-cookie";
-import { localeData } from "moment";
-
-const useStyles = makeStyles((theme) => ({
-	paper: {
-		maxWidth: "100%",
-		marginTop: theme.spacing(10),
-	},
-}));
-
-const Loading = withStyles({
-	root: {
-		display: "block",
-		margin: "auto",
-		backgroundColor: lighten("#00bfb8", 0.5),
-	},
-	bar: {
-		borderRadius: 50,
-		backgroundColor: "#00bfb8",
-	},
-})(LinearProgress);
+import { useHistory } from "react-router-dom";
+import Staff from "./Staff";
 
 export default () => {
-	const classes = useStyles();
 	const history = useHistory();
-
 	//Set the routes.
-	const { setSelectedRoute } = useContext(UserContext);
-
-	useEffect(() => {
-		setSelectedRoute("analytic");
-	}, []);
+	const {
+		setSelectedRoute,
+		closeAlert,
+		detectAlert,
+		loadingRoute,
+		setLoadingRoute,
+	} = useContext(UserContext);
 
 	//Loading user information.
-	const [user, loading] = useFetch(
-		"/api/shared/users/info",
-		"GET",
-		Cookies.get("meetute")
-	);
-	if (loading) return <Loading />;
+	const [userInfo, setUserInfo] = useState({});
+	useEffect(() => {
+		setSelectedRoute("analytic");
+		setLoadingRoute(true);
+		closeAlert();
 
-	const { type, userInfo } = user;
-	const { firstName, lastName } = userInfo;
+		//Loading user information.
+		const fetchUser = async () => {
+			const user = await myFetch("/api/shared/users/info", "GET");
+			detectAlert(user);
+			setUserInfo(user);
+			setLoadingRoute(false);
+			if (user.type !== "staff") history.push("/");
+		};
+		fetchUser();
+	}, []);
 
-	if (type === "student") history.push("/");
+	if (loadingRoute) return <Layout />;
 
-	const Content = () => {
-		return (
-			<div>
-				<h1>
-					Welcome {type} {firstName} {lastName}
-				</h1>
-				<br />
-				<h1>Analytic page</h1>
-			</div>
-		);
-	};
-
-	return <Layout content={<Content />} type={type} />;
+	return <Layout content={<Staff user={userInfo} />} type={userInfo.type} />;
 };

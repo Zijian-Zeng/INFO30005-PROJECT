@@ -25,7 +25,7 @@ import AddIcon from "@material-ui/icons/Add";
 import Add from "./Add";
 import Alert from "@material-ui/lab/Alert";
 
-import { myFetch } from "../Methods";
+import { myFetch, UserContext } from "../Methods";
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -33,9 +33,9 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: theme.spacing(10),
 	},
 	fab: {
-		position: "absolute",
-		bottom: theme.spacing(10),
-		right: theme.spacing(10),
+		position: "fixed",
+		bottom: theme.spacing(1) * 10,
+		right: theme.spacing(1) * 11,
 	},
 }));
 
@@ -46,100 +46,57 @@ export default ({ user, setMySubjects, mySubjects }) => {
 	const { firstName, lastName } = userInfo;
 	const [open, setOpen] = useState(false);
 	const [subjectCode, setSubjectCode] = useState("");
-	const [error, setError] = useState("");
-	const [added, setAdded] = useState("");
+
+	const {
+		setLoadingRoute,
+		alert,
+		setAlert,
+		detectAlert,
+		closeAlert,
+	} = useContext(UserContext);
 
 	useEffect(() => {
-		const fetchSubject = async () => {
-			const subjects = await myFetch("/api/student/subjects/all", "GET");
-			setMySubjects(subjects);
+		const fetchMySubject = async () => {
+			const res = await myFetch("/api/student/subjects/all", "GET");
+			detectAlert(res);
+			setMySubjects(res);
 		};
-		fetchSubject();
-	}, [added]);
 
-	const handleDialogOpen = () => {
-		setAdded("");
-		if (mySubjects.subjectsInfo.length > 4) {
-			setError("Maximum 5 subjects.");
-			return;
-		}
-		setOpen(true);
-	};
-
-	const handleDialogClose = () => {
-		setOpen(false);
-	};
-
-	const handleClose = () => {
-		setError("");
-		setAdded("");
-	};
+		fetchMySubject();
+	}, [alert.status]);
 
 	const leave = async (subjectCode) => {
-		const msg = await myFetch("/api/student/subjects/leave", "POST", {
+		setLoadingRoute(true);
+		const res = await myFetch("/api/student/subjects/leave", "POST", {
 			subjectCode: subjectCode,
 		});
-		if (msg.success) {
-			setAdded("You have successfully left the subject.");
-		} else {
-			setError(msg.error);
-		}
+		detectAlert(res, `You have successfully left subject ${subjectCode}.`);
+
+		setLoadingRoute(false);
 	};
 
 	return (
 		<div>
-			<Snackbar
-				open={error !== ""}
-				autoHideDuration={3000}
-				onClose={handleClose}
-			>
-				<Alert
-					elevation={6}
-					variant="filled"
-					onClose={() => {
-						setError("");
-					}}
-					severity="error"
-				>
-					{error}
-				</Alert>
-			</Snackbar>
-			<Snackbar
-				open={added !== ""}
-				autoHideDuration={3000}
-				onClose={handleClose}
-			>
-				<Alert
-					elevation={6}
-					variant="filled"
-					onClose={() => {
-						setAdded("");
-					}}
-					severity="success"
-				>
-					{added}
-				</Alert>
-			</Snackbar>
-
 			<Tooltip title="Join new subject" aria-label="add">
 				<Fab
 					color="primary"
 					size="large"
 					className={classes.fab}
-					onClick={handleDialogOpen}
+					onClick={() => {
+						setOpen(true);
+					}}
 				>
 					<AddIcon />
 				</Fab>
 			</Tooltip>
 			<Add
 				open={open}
-				handleDialogClose={handleDialogClose}
-				handleClose={handleClose}
+				handleDialogClose={() => {
+					setOpen(false);
+				}}
 				subjectCode={subjectCode}
 				setSubjectCode={setSubjectCode}
-				error={error}
-				setError={setError}
-				setAdded={setAdded}
+				userType="student"
 			/>
 			<Grid container justify="center" alignItems="center">
 				<Grid item xs={12}>

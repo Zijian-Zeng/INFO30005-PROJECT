@@ -15,7 +15,6 @@ import {
 	DragDropProvider,
 	EditRecurrenceMenu,
 	AllDayPanel,
-	DateNavigator,
 } from "@devexpress/dx-react-scheduler-material-ui";
 import { connectProps } from "@devexpress/dx-react-core";
 import {
@@ -23,17 +22,20 @@ import {
 	MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
-import { withStyles } from "@material-ui/core/styles";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Button from "@material-ui/core/Button";
-import Fab from "@material-ui/core/Fab";
-import IconButton from "@material-ui/core/IconButton";
+
+import {
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+	Button,
+	Fab,
+	IconButton,
+	TextField,
+} from "@material-ui/core";
+
 import AddIcon from "@material-ui/icons/Add";
-import TextField from "@material-ui/core/TextField";
 import LocationOn from "@material-ui/icons/LocationOn";
 import Notes from "@material-ui/icons/Notes";
 import Close from "@material-ui/icons/Close";
@@ -284,7 +286,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
 									this.commitAppointment("deleted");
 								}}
 							>
-								Delete
+								Del
 							</Button>
 						)}
 						<Button
@@ -497,7 +499,6 @@ class Demo extends React.PureComponent {
 						showDeleteButton
 					/>
 					<Toolbar />
-					<DateNavigator />
 					<ViewSwitcher />
 					<AppointmentForm
 						overlayComponent={this.appointmentForm}
@@ -554,5 +555,3 @@ class Demo extends React.PureComponent {
 		);
 	}
 }
-
-export default withStyles(styles, { name: "EditingDemo" })(Demo);

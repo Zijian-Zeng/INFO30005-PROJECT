@@ -15,7 +15,7 @@ import {
 	Snackbar,
 } from "@material-ui/core";
 import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
-import { useFetch, myFetch } from "../Methods";
+import { UserContext, myFetch } from "../Methods";
 import Cookies from "js-cookie";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { useHistory } from "react-router-dom";
@@ -30,20 +30,22 @@ export default ({
 	setError,
 	setAdded,
 }) => {
+	const { detectAlert, loadingRoute, setLoadingRoute } = useContext(
+		UserContext
+	);
 	const create = async () => {
-		console.log(subjectCode + subjectName);
+		setLoadingRoute(true);
 
-		const msg = await myFetch("/api/staff/subjects/create", "POST", {
+		const res = await myFetch("/api/staff/subjects/create", "POST", {
 			subjectCode: subjectCode,
 			subjectName: subjectName,
 		});
-		console.log(msg);
-		if (msg.success) {
-			setAdded(`You have successfully created subject ${subjectCode}.`);
-			handleDialogClose();
-		} else {
-			setError(msg.error);
-		}
+		detectAlert(
+			res,
+			`You have successfully created subject ${subjectCode}.`
+		);
+
+		setLoadingRoute(false);
 	};
 
 	return (
