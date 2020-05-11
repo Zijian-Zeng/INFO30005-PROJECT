@@ -3,7 +3,7 @@ import Autocomplete from "@material-ui/lab/autocomplete";
 import { TextField, Chip } from "@material-ui/core";
 import { myFetch } from "../Methods";
 
-export default ({ setSubjects }) => {
+export default ({ setSubject }) => {
 	const [loading, setLoading] = useState(true);
 	const [allSubjects, setAllSubjects] = useState([]);
 
@@ -15,11 +15,13 @@ export default ({ setSubjects }) => {
 			);
 			setAllSubjects(subjectList);
 			setLoading(false);
+			console.log(subjectList);
 		};
 		fetchSubjects();
 	}, []);
 
 	if (loading) return null;
+	console.log(allSubjects);
 
 	return (
 		<div>
@@ -29,7 +31,7 @@ export default ({ setSubjects }) => {
 				size="small"
 				options={allSubjects}
 				getOptionLabel={(option) => option}
-				defaultValue={allSubjects[1]}
+				defaultValue={[allSubjects[1]]}
 				renderTags={(value, getTagProps) =>
 					value.map((option, index) => (
 						<Chip
@@ -41,7 +43,7 @@ export default ({ setSubjects }) => {
 						/>
 					))
 				}
-				onChange={(event, value) => setSubjects(value)}
+				onChange={(event, value) => setSubject(value)}
 				renderInput={(params) => {
 					return (
 						<TextField

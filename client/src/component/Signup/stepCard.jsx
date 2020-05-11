@@ -214,7 +214,7 @@ export default (props) => {
 					</div>
 				);
 			case 4:
-				return <Subjects setSubjects={setSubjects} />;
+				return <Subjects setSubject={setSubjects} />;
 			case 1:
 				return (
 					<div>
