@@ -95,6 +95,14 @@ export default ({ content, type }) => {
 	);
 	const { loadingRoute } = useContext(UserContext);
 	const [open, setOpen] = useState(true);
+
+	const handleRouting = (newRoute) => {
+		if (selectedRoute !== newRoute) {
+			setLoadingRoute(true);
+			history.push("/" + newRoute);
+		}
+	};
+
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
@@ -164,10 +172,9 @@ export default ({ content, type }) => {
 							<Grow in={!loadingRoute} timeout={500}>
 								<ListItem
 									button
-									onClick={() => {
-										setLoadingRoute(true);
-										history.push("/consultations");
-									}}
+									onClick={() =>
+										handleRouting("consultations")
+									}
 									selected={selectedRoute === "consultations"}
 								>
 									<ListItemIcon className={classes.icon}>
@@ -179,10 +186,9 @@ export default ({ content, type }) => {
 							<Grow in={!loadingRoute} timeout={700}>
 								<ListItem
 									button
-									onClick={() => {
-										setLoadingRoute(true);
-										history.push("/appointments");
-									}}
+									onClick={() =>
+										handleRouting("appointments")
+									}
 									selected={selectedRoute === "appointments"}
 								>
 									<ListItemIcon className={classes.icon}>
@@ -196,10 +202,7 @@ export default ({ content, type }) => {
 								<Grow in={!loadingRoute} timeout={900}>
 									<ListItem
 										button
-										onClick={() => {
-											setLoadingRoute(true);
-											history.push("/hubs");
-										}}
+										onClick={() => handleRouting("hubs")}
 										selected={selectedRoute === "hubs"}
 									>
 										<ListItemIcon className={classes.icon}>
@@ -212,10 +215,9 @@ export default ({ content, type }) => {
 								<Grow in={!loadingRoute} timeout={900}>
 									<ListItem
 										button
-										onClick={() => {
-											setLoadingRoute(true);
-											history.push("/analytic");
-										}}
+										onClick={() =>
+											handleRouting("analytic")
+										}
 										selected={selectedRoute === "analytic"}
 									>
 										<ListItemIcon className={classes.icon}>
@@ -233,10 +235,7 @@ export default ({ content, type }) => {
 							<Grow in={!loadingRoute} timeout={1100}>
 								<ListItem
 									button
-									onClick={() => {
-										setLoadingRoute(true);
-										history.push("/settings");
-									}}
+									onClick={() => handleRouting("settings")}
 									selected={selectedRoute === "settings"}
 								>
 									<ListItemIcon className={classes.icon}>
