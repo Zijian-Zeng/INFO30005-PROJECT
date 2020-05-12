@@ -37,7 +37,7 @@ export default () => {
 		<Layout
 			content={
 				userInfo.type === "student" ? (
-					<Student user={userInfo} />
+					<Student user={userInfo} setUser={setUserInfo} />
 				) : (
 					<Staff user={userInfo} />
 				)

@@ -18,12 +18,10 @@ import {
 import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
 import TimeTable from "../Timetable";
 
-import { Alert } from "@material-ui/lab";
-
 import ConsultDialog from "./ConsultDialog";
 
-import Header from "./Header";
-import Content from "./Content";
+import Header from "./StaffHeader";
+import Content from "./StaffContent";
 
 import { myFetch, UserContext, StaffContext } from "../Methods";
 import AddIcon from "@material-ui/icons/Add";
@@ -61,7 +59,7 @@ export default ({ user }) => {
 		location: "",
 	});
 
-	const { status, setStatus, alert, closeAlert } = useContext(UserContext);
+	const { alert } = useContext(UserContext);
 
 	//Updating consultations Information.
 	useEffect(() => {
@@ -89,6 +87,12 @@ export default ({ user }) => {
 		});
 	}, [alert.status]);
 
+	const api = {
+		create: "/api/staff/consult/create",
+		edit: "/api/staff/consult/patch",
+		delete: "/api/staff/consult/delete",
+	};
+
 	return (
 		<StaffContext.Provider
 			value={{
@@ -105,6 +109,7 @@ export default ({ user }) => {
 				editingAppointment,
 				loading,
 				setLoading,
+				api,
 			}}
 		>
 			<Fade in timeout={500}>
@@ -137,6 +142,7 @@ export default ({ user }) => {
 							});
 						}}
 						edit
+						context={StaffContext}
 					/>
 				</div>
 			</Fade>

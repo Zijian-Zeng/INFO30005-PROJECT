@@ -20,7 +20,12 @@ import {
 } from "@devexpress/dx-react-scheduler-material-ui";
 
 import { Grid, Paper, LinearProgress } from "@material-ui/core";
-import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
+import {
+	makeStyles,
+	withStyles,
+	lighten,
+	useTheme,
+} from "@material-ui/core/styles";
 
 const ToolbarWithLoading = withStyles(
 	{
@@ -42,6 +47,31 @@ const ToolbarWithLoading = withStyles(
 	</div>
 ));
 
+const Appointment = ({ children, style, data, ...restProps }) => {
+	const theme = useTheme();
+	return (
+		<Appointments.Appointment
+			{...restProps}
+			style={
+				data.booked
+					? {
+							...style,
+							backgroundColor: "#008bd1",
+							borderRadius: "8px",
+					  }
+					: {
+							...style,
+							backgroundColor: "#87c022",
+							borderRadius: "8px",
+					  }
+			}
+			data={data}
+		>
+			{children}
+		</Appointments.Appointment>
+	);
+};
+
 export default ({
 	data,
 	currentDate,
@@ -59,7 +89,7 @@ export default ({
 				/>
 				<WeekView startDayHour={8} endDayHour={24} cellDuration={60} />
 				<MonthView />
-				<Appointments />
+				<Appointments appointmentComponent={Appointment} />
 				<AppointmentTooltip
 					headerComponent={header}
 					contentComponent={content}
