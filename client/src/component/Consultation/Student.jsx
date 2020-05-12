@@ -73,6 +73,7 @@ export default ({ user, setUser }) => {
 
 	//Fetch the consultations of the current subject.
 	const fetchConsult = async () => {
+		setLoading(true);
 		if (currentSubject == 0) {
 			const res = await myFetch(
 				"/api/student/consult/viewRegistered",
@@ -92,7 +93,6 @@ export default ({ user, setUser }) => {
 				if (!consultations) return;
 
 				//Formatting data for timetable to render.
-				setLoading(false);
 				const consults = [];
 
 				consultations.map((consultation) => {
@@ -111,6 +111,7 @@ export default ({ user, setUser }) => {
 					});
 				});
 				setData(consults);
+				setLoading(false);
 			});
 		});
 	}, [alert.status, currentSubject]);
