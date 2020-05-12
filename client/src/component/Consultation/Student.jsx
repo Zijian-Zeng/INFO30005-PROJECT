@@ -62,12 +62,12 @@ export default ({ user, setUser }) => {
 
 	const { alert, detectAlert } = useContext(UserContext);
 
-	const reloadUser = async (simpleLoad) => {
+	const reloadUser = async () => {
 		//reloading user information.
 		const user = await myFetch("/api/shared/users/info", "GET");
 		detectAlert(user);
 		setUser(user);
-		if (simpleLoad) setLoading(false);
+
 		return user;
 	};
 
@@ -184,13 +184,12 @@ export default ({ user, setUser }) => {
 					centered
 					onChange={(event, newValue) => {
 						setCurrentSubject(newValue);
-						setLoading(true);
-						reloadUser(true);
+						reloadUser();
 					}}
 				>
-					<Tab label="Registered" disable={loading} />
+					<Tab label="Registered" />
 					{userInfo.subjects.map((subject) => (
-						<Tab label={subject} disable={loading} key={subject} />
+						<Tab label={subject} key={subject} />
 					))}
 				</Tabs>
 			</AppBar>

@@ -47,24 +47,48 @@ const ToolbarWithLoading = withStyles(
 	</div>
 ));
 
+const getStyle = (data, style) => {
+	if (data.booked) {
+		return {
+			...style,
+			backgroundColor: "#88c122",
+			borderRadius: "8px",
+		};
+	}
+	if (data.status) {
+		switch (data.status) {
+			case "PENDING":
+				return {
+					...style,
+					backgroundColor: "#e2d21f",
+					borderRadius: "8px",
+				};
+
+			case "APPROVED":
+				return {
+					...style,
+					backgroundColor: "#88c122",
+					borderRadius: "8px",
+				};
+			case "DECLINED":
+				return {
+					...style,
+					backgroundColor: "#f41f58",
+					borderRadius: "8px",
+				};
+		}
+	}
+	return {
+		...style,
+	};
+};
+
 const Appointment = ({ children, style, data, ...restProps }) => {
 	const theme = useTheme();
 	return (
 		<Appointments.Appointment
 			{...restProps}
-			style={
-				data.booked
-					? {
-							...style,
-							backgroundColor: "#008bd1",
-							borderRadius: "8px",
-					  }
-					: {
-							...style,
-							backgroundColor: "#87c022",
-							borderRadius: "8px",
-					  }
-			}
+			style={getStyle(data, style)}
 			data={data}
 		>
 			{children}
@@ -87,7 +111,12 @@ export default ({
 					currentDate={currentDate}
 					onCurrentDateChange={setCurrentDate}
 				/>
-				<WeekView startDayHour={8} endDayHour={24} cellDuration={60} />
+				<WeekView
+					excludedDays={[0, 6]}
+					startDayHour={8}
+					endDayHour={24}
+					cellDuration={60}
+				/>
 				<MonthView />
 				<Appointments appointmentComponent={Appointment} />
 				<AppointmentTooltip

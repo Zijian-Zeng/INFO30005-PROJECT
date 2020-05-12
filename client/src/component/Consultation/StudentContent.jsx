@@ -91,7 +91,8 @@ export default withStyles(style, { name: "Content" })(
 			>
 				<Grid container justify="center">
 					<Grid item xs={11}>
-						<List dense>
+						<List>
+							<Divider />
 							<ListItem>
 								<ListItemIcon>
 									<RoomIcon />
@@ -101,6 +102,7 @@ export default withStyles(style, { name: "Content" })(
 									secondary={appointmentData.location}
 								/>
 							</ListItem>
+							<Divider />
 							<ListItem>
 								<ListItemIcon>
 									<SupervisorAccountIcon />

@@ -1,32 +1,145 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
 	Grid,
 	CardContent,
 	withWidth,
 	isWidthUp,
 	Button,
+	ButtonGroup,
 	Paper,
 	Typography,
 	LinearProgress,
+	Grow,
+	Fab,
+	Zoom,
+	Collapse,
+	Fade,
+	Tabs,
+	AppBar,
+	Tab,
+	Dialog,
+	DialogContent,
+	DialogTitle,
+	DialogActions,
 } from "@material-ui/core";
 import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
+import TimeTable from "../Timetable";
+
+import Header from "./StudentHeader";
+import Content from "./StudentContent";
+import StudentQuery from "./StudentQuery";
+
+import { myFetch, UserContext, StudentContext } from "../Methods";
+import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
-		maxWidth: "100%",
-		marginTop: theme.spacing(10),
+		maxHeight: "70VH",
+	},
+	fab: {
+		position: "fixed",
+		bottom: theme.spacing(1) * 6,
+		right: theme.spacing(1) * 6,
+	},
+	noDecoration: {
+		textDecoration: "none !important",
 	},
 }));
 
-export default ({ user }) => {
+export default ({ user, setUser }) => {
 	const classes = useStyles();
 
-	const { type, userInfo } = user;
-	const { firstName, lastName } = userInfo;
+	const { userInfo, setUserInfo } = user;
+
+	const [data, setData] = useState([]);
+
+	//timetable values...
+	const [currentDate, setCurrentDate] = useState(new Date());
+
+	const [cancelAppointment, setCancelAppointment] = useState("");
+
+	const [editingAppoint, setEditAppoint] = useState({});
+
+	const [loading, setLoading] = useState(true);
+	const { alert, detectAlert } = useContext(UserContext);
+
+	const reloadUser = async () => {
+		//reloading user information.
+		const user = await myFetch("/api/shared/users/info", "GET");
+		detectAlert(user);
+		setUser(user);
+
+		return user;
+	};
+
+	//Fetch the appointments of the current subject.
+	const fetchAppoint = async () => {
+		setLoading(true);
+		const res = await myFetch("/api/student/appointment/all", "GET");
+		detectAlert(res);
+		return res.appointments;
+	};
+
+	//Updating appointments Information.
+	useEffect(() => {
+		reloadUser().then((user) => {
+			fetchAppoint().then((appointments) => {
+				if (!appointments) return;
+
+				//Formatting data for timetable to render.
+				const appoints = [];
+
+				appointments.map((appointment) => {
+					appoints.push({
+						title: appointment.subjectCode,
+						startDate: new Date(appointment.startDate),
+						endDate: new Date(appointment.endDate),
+						id: appointment._id,
+						location: appointment.location,
+						status: appointment.status,
+						staff: appointment.staff,
+					});
+				});
+				setData(appoints);
+				setLoading(false);
+			});
+		});
+	}, [alert.status]);
 
 	return (
-		<h1>
-			Welcome {type} {firstName} {lastName}
-		</h1>
+		<StudentContext.Provider
+			value={{
+				currentDate,
+				setCurrentDate,
+				cancelAppointment,
+				setCancelAppointment,
+				data,
+				setData,
+				userInfo,
+				loading,
+				setLoading,
+				setUser,
+			}}
+		>
+			<Fade in timeout={500}>
+				<div className={classes.paper}>
+					<Grid container justify="space-around">
+						<Grid item xs={3}>
+							<StudentQuery userInfo={userInfo} />
+						</Grid>
+						<Grid item xs={8}>
+							<TimeTable
+								data={data}
+								currentDate={currentDate}
+								setCurrentDate={setCurrentDate}
+								header={Header}
+								content={Content}
+								loading={loading}
+							/>
+						</Grid>
+					</Grid>
+				</div>
+			</Fade>
+		</StudentContext.Provider>
 	);
 };

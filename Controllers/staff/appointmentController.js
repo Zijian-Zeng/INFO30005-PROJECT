@@ -1,4 +1,5 @@
 const appointmentModel = require("../../Models/appointment");
+const studentModel = require("../../Models/student");
 
 //Review a request of appointments and change its status.
 const pendAppointment = async (req, res, next) => {
@@ -50,9 +51,27 @@ const getAll = async (req, res, next) => {
 		appointments = [];
 		invalidIDs = [];
 		for (appointmentId of req.staff.appointments) {
-			appointment = await appointmentModel.findById(appointmentId);
+			const appointment = await appointmentModel.findById(appointmentId);
 			if (appointment) {
-				appointments.push(appointment);
+				const studentInfo = await studentModel.findById(
+					appointment.student
+				);
+
+				const myAppoint = {
+					subjectCode: appointment.subjectCode,
+					status: appointment.status,
+					_id: appointment._id,
+					startDate: appointment.startDate,
+					endDate: appointment.endDate,
+					location: appointment.location,
+					comment: appointment.comment,
+					student: {
+						firstName: studentInfo.firstName,
+						lastName: studentInfo.lastName,
+						mail: studentInfo.email,
+					},
+				};
+				appointments.push(myAppoint);
 			} else {
 				//Determine if the appointment has been deleted.
 				invalidIDs.push(appointmentId);
