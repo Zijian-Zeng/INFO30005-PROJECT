@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
@@ -10,14 +10,16 @@ import SignupForm from "./signupForm";
 
 import WaveBorder from "../Home/waveBorder";
 
+import { myFetch } from "../Methods";
+
 const useStyles = makeStyles((theme) => ({
 	c1: {
 		background: theme.background,
-		width: "100WH",
+		maxWidth: "100WH",
 	},
 	c2: {
 		background: theme.palette.secondary.light,
-		height: "30VH",
+		height: "50VH",
 	},
 }));
 

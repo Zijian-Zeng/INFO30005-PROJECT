@@ -27,7 +27,7 @@ export default () => {
 		<div className={classes.root}>
 			<AppBar setOpenLogin={setOpenLogin} />
 			<Login open={openLogin} setOpenLogin={setOpenLogin} />
-			<Header />
+			<Header setOpenLogin={setOpenLogin} />
 			<WaveBorder
 				upperColor={theme.background}
 				lowerColor={theme.palette.secondary.light}

@@ -82,8 +82,15 @@ const signup = async (req, res, next) => {
 			});
 		}
 
+		//Create a token for the account.
+		const token = jwt.sign({ id: savedUser._id }, "info30005");
+
 		//Sign up successful.
-		res.status(201).json({ success: true, details: savedUser });
+		res.status(201).json({
+			success: true,
+			details: savedUser,
+			token: token,
+		});
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}

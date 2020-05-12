@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
 	Grid,
 	Paper,
 	Typography,
 	Collapse,
 	Button,
+	Fab,
 	Container,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -16,7 +17,9 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 
 import NextIcon from "@material-ui/icons/ArrowForward";
 import BackIcon from "@material-ui/icons/ArrowBack";
+import SchoolIcon from "@material-ui/icons/School";
 
+import { myFetch } from "../Methods";
 import MyField from "../Login/MyField";
 
 import Subjects from "./subjects";
@@ -45,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
 	noDecoration: {
 		textDecoration: "none !important",
 	},
+	SchoolIcon: {
+		marginRight: theme.spacing(1),
+	},
 }));
 
 export default (props) => {
@@ -60,24 +66,27 @@ export default (props) => {
 	} = props;
 
 	const history = useHistory();
+
 	const getButton = (cardID) => {
 		switch (cardID) {
 			case 5:
 				return (
 					<Grid container justify="space-between" alignItems="center">
 						<Grid item xs={12}>
-							<Link to="/" className={classes.noDecoration}>
-								<Button
-									onClick={() => {
-										history.push("/consultations");
-									}}
-									size="large"
-									fullWidth
-									variant="contained"
-								>
-									Start your meetute Life!
-								</Button>
-							</Link>
+							<Grid container justify="center">
+								<Link to="/" className={classes.noDecoration}>
+									<Fab
+										variant="extended"
+										color="primary"
+										aria-label="add"
+									>
+										<SchoolIcon
+											className={classes.SchoolIcon}
+										/>
+										Start your meetute life
+									</Fab>
+								</Link>
+							</Grid>
 						</Grid>
 					</Grid>
 				);
@@ -144,7 +153,8 @@ export default (props) => {
 		setPassword,
 		setConformPassword,
 		status,
-		setSubjects,
+		setChosenSubjects,
+		allSubjects,
 	} = props;
 
 	const getField = (cardID) => {
@@ -214,7 +224,12 @@ export default (props) => {
 					</div>
 				);
 			case 4:
-				return <Subjects setSubject={setSubjects} />;
+				return (
+					<Subjects
+						allSubjects={allSubjects}
+						setChosenSubjects={setChosenSubjects}
+					/>
+				);
 			case 1:
 				return (
 					<div>
@@ -249,7 +264,7 @@ export default (props) => {
 
 	return (
 		<div>
-			<Collapse in={activeStep === cardID}>
+			<Collapse in={activeStep === cardID} timeout={500}>
 				<Paper
 					variant="elevation"
 					elevation={0}

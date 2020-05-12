@@ -14,8 +14,8 @@ import {
 import { Link } from "react-router-dom";
 
 import headerImage from "./img/chat.png";
-import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import InfoIcon from "@material-ui/icons/Info";
+import ChatBubbleOutlineIcon from "@material-ui/icons/VpnKey";
+import FaceIcon from "@material-ui/icons/Face";
 
 const useStyles = makeStyles((theme) => ({
 	image: {
@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default () => {
+export default ({ setOpenLogin }) => {
 	const classes = useStyles();
 
 	return (
@@ -142,29 +142,23 @@ export default () => {
 
 										<Grid item xs={6}>
 											<Grid container justify="center">
-												<Link
-													to={"/signup"}
-													className={
-														classes.noDecoration
+												<Button
+													fullWidth
+													size="large"
+													className={classes.about}
+													startIcon={
+														<FaceIcon
+															className={
+																classes.largeIcon
+															}
+														/>
 													}
+													onClick={() => {
+														setOpenLogin(true);
+													}}
 												>
-													<Button
-														fullWidth
-														size="large"
-														className={
-															classes.about
-														}
-														startIcon={
-															<InfoIcon
-																className={
-																	classes.largeIcon
-																}
-															/>
-														}
-													>
-														about us
-													</Button>
-												</Link>
+													Login in
+												</Button>
 											</Grid>
 										</Grid>
 									</Grid>

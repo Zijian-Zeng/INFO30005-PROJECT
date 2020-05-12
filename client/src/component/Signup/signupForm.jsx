@@ -1,5 +1,11 @@
-import React, { useContext, useState } from "react";
-import { Typography, Container, Grow, Paper } from "@material-ui/core";
+import React, { useContext, useState, useEffect } from "react";
+import {
+	Typography,
+	Container,
+	Grow,
+	Paper,
+	Collapse,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { AuthApi } from "./../Methods";
 import Cookies from "js-cookie";
@@ -79,10 +85,30 @@ export default () => {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConformPassword] = useState("");
 	const [status, setStatus] = useState("");
-	const [subjects, setSubjects] = useState(["INFO30005"]);
+	const [chosenSubjects, setChosenSubjects] = useState(["INFO30005"]);
 
 	//Steps states
 	const [activeStep, setActiveStep] = React.useState(0);
+
+	//loading data.
+	const [loading, setLoading] = useState(true);
+	const [allSubjects, setAllSubjects] = useState([]);
+
+	const { setAuth } = useContext(AuthApi);
+
+	useEffect(() => {
+		const fetchSubjects = async () => {
+			const { subjectList } = await myFetch(
+				"/api/shared/users/allSubjects",
+				"GET"
+			);
+			setAllSubjects(subjectList);
+			setLoading(false);
+			console.log(subjectList);
+		};
+		fetchSubjects();
+	}, [status]);
+
 	const handleNext = () => {
 		switch (activeStep) {
 			case 1:
@@ -117,11 +143,17 @@ export default () => {
 
 	const HandleStatus = () => {
 		if (status === "success") {
-			return <Alert severity="success">You are good to go!</Alert>;
+			return (
+				<Alert variant="filled" elevation={6} severity="success">
+					You are good to go!
+				</Alert>
+			);
 		}
 		return (
 			<Alert
 				severity="error"
+				variant="filled"
+				elevation={6}
 				onClose={() => {
 					setStatus("");
 				}}
@@ -131,23 +163,22 @@ export default () => {
 		);
 	};
 
-	const { setAuth } = useContext(AuthApi);
 	const signUp = async (e) => {
 		setStatus("");
-		const msg = await myFetch("/api/shared/users/login", "POST", {
+		const msg = await myFetch("/api/shared/users/signup", "POST", {
 			email: email,
 			password: password,
 			firstName: firstName,
 			lastName: lastName,
-			subjects: subjects,
+			subjects: chosenSubjects,
 			userType: userType,
 		});
 
 		if (msg.success) {
 			setStatus("success");
 			handleNext();
-			setAuth(true);
 			Cookies.set("meetute", msg.token);
+			setAuth(true);
 		} else {
 			console.log(msg);
 			setStatus(msg.error);
@@ -181,29 +212,34 @@ export default () => {
 				</Grow>
 				<br />
 			</Container>
-			<div>
-				{steps.map(({ title, text, cardID }) => (
-					<StepCard
-						cardID={cardID}
-						title={title}
-						text={text}
-						handleBack={handleBack}
-						handleNext={handleNext}
-						activeStep={activeStep}
-						userType={userType}
-						setUserType={setUserType}
-						setEmail={setEmail}
-						setFirstName={setFirstName}
-						setLasName={setLasName}
-						setPassword={setPassword}
-						setConformPassword={setConformPassword}
-						status={status}
-						setSubjects={setSubjects}
-						handleSubmit={signUp}
-						key={cardID}
-					></StepCard>
-				))}
-			</div>
+			<Collapse in={!loading} timeout={1000}>
+				{loading ? null : (
+					<div>
+						{steps.map(({ title, text, cardID }) => (
+							<StepCard
+								cardID={cardID}
+								title={title}
+								text={text}
+								handleBack={handleBack}
+								handleNext={handleNext}
+								activeStep={activeStep}
+								userType={userType}
+								setUserType={setUserType}
+								setEmail={setEmail}
+								setFirstName={setFirstName}
+								setLasName={setLasName}
+								setPassword={setPassword}
+								setConformPassword={setConformPassword}
+								status={status}
+								setChosenSubjects={setChosenSubjects}
+								handleSubmit={signUp}
+								key={cardID}
+								allSubjects={allSubjects}
+							></StepCard>
+						))}
+					</div>
+				)}
+			</Collapse>
 			<Typography variant="h1">
 				<br />
 			</Typography>
