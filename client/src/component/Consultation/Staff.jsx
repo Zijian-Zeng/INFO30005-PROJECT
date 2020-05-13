@@ -60,13 +60,13 @@ export default () => {
 	const { alert, user } = useContext(UserContext);
 	//Updating consultations Information.
 	useEffect(() => {
+		setLoading(true);
 		//Fetch all created consultations.
 		const fetchConsult = async () => {
 			const res = await myFetch("/api/staff/consult/viewCreated", "GET");
 			return res.consultations;
 		};
 		fetchConsult().then((consultations) => {
-			setLoading(false);
 			const consults = [];
 			consultations.map((consultation) => {
 				consults.push({
@@ -79,8 +79,8 @@ export default () => {
 					totalStudent: consultation.studentRegistered.length,
 				});
 			});
-
 			setData(consults);
+			setLoading(false);
 		});
 	}, [alert.status]);
 

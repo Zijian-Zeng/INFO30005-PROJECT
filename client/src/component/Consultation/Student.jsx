@@ -77,15 +77,14 @@ export default () => {
 
 	const { alert, detectAlert, user, setUser } = useContext(UserContext);
 
-	const reloadUser = async (simpleReload, newValue) => {
+	const reloadUser = async (simpleReload) => {
 		//reloading user information.
 		setLoading(true);
 		const user = await myFetch("/api/shared/users/info", "GET");
 		detectAlert(user);
 		setUser(user);
-		if (simpleReload) {
-			setLoading(false);
-		}
+		if (simpleReload) setLoading(false);
+
 		return user;
 	};
 
@@ -119,7 +118,7 @@ export default () => {
 
 	//Updating consultations Information.
 	useEffect(() => {
-		reloadUser().then((user) => {
+		reloadUser(false).then((user) => {
 			fetchConsult().then((consultations) => {
 				if (!consultations) return;
 
@@ -140,6 +139,7 @@ export default () => {
 				});
 				setData(consults);
 				setLoading(false);
+				console.log("?");
 			});
 		});
 	}, [alert.status, currentSubject]);
@@ -211,7 +211,8 @@ export default () => {
 							textColor="primary"
 							onChange={(event, newValue) => {
 								setCurrentSubject(newValue);
-								reloadUser(true, newValue);
+								if (newValue == currentSubject)
+									reloadUser(true, newValue);
 							}}
 							variant="scrollable"
 							scrollButtons="auto"
