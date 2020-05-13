@@ -21,6 +21,8 @@ import {
 	DialogContent,
 	DialogTitle,
 	DialogActions,
+	Select,
+	MenuItem,
 } from "@material-ui/core";
 import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
 import TimeTable from "../Timetable";
@@ -30,6 +32,7 @@ import Content from "./StudentContent";
 
 import { myFetch, UserContext, StudentContext } from "../Methods";
 import AddIcon from "@material-ui/icons/Add";
+import { grey } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -43,12 +46,19 @@ const useStyles = makeStyles((theme) => ({
 	noDecoration: {
 		textDecoration: "none !important",
 	},
+	delete: {
+		textTransform: "none",
+		color: theme.palette.getContrastText(grey[700]),
+		background: grey[700],
+		"&:hover": {
+			color: theme.palette.getContrastText(grey[900]),
+			background: grey[900],
+		},
+	},
 }));
 
-export default ({ user, setUser }) => {
+export default () => {
 	const classes = useStyles();
-
-	const { userInfo, setUserInfo } = user;
 
 	const [data, setData] = useState([]);
 
@@ -60,20 +70,27 @@ export default ({ user, setUser }) => {
 	const [currentSubject, setCurrentSubject] = useState(0);
 	const [loading, setLoading] = useState(true);
 
-	const { alert, detectAlert } = useContext(UserContext);
+	const [mainResourceName, setMainResourceName] = useState("booking");
+	const changeMainResource = (mainResourceName) => {
+		setMainResourceName(mainResourceName);
+	};
 
-	const reloadUser = async () => {
+	const { alert, detectAlert, user, setUser } = useContext(UserContext);
+
+	const reloadUser = async (simpleReload, newValue) => {
 		//reloading user information.
+		setLoading(true);
 		const user = await myFetch("/api/shared/users/info", "GET");
 		detectAlert(user);
 		setUser(user);
-
+		if (simpleReload) {
+			setLoading(false);
+		}
 		return user;
 	};
 
 	//Fetch the consultations of the current subject.
 	const fetchConsult = async () => {
-		setLoading(true);
 		if (currentSubject == 0) {
 			const res = await myFetch(
 				"/api/student/consult/viewRegistered",
@@ -81,9 +98,23 @@ export default ({ user, setUser }) => {
 			);
 			return res.consultations;
 		}
-		const body = { subjectCode: userInfo.subjects[currentSubject - 1] };
+		const body = {
+			subjectCode: userInfo.subjects[currentSubject - 1],
+		};
 		const res = await myFetch("/api/student/consult/viewAll", "POST", body);
 		return res.consultations;
+	};
+
+	const getBookingStatus = (consultation, user) => {
+		if (
+			user.userInfo.registeredConsult.filter(
+				(each) => each == consultation._id
+			).length > 0
+		)
+			return "BOOKED";
+
+		if (consultation.slotsAvailable < 1) return "FULL";
+		return "AVAILABLE";
 	};
 
 	//Updating consultations Information.
@@ -104,10 +135,7 @@ export default ({ user, setUser }) => {
 						location: consultation.location,
 						slotsAvailable: consultation.slotsAvailable,
 						totalStudent: consultation.studentRegistered.length,
-						booked:
-							user.userInfo.registeredConsult.filter(
-								(each) => each == consultation._id
-							).length > 0,
+						booking: getBookingStatus(consultation, user),
 					});
 				});
 				setData(consults);
@@ -127,6 +155,7 @@ export default ({ user, setUser }) => {
 		setCancelAppointment("");
 	};
 
+	const { userInfo } = user;
 	return (
 		<StudentContext.Provider
 			value={{
@@ -139,7 +168,6 @@ export default ({ user, setUser }) => {
 				userInfo,
 				loading,
 				setLoading,
-				setUser,
 			}}
 		>
 			<Dialog
@@ -147,7 +175,7 @@ export default ({ user, setUser }) => {
 				onClose={() => setCancelAppointment("")}
 				fullWidth
 			>
-				<DialogTitle>Cancel your booking</DialogTitle>
+				<DialogTitle>Cancel your booking?</DialogTitle>
 				<DialogContent>
 					Do you want to cancel this booking?
 				</DialogContent>
@@ -167,9 +195,7 @@ export default ({ user, setUser }) => {
 							color="primary"
 							variant="contained"
 							onClick={cancel}
-							style={{
-								textTransform: "none",
-							}}
+							className={classes.delete}
 						>
 							Yes, please cancel it.
 						</Button>
@@ -177,21 +203,43 @@ export default ({ user, setUser }) => {
 				</DialogActions>
 			</Dialog>
 			<AppBar position="relative" color="default">
-				<Tabs
-					value={currentSubject}
-					indicatorColor="primary"
-					textColor="primary"
-					centered
-					onChange={(event, newValue) => {
-						setCurrentSubject(newValue);
-						reloadUser();
-					}}
-				>
-					<Tab label="Registered" />
-					{userInfo.subjects.map((subject) => (
-						<Tab label={subject} key={subject} />
-					))}
-				</Tabs>
+				<Grid container justify="space-between">
+					<Grid item xs={10}>
+						<Tabs
+							value={currentSubject}
+							indicatorColor="primary"
+							textColor="primary"
+							onChange={(event, newValue) => {
+								setCurrentSubject(newValue);
+								reloadUser(true, newValue);
+							}}
+							variant="scrollable"
+							scrollButtons="auto"
+						>
+							<Tab label="Registered" />
+							{user.userInfo.subjects.map((subject) => (
+								<Tab label={subject} key={subject} />
+							))}
+						</Tabs>
+					</Grid>
+					<Grid item xs={2}>
+						<Select
+							value={mainResourceName}
+							onChange={(e) =>
+								setMainResourceName(e.target.value)
+							}
+							variant="outlined"
+							fullWidth
+						>
+							<MenuItem key="booking" value="booking">
+								Booking
+							</MenuItem>
+							<MenuItem key="title" value="title">
+								Subjects
+							</MenuItem>
+						</Select>
+					</Grid>
+				</Grid>
 			</AppBar>
 
 			<Fade in timeout={500}>
@@ -203,6 +251,10 @@ export default ({ user, setUser }) => {
 						header={Header}
 						content={Content}
 						loading={loading}
+						viewChange={true}
+						changeMainResource={changeMainResource}
+						mainResourceName={mainResourceName}
+						subjects={user.userInfo.subjects}
 					/>
 				</div>
 			</Fade>

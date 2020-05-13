@@ -38,10 +38,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default ({ user }) => {
+export default () => {
 	const classes = useStyles();
-
-	const { userInfo } = user;
 
 	const [data, setData] = useState([]);
 
@@ -59,8 +57,7 @@ export default ({ user }) => {
 		location: "",
 	});
 
-	const { alert } = useContext(UserContext);
-
+	const { alert, user } = useContext(UserContext);
 	//Updating consultations Information.
 	useEffect(() => {
 		//Fetch all created consultations.
@@ -102,7 +99,6 @@ export default ({ user }) => {
 				setCreateOpen,
 				data,
 				setData,
-				userInfo,
 				editOpen,
 				setEditOpen,
 				setEditingAppointment,
@@ -121,6 +117,8 @@ export default ({ user }) => {
 						header={Header}
 						content={Content}
 						loading={loading}
+						mainResourceName="title"
+						subjects={user.userInfo.subjects}
 					/>
 					<ConsultDialog
 						open={createOpen}

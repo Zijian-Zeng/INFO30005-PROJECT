@@ -17,8 +17,8 @@ import {
 	Avatar,
 	Divider,
 	Badge,
-	Fab,
 	Button,
+	Collapse,
 } from "@material-ui/core";
 
 import RoomIcon from "@material-ui/icons/Room";
@@ -26,6 +26,14 @@ import RoomIcon from "@material-ui/icons/Room";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import CancelIcon from "@material-ui/icons/Cancel";
+
+import DraftsIcon from "@material-ui/icons/Drafts";
+import SendIcon from "@material-ui/icons/Send";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+
+import { grey, pink, amber, green, red, lime } from "@material-ui/core/colors";
 
 import { myFetch, UserContext, StudentContext } from "../Methods";
 import Staff from "./Staff";
@@ -36,35 +44,63 @@ const StatusIcon = ({ status }) => {
 	return <AutorenewIcon></AutorenewIcon>;
 };
 
+const getCommentTitle = (status) => {
+	switch (status) {
+		case "PENDING":
+			return "Request Reason:";
+		case "APPROVED":
+			return "Approved Reason:";
+		default:
+			return "Declined Reason:";
+	}
+};
+
 const style = ({ palette, spacing }) => ({
-	icon: {
-		color: palette.action.active,
-		marginLeft: spacing(1),
-	},
-	textCenter: {
-		textAlign: "center",
-	},
-	header: {
-		height: "260px",
-		backgroundSize: "cover",
-	},
-	commandButton: {
-		backgroundColor: "rgba(255,255,100,0.65)",
-	},
 	left: {
 		marginLeft: spacing(1),
 	},
-	fab: {
-		backgroundColor: "#e2d21f",
+	pending: {
+		backgroundColor: amber[400],
 		"&:hover": {
-			backgroundColor: "#e2d21f",
+			backgroundColor: amber[400],
 		},
 		borderRadius: 30,
+	},
+	approved: {
+		backgroundColor: lime[400],
+		"&:hover": {
+			backgroundColor: lime[400],
+		},
+		borderRadius: 30,
+	},
+	declined: {
+		backgroundColor: red[400],
+		"&:hover": {
+			backgroundColor: red[400],
+		},
+		borderRadius: 30,
+	},
+	scroll: {
+		height: spacing(15),
+		overflow: "scroll",
 	},
 });
 
 export default withStyles(style, { name: "Content" })(
 	({ children, appointmentData, classes, ...restProps }) => {
+		const [openComments, setOpenComments] = useState(false);
+
+		const getStatusStyle = (status) => {
+			switch (status) {
+				case "APPROVED":
+					return classes.approved;
+				case "DECLINED":
+					return classes.declined;
+				default:
+					return classes.pending;
+			}
+		};
+
 		return (
 			<AppointmentTooltip.Content
 				{...restProps}
@@ -72,33 +108,71 @@ export default withStyles(style, { name: "Content" })(
 			>
 				<Grid container justify="center">
 					<Grid item xs={11}>
-						<List>
-							<Divider />
+						<List dense>
+							<ListItem
+								button
+								onClick={() => setOpenComments(!openComments)}
+							>
+								<ListItemIcon>
+									<DraftsIcon />
+								</ListItemIcon>
+								<ListItemText
+									primary={getCommentTitle(
+										appointmentData.status
+									)}
+								/>
+								{openComments ? <ExpandLess /> : <ExpandMore />}
+							</ListItem>
+							<Collapse
+								in={openComments}
+								timeout="auto"
+								unmountOnExit
+							>
+								<List component="div" disablePadding>
+									<ListItem>
+										<ListItemText
+											secondary={
+												<div className={classes.scroll}>
+													{appointmentData.comments}
+												</div>
+											}
+										/>
+									</ListItem>
+								</List>
+							</Collapse>
 							<ListItem>
-								<ListItemAvatar>
-									<Avatar>
-										<RoomIcon />
-									</Avatar>
-								</ListItemAvatar>
+								<ListItemIcon>
+									<RoomIcon />
+								</ListItemIcon>
 								<ListItemText
 									primary="Location"
 									secondary={appointmentData.location}
 								/>
 							</ListItem>
-							<Divider />
+
 							<ListItem>
-								<ListItemAvatar>
-									<Avatar />
-								</ListItemAvatar>
+								<ListItemIcon>
+									<AccountCircleIcon />
+								</ListItemIcon>
 								<ListItemText
-									primary={`${appointmentData.staff.firstName} ${appointmentData.staff.lastName}`}
-									secondary={appointmentData.staff.mail}
+									primary={
+										appointmentData.staff
+											? `${appointmentData.staff.firstName} ${appointmentData.staff.lastName}`
+											: `${appointmentData.student.firstName} ${appointmentData.student.lastName}`
+									}
+									secondary={
+										appointmentData.staff
+											? appointmentData.staff.mail
+											: appointmentData.student.mail
+									}
 								/>
 							</ListItem>
 							<ListItem>
 								<Button
 									fullWidth
-									className={classes.fab}
+									className={getStatusStyle(
+										appointmentData.status
+									)}
 									disableTouchRipple
 									disableRipple
 								>

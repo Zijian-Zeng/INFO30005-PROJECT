@@ -37,6 +37,10 @@ export default withStyles(style, { name: "Header" })(
 				{...restProps}
 				appointmentData={appointmentData}
 				showCloseButton
+				showOpenButton
+				onOpenButtonClick={() =>
+					setCancelAppointment(appointmentData.id)
+				}
 			></AppointmentTooltip.Header>
 		);
 	}

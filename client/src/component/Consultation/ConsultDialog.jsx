@@ -92,13 +92,6 @@ const useStyles = makeStyles((theme) => ({
 	icon: {
 		margin: "auto",
 	},
-	delete: {
-		backgroundColor:
-			"linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%)",
-		"&:hover": {
-			backgroundColor: "#52af77",
-		},
-	},
 
 	closeButton: {
 		position: "absolute",
@@ -120,33 +113,43 @@ const DeleteButton = withStyles((theme) => ({
 
 export default ({ edit, open, toggle }) => {
 	const classes = useStyles();
-
-	const [subjectCode, setSubjectCode] = useState("");
-	const [startDate, setStartDate] = useState(new Date());
-	const [endDate, setEndDate] = useState(new Date());
-	const [location, setLocation] = useState("");
-	const [slot, setSlot] = useState(20);
-
-	const { detectAlert, setAlert } = useContext(UserContext);
 	const {
-		userInfo,
 		editingAppointment,
 		setEditingAppointment,
 		setLoading,
 		api,
 	} = useContext(StaffContext);
-	const { subjects } = userInfo;
+	const { detectAlert, setAlert, user } = useContext(UserContext);
+	const subjects = user.userInfo.subjects;
+
+	const [subjectCode, setSubjectCode] = useState(subjects[0]);
+	const [startDate, setStartDate] = useState(new Date());
+	const [endDate, setEndDate] = useState(new Date());
+	const [location, setLocation] = useState("");
+	const [slot, setSlot] = useState(20);
+
+	const getDuration = (startDate, endDate) => {
+		const duration = (endDate - startDate) / 60000;
+		if (duration < 15) return 15;
+		if (duration > 300) return 300;
+		return duration;
+	};
+
+	const getEndDate = (start, duration) => {
+		const end = new Date(start);
+		return end.setMinutes(end.getMinutes() + duration);
+	};
 
 	const createTime = async () => {
 		setLoading(true);
-		if (!subjectCode || !startDate || !endDate) {
+		if (!subjectCode || !startDate || !endDate || location === "") {
 			setAlert({ status: "warning", message: "Insufficient Input." });
 			return;
 		}
 		const body = {
 			subjectCode: subjectCode,
 			startDate: startDate,
-			endDate: endDate,
+			endDate: getEndDate(startDate, getDuration(startDate, endDate)),
 			location: location,
 			slotsAvailable: slot,
 		};
@@ -162,7 +165,7 @@ export default ({ edit, open, toggle }) => {
 			!editingAppointment.endDate ||
 			!editingAppointment.startDate ||
 			!editingAppointment.slotsAvailable ||
-			!editingAppointment.location
+			editingAppointment.location === ""
 		) {
 			setAlert({ status: "warning", message: "Insufficient Input." });
 			return;
@@ -184,19 +187,6 @@ export default ({ edit, open, toggle }) => {
 		toggle();
 		return res;
 	};
-
-	const getDuration = (startDate, endDate) => {
-		const duration = (endDate - startDate) / 60000;
-		if (duration < 15) return 15;
-		if (duration > 300) return 300;
-		return duration;
-	};
-
-	const getEndDate = (start, duration) => {
-		const end = new Date(start);
-		return end.setMinutes(end.getMinutes() + duration);
-	};
-
 	return (
 		<Dialog
 			open={open}
@@ -205,7 +195,7 @@ export default ({ edit, open, toggle }) => {
 			fullWidth
 		>
 			<DialogTitle id="form-dialog-title">
-				{edit ? "Create a new Consultation" : "Edit a Consultation"}
+				{!edit ? "Create a new Consultation" : "Edit a Consultation"}
 
 				<IconButton
 					aria-label="close"

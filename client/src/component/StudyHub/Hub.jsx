@@ -3,6 +3,7 @@ import { UserContext, myFetch } from "../Methods";
 import Layout from "../Navigation/Layout";
 import { useHistory } from "react-router-dom";
 import Student from "./Student";
+import { useRadioGroup } from "@material-ui/core";
 
 export default () => {
 	const history = useHistory();
@@ -13,29 +14,17 @@ export default () => {
 		detectAlert,
 		loadingRoute,
 		setLoadingRoute,
+		user,
+		fetchUser,
 	} = useContext(UserContext);
 
 	//Loading user information.
-	const [userInfo, setUserInfo] = useState({});
 	useEffect(() => {
 		setSelectedRoute("hubs");
-		setLoadingRoute(true);
-		closeAlert();
-
-		//Loading user information.
-		const fetchUser = async () => {
-			const user = await myFetch("/api/shared/users/info", "GET");
-			detectAlert(user);
-			setUserInfo(user);
-			setLoadingRoute(false);
-			if (user.type !== "student") history.push("/");
-		};
-		fetchUser();
+		fetchUser().then(() => setLoadingRoute(false));
 	}, []);
 
-	if (loadingRoute) return <Layout />;
+	if (loadingRoute || !user.type) return <Layout />;
 
-	return (
-		<Layout content={<Student user={userInfo} />} type={userInfo.type} />
-	);
+	return <Layout content={<Student />} />;
 };

@@ -42,6 +42,7 @@ import {
 } from "@material-ui/pickers";
 
 import Skeleton from "@material-ui/lab/Skeleton";
+import { InboxOutlined, Inbox, Drafts, Send } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
 	closeButton: {
@@ -96,10 +97,23 @@ export default ({ userInfo }) => {
 	const [startDate, setStartDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(new Date());
 	const [location, setLocation] = useState("");
+	const [comments, setComments] = useState("");
 	const [staffInfo, setStaffInfo] = useState({});
 
 	const [open, setOpen] = useState(false);
 	const { detectAlert, setAlert } = useContext(UserContext);
+
+	const getDuration = (startDate, endDate) => {
+		const duration = (endDate - startDate) / 60000;
+		if (duration < 15) return 15;
+		if (duration > 300) return 300;
+		return duration;
+	};
+
+	const getEndDate = (start, duration) => {
+		const end = new Date(start);
+		return end.setMinutes(end.getMinutes() + duration);
+	};
 
 	//Fetch the appointments of the current subject.
 	const fetchStaffs = async () => {
@@ -117,16 +131,17 @@ export default ({ userInfo }) => {
 
 	const createAppointment = async () => {
 		setLoading(true);
-		if (!startDate || !endDate) {
+		if (!startDate || !endDate || location === "") {
 			setAlert({ status: "warning", message: "Insufficient Input." });
 			return;
 		}
 		const body = {
 			subjectCode: currentSubject,
 			startDate: startDate,
-			endDate: endDate,
+			endDate: getEndDate(startDate, getDuration(startDate, endDate)),
 			location: location,
 			staffId: staffInfo._id,
+			comment: comments,
 		};
 		const res = await myFetch(
 			"/api/student/appointment/request",
@@ -139,18 +154,6 @@ export default ({ userInfo }) => {
 	};
 
 	const toggle = () => setOpen(!open);
-
-	const getDuration = (startDate, endDate) => {
-		const duration = (endDate - startDate) / 60000;
-		if (duration < 15) return 15;
-		if (duration > 300) return 300;
-		return duration;
-	};
-
-	const getEndDate = (start, duration) => {
-		const end = new Date(start);
-		return end.setMinutes(end.getMinutes() + duration);
-	};
 
 	//Updating appointments Information.
 	useEffect(() => {
@@ -169,11 +172,13 @@ export default ({ userInfo }) => {
 					variant="outlined"
 				>
 					{userInfo.subjects.map((subject) => (
-						<MenuItem value={subject}> {subject}</MenuItem>
+						<MenuItem value={subject} key={subject}>
+							{subject}
+						</MenuItem>
 					))}
 				</Select>
 				<List>
-					{[3, 4, 5].map((index) => (
+					{[1, 2, 3].map((index) => (
 						<Grow in key={index} timeout={index * 500}>
 							<ListItem button>
 								<ListItemAvatar>
@@ -273,7 +278,25 @@ export default ({ userInfo }) => {
 								}}
 								fullWidth
 							/>
-							<DialogContentText></DialogContentText>
+							<DialogContentText>
+								<br />
+							</DialogContentText>
+						</Grid>
+						<Grid item xs={1}>
+							<Send className={classes.icon} />
+						</Grid>
+						<Grid item xs={11}>
+							<TextField
+								label="Request Reason"
+								multiline
+								fullWidth
+								rowsMax={4}
+								value={comments}
+								onChange={(e) => {
+									setComments(e.target.value);
+								}}
+								variant="outlined"
+							/>
 						</Grid>
 					</Grid>
 				</DialogContent>
@@ -308,12 +331,14 @@ export default ({ userInfo }) => {
 				variant="outlined"
 			>
 				{userInfo.subjects.map((subject) => (
-					<MenuItem value={subject}> {subject}</MenuItem>
+					<MenuItem value={subject} key={subject}>
+						{subject}
+					</MenuItem>
 				))}
 			</Select>
 			<List>
 				{staffs.map((staff, index) => (
-					<Grow in timeout={index * 200}>
+					<Grow in timeout={index * 200} key={index}>
 						<ListItem
 							button
 							onClick={() => {

@@ -1,14 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
 	Grid,
-	CardContent,
 	withWidth,
 	isWidthUp,
 	Button,
 	ButtonGroup,
 	Paper,
 	Typography,
-	LinearProgress,
 	Grow,
 	Fab,
 	Zoom,
@@ -22,7 +20,12 @@ import {
 	DialogTitle,
 	DialogActions,
 } from "@material-ui/core";
-import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
+import {
+	makeStyles,
+	withStyles,
+	lighten,
+	useTheme,
+} from "@material-ui/core/styles";
 import TimeTable from "../Timetable";
 
 import Header from "./StudentHeader";
@@ -31,6 +34,7 @@ import StudentQuery from "./StudentQuery";
 
 import { myFetch, UserContext, StudentContext } from "../Methods";
 import AddIcon from "@material-ui/icons/Add";
+import { grey } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -44,32 +48,34 @@ const useStyles = makeStyles((theme) => ({
 	noDecoration: {
 		textDecoration: "none !important",
 	},
+	delete: {
+		textTransform: "none",
+		color: theme.palette.getContrastText(grey[700]),
+		background: grey[700],
+		"&:hover": {
+			color: theme.palette.getContrastText(grey[900]),
+			background: grey[900],
+		},
+	},
 }));
 
-export default ({ user, setUser }) => {
+export default () => {
 	const classes = useStyles();
 
-	const { userInfo, setUserInfo } = user;
-
-	const [data, setData] = useState([]);
-
 	//timetable values...
+	const [data, setData] = useState([]);
 	const [currentDate, setCurrentDate] = useState(new Date());
-
 	const [cancelAppointment, setCancelAppointment] = useState("");
-
-	const [editingAppoint, setEditAppoint] = useState({});
-
 	const [loading, setLoading] = useState(true);
-	const { alert, detectAlert } = useContext(UserContext);
+	const { alert, detectAlert, user, setUser } = useContext(UserContext);
+	const { userInfo } = user;
 
+	//Reloading user information.
 	const reloadUser = async () => {
-		//reloading user information.
-		const user = await myFetch("/api/shared/users/info", "GET");
-		detectAlert(user);
-		setUser(user);
-
-		return user;
+		const res = await myFetch("/api/shared/users/info", "GET");
+		detectAlert(res);
+		setUser(res);
+		return res;
 	};
 
 	//Fetch the appointments of the current subject.
@@ -85,7 +91,7 @@ export default ({ user, setUser }) => {
 		reloadUser().then((user) => {
 			fetchAppoint().then((appointments) => {
 				if (!appointments) return;
-
+				console.log(appointments);
 				//Formatting data for timetable to render.
 				const appoints = [];
 
@@ -98,6 +104,7 @@ export default ({ user, setUser }) => {
 						location: appointment.location,
 						status: appointment.status,
 						staff: appointment.staff,
+						comments: appointment.comment,
 					});
 				});
 				setData(appoints);
@@ -105,6 +112,21 @@ export default ({ user, setUser }) => {
 			});
 		});
 	}, [alert.status]);
+
+	//Cancel an appointment.
+	const cancel = async () => {
+		setLoading(true);
+		const body = {
+			id: cancelAppointment,
+		};
+		const res = await myFetch(
+			"/api/student/appointment/delete",
+			"DELETE",
+			body
+		);
+		detectAlert(res, "Successfully Deleted.");
+		setCancelAppointment("");
+	};
 
 	return (
 		<StudentContext.Provider
@@ -121,6 +143,37 @@ export default ({ user, setUser }) => {
 				setUser,
 			}}
 		>
+			<Dialog
+				open={cancelAppointment !== ""}
+				onClose={() => setCancelAppointment("")}
+				fullWidth
+			>
+				<DialogTitle>Delete your Appointment?</DialogTitle>
+				<DialogContent>
+					Do you want to delete this Appointment?
+				</DialogContent>
+				<DialogActions>
+					<ButtonGroup fullWidth>
+						<Button
+							fullWidth
+							onClick={() => setCancelAppointment("")}
+							style={{
+								textTransform: "none",
+							}}
+						>
+							No, thanks.
+						</Button>
+						<Button
+							fullWidth
+							variant="contained"
+							onClick={cancel}
+							className={classes.delete}
+						>
+							Yes, please delete it.
+						</Button>
+					</ButtonGroup>
+				</DialogActions>
+			</Dialog>
 			<Fade in timeout={500}>
 				<div className={classes.paper}>
 					<Grid container justify="space-around">
@@ -135,6 +188,8 @@ export default ({ user, setUser }) => {
 								header={Header}
 								content={Content}
 								loading={loading}
+								mainResourceName="title"
+								subjects={user.userInfo.subjects}
 							/>
 						</Grid>
 					</Grid>

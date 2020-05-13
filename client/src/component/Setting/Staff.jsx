@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default ({ user, setMySubjects, mySubjects }) => {
+export default ({ user, setMySubjects, mySubjects, fetchSubject }) => {
 	const classes = useStyles();
 	const [openJoin, setOpenJoin] = useState(false);
 	const [openCreate, setOpenCreate] = useState(false);
@@ -65,13 +65,7 @@ export default ({ user, setMySubjects, mySubjects }) => {
 	} = useContext(UserContext);
 
 	useEffect(() => {
-		const fetchMySubject = async () => {
-			const res = await myFetch("/api/staff/subjects/all", "GET");
-			detectAlert(res);
-			setMySubjects(res);
-		};
-
-		fetchMySubject();
+		fetchSubject("staff");
 	}, [alert.status]);
 
 	const handleJoinOpen = () => {
@@ -94,6 +88,9 @@ export default ({ user, setMySubjects, mySubjects }) => {
 
 		setLoadingRoute(false);
 	};
+
+	console.log(mySubjects);
+	if (!mySubjects.subjectsInfo) return null;
 
 	return (
 		<div>
