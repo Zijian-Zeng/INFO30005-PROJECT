@@ -41,6 +41,8 @@ import {
 	MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 
+import Skeleton from "@material-ui/lab/Skeleton";
+
 const useStyles = makeStyles((theme) => ({
 	closeButton: {
 		position: "absolute",
@@ -60,6 +62,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 	select: {
 		marginTop: theme.spacing(10),
+	},
+	skeleton: {
+		width: "20WH",
 	},
 }));
 
@@ -152,7 +157,43 @@ export default ({ userInfo }) => {
 		fetchStaffs();
 	}, [currentSubject]);
 
-	if (loading) return null;
+	if (loading)
+		return (
+			<div>
+				<Select
+					value={currentSubject}
+					onChange={(event) => {
+						setCurrentSubject(event.target.value);
+					}}
+					fullWidth
+					variant="outlined"
+				>
+					{userInfo.subjects.map((subject) => (
+						<MenuItem value={subject}> {subject}</MenuItem>
+					))}
+				</Select>
+				<List>
+					{[3, 4, 5].map((index) => (
+						<Grow in key={index} timeout={index * 500}>
+							<ListItem button>
+								<ListItemAvatar>
+									<Skeleton
+										animation="wave"
+										variant="circle"
+										width={40}
+										height={40}
+									/>
+								</ListItemAvatar>
+								<ListItemText
+									primary={<Skeleton animation="wave" />}
+									secondary={<Skeleton animation="wave" />}
+								></ListItemText>
+							</ListItem>
+						</Grow>
+					))}
+				</List>
+			</div>
+		);
 
 	return (
 		<div>
