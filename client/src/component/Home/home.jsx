@@ -10,40 +10,40 @@ import Features from "./features";
 import Login from "../Login/login";
 
 const useStyles = makeStyles((theme) => ({
-	c1: {
-		backgroundColor: theme.palette.secondary.light,
-	},
-	c2: {
-		backgroundColor: theme.palette.primary.light,
-	},
+    c1: {
+        backgroundColor: theme.palette.secondary.light,
+    },
+    c2: {
+        backgroundColor: theme.palette.primary.light,
+    },
 }));
 
 export default () => {
-	const classes = useStyles();
-	const theme = useTheme();
-	const [openLogin, setOpenLogin] = React.useState(false);
+    const classes = useStyles();
+    const theme = useTheme();
+    const [openLogin, setOpenLogin] = React.useState(false);
 
-	return (
-		<div className={classes.root}>
-			<AppBar setOpenLogin={setOpenLogin} />
-			<Login open={openLogin} setOpenLogin={setOpenLogin} />
-			<Header setOpenLogin={setOpenLogin} />
-			<WaveBorder
-				upperColor={theme.background}
-				lowerColor={theme.palette.secondary.light}
-				animationNegativeDelay={100}
-			/>
-			<Features />
-			<WaveBorder
-				upperColor={theme.palette.secondary.light}
-				lowerColor={theme.palette.primary.light}
-				animationNegativeDelay={100}
-			/>
-			<div className={classes.c2}>
-				<Typography variant="subtitle1" align="center">
-					Copyright @ MeeTute 2020
-				</Typography>
-			</div>
-		</div>
-	);
+    return (
+        <div className={classes.root}>
+            <AppBar setOpenLogin={setOpenLogin} />
+            <Login open={openLogin} setOpenLogin={setOpenLogin} />
+            <Header setOpenLogin={setOpenLogin} />
+            <WaveBorder
+                upperColor={theme.background}
+                lowerColor={theme.palette.secondary.light}
+                animationNegativeDelay={100}
+            />
+            <Features />
+            <WaveBorder
+                upperColor={theme.palette.secondary.light}
+                lowerColor={theme.palette.primary.light}
+                animationNegativeDelay={100}
+            />
+            <div className={classes.c2}>
+                <Typography variant="subtitle1" align="center">
+                    Copyright @ MeeTute 2020
+                </Typography>
+            </div>
+        </div>
+    );
 };
