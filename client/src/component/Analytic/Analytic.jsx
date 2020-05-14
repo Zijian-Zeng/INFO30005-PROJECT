@@ -13,26 +13,17 @@ export default () => {
         detectAlert,
         loadingRoute,
         setLoadingRoute,
+        fetchUser,
+        user,
     } = useContext(UserContext);
 
     //Loading user information.
-    const [userInfo, setUserInfo] = useState({});
     useEffect(() => {
         setSelectedRoute("analytic");
-        setLoadingRoute(true);
-        closeAlert();
-
-        //Loading user information.
-        const fetchUser = async () => {
-            const user = await myFetch("/api/shared/users/info", "GET");
-            detectAlert(user);
-            setUserInfo(user);
-            if (user.type !== "staff") history.push("/");
-        };
         fetchUser().then(setLoadingRoute(false));
     }, []);
 
-    if (loadingRoute) return <Layout />;
+    if (loadingRoute || !user.type) return <Layout />;
 
-    return <Layout content={<Staff user={userInfo} />} type={userInfo.type} />;
+    return <Layout content={<Staff />} type={user.type} />;
 };

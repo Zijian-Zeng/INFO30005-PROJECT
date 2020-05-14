@@ -144,6 +144,14 @@ export default ({ user, setMySubjects, mySubjects, fetchSubject }) => {
 
             <Grid container justify="center" alignItems="center">
                 <Grid item xs={12}>
+                    <Typography
+                        variant="h5"
+                        style={{ fontWeight: 900, color: "#455a64" }}
+                    >
+                        Your current subject list:
+                    </Typography>
+                </Grid>
+                <Grid item xs={12}>
                     {mySubjects.subjectsInfo.map(
                         ({ subjectCode, subjectName }, index) => (
                             <Grow in timeout={index + 1 * 200} key={index}>

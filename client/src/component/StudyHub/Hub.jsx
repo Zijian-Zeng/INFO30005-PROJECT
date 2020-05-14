@@ -25,11 +25,12 @@ export default () => {
             if (user.type !== "student") {
                 history.push("/Settings");
             }
+
             setLoadingRoute(false);
         });
     }, []);
 
     if (loadingRoute || !user.type) return <Layout />;
 
-    return <Layout content={<Student />} />;
+    return <Layout content={<Student />} type={user.type} />;
 };

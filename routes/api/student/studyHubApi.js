@@ -4,19 +4,19 @@ const verify = require("../../../Controllers/verify");
 const identify = require("../../../Controllers/student/identify");
 
 const {
-	createHub,
-	getAll,
-	joinHub,
-	leaveHub,
-	updateHub,
-	getRegistered,
+    createHub,
+    getAll,
+    joinHub,
+    leaveHub,
+    updateHub,
+    getRegistered,
 } = require("../../../Controllers/student/studyHubController");
 
 //Create a study hub.
 router.post("/create", verify, identify, createHub);
 
 //Get all of the study hubs of a subject.
-router.get("/all", verify, identify, getAll);
+router.post("/all", verify, identify, getAll);
 
 //Get all of the study hubs of a subject.
 router.get("/registered", verify, identify, getRegistered);

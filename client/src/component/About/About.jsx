@@ -115,7 +115,7 @@ export default () => {
                                 help we need from teaching staff during
                                 assignment or exam seasons. This is an issue
                                 that affects over 48,000 students and staff, and
-                                probably he wider community.
+                                probably the wider community.
                                 <br />
                                 <br />
                             </Typography>
