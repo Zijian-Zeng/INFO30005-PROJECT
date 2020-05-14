@@ -38,7 +38,7 @@ export default withStyles(style, { name: "Header" })(
 				{...restProps}
 				appointmentData={appointmentData}
 				showCloseButton
-				showOpenButton={appointmentData.booked}
+				showOpenButton={appointmentData.booking === "BOOKED"}
 				onOpenButtonClick={() =>
 					setCancelAppointment(appointmentData.id)
 				}

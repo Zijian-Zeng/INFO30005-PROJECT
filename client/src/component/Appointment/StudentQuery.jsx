@@ -87,6 +87,157 @@ const marks = [
 		label: "4 hours",
 	},
 ];
+const getDuration = (startDate, endDate) => {
+	const duration = (endDate - startDate) / 60000;
+	if (duration < 15) return 15;
+	if (duration > 300) return 300;
+	return duration;
+};
+
+const getEndDate = (start, duration) => {
+	const end = new Date(start);
+	return end.setMinutes(end.getMinutes() + duration);
+};
+
+const CreateDialog = ({
+	staffInfo,
+	classes,
+	startDate,
+	endDate,
+	location,
+	comments,
+	toggle,
+	createAppointment,
+	setStartDate,
+	setEndDate,
+	setLocation,
+	setComments,
+	open,
+	setLoading,
+}) => {
+	return (
+		<Dialog
+			open={open}
+			onClose={toggle}
+			aria-labelledby="form-dialog-title"
+			fullWidth
+		>
+			<DialogTitle id="form-dialog-title">
+				{`Creating an appointment for ${staffInfo.firstName} ${staffInfo.lastName}`}
+				<IconButton
+					aria-label="close"
+					className={classes.closeButton}
+					onClick={toggle}
+				>
+					<CloseIcon />
+				</IconButton>
+			</DialogTitle>
+			<DialogContent dividers>
+				<Grid container>
+					<Grid item xs={1}>
+						<ScheduleIcon className={classes.icon} />
+					</Grid>
+					<Grid item xs={11}>
+						<MuiPickersUtilsProvider utils={MomentUtils}>
+							<KeyboardDateTimePicker
+								label="Start Date"
+								value={startDate}
+								onChange={(date) => {
+									setStartDate(date);
+								}}
+								fullWidth
+								required
+							/>
+						</MuiPickersUtilsProvider>
+						<br />
+						<br />
+					</Grid>
+					<Grid item xs={1}>
+						<br />
+						<ScheduleIcon className={classes.icon} />
+					</Grid>
+					<Grid item xs={11}>
+						<DialogContentText>
+							{"Duration: "}
+							{getDuration(startDate, endDate)}
+							{" Minutes"}
+						</DialogContentText>
+						<br />
+						<Slider
+							valueLabelDisplay="auto"
+							marks={marks}
+							aria-labelledby="discrete-slider"
+							getAriaValueText={(value) => `${value} Minutes`}
+							value={getDuration(startDate, endDate)}
+							onChange={(e, newValue) => {
+								setEndDate(getEndDate(startDate, newValue));
+							}}
+							step={15}
+							max={300}
+						/>
+						<br />
+						<br />
+					</Grid>
+					<Grid item xs={1}>
+						<RoomIcon className={classes.icon} />
+					</Grid>
+					<Grid item xs={11}>
+						<TextField
+							label="Location"
+							variant="filled"
+							required
+							value={location}
+							onChange={(e) => {
+								setLocation(e.target.value);
+							}}
+							fullWidth
+						/>
+						<DialogContentText>
+							<br />
+						</DialogContentText>
+					</Grid>
+					<Grid item xs={1}>
+						<Send className={classes.icon} />
+					</Grid>
+					<Grid item xs={11}>
+						<TextField
+							label="Request Reason"
+							multiline
+							fullWidth
+							rowsMax={4}
+							value={comments}
+							onChange={(e) => {
+								setComments(e.target.value);
+							}}
+							variant="outlined"
+						/>
+					</Grid>
+				</Grid>
+			</DialogContent>
+
+			<DialogActions>
+				<ButtonGroup fullWidth>
+					<Button fullWidth onClick={toggle}>
+						Cancel
+					</Button>
+					<Button
+						fullWidth
+						color="primary"
+						variant="contained"
+						onClick={() => {
+							createAppointment().then((res) => {
+								console.log(res);
+								setLoading(false);
+							});
+						}}
+					>
+						Create
+					</Button>
+				</ButtonGroup>
+			</DialogActions>
+		</Dialog>
+	);
+};
 
 export default ({ userInfo }) => {
 	const classes = useStyles();
@@ -102,18 +253,6 @@ export default ({ userInfo }) => {
 
 	const [open, setOpen] = useState(false);
 	const { detectAlert, setAlert } = useContext(UserContext);
-
-	const getDuration = (startDate, endDate) => {
-		const duration = (endDate - startDate) / 60000;
-		if (duration < 15) return 15;
-		if (duration > 300) return 300;
-		return duration;
-	};
-
-	const getEndDate = (start, duration) => {
-		const end = new Date(start);
-		return end.setMinutes(end.getMinutes() + duration);
-	};
 
 	//Fetch the appointments of the current subject.
 	const fetchStaffs = async () => {
@@ -202,126 +341,6 @@ export default ({ userInfo }) => {
 
 	return (
 		<div>
-			<Dialog
-				open={open}
-				onClose={toggle}
-				aria-labelledby="form-dialog-title"
-				fullWidth
-			>
-				<DialogTitle id="form-dialog-title">
-					{`Creating an appointment for ${staffInfo.firstName} ${staffInfo.lastName}`}
-					<IconButton
-						aria-label="close"
-						className={classes.closeButton}
-						onClick={toggle}
-					>
-						<CloseIcon />
-					</IconButton>
-				</DialogTitle>
-				<DialogContent dividers>
-					<Grid container>
-						<Grid item xs={1}>
-							<ScheduleIcon className={classes.icon} />
-						</Grid>
-						<Grid item xs={11}>
-							<MuiPickersUtilsProvider utils={MomentUtils}>
-								<KeyboardDateTimePicker
-									label="Start Date"
-									value={startDate}
-									onChange={(date) => {
-										setStartDate(date);
-									}}
-									fullWidth
-									required
-								/>
-							</MuiPickersUtilsProvider>
-							<br />
-							<br />
-						</Grid>
-						<Grid item xs={1}>
-							<br />
-							<ScheduleIcon className={classes.icon} />
-						</Grid>
-						<Grid item xs={11}>
-							<DialogContentText>
-								{"Duration: "}
-								{getDuration(startDate, endDate)}
-								{" Minutes"}
-							</DialogContentText>
-							<br />
-							<Slider
-								valueLabelDisplay="auto"
-								marks={marks}
-								aria-labelledby="discrete-slider"
-								getAriaValueText={(value) => `${value} Minutes`}
-								value={getDuration(startDate, endDate)}
-								onChange={(e, newValue) => {
-									setEndDate(getEndDate(startDate, newValue));
-								}}
-								step={15}
-								max={300}
-							/>
-							<br />
-							<br />
-						</Grid>
-						<Grid item xs={1}>
-							<RoomIcon className={classes.icon} />
-						</Grid>
-						<Grid item xs={11}>
-							<TextField
-								label="Location"
-								variant="filled"
-								required
-								value={location}
-								onChange={(e) => {
-									setLocation(e.target.value);
-								}}
-								fullWidth
-							/>
-							<DialogContentText>
-								<br />
-							</DialogContentText>
-						</Grid>
-						<Grid item xs={1}>
-							<Send className={classes.icon} />
-						</Grid>
-						<Grid item xs={11}>
-							<TextField
-								label="Request Reason"
-								multiline
-								fullWidth
-								rowsMax={4}
-								value={comments}
-								onChange={(e) => {
-									setComments(e.target.value);
-								}}
-								variant="outlined"
-							/>
-						</Grid>
-					</Grid>
-				</DialogContent>
-
-				<DialogActions>
-					<ButtonGroup fullWidth>
-						<Button fullWidth onClick={toggle}>
-							Cancel
-						</Button>
-						<Button
-							fullWidth
-							color="primary"
-							variant="contained"
-							onClick={() => {
-								createAppointment().then((res) => {
-									console.log(res);
-									setLoading(false);
-								});
-							}}
-						>
-							Create
-						</Button>
-					</ButtonGroup>
-				</DialogActions>
-			</Dialog>
 			<Select
 				value={currentSubject}
 				onChange={(event) => {
@@ -336,6 +355,22 @@ export default ({ userInfo }) => {
 					</MenuItem>
 				))}
 			</Select>
+			<CreateDialog
+				staffInfo={staffInfo}
+				classes={classes}
+				startDate={startDate}
+				endDate={endDate}
+				location={location}
+				comments={comments}
+				toggle={toggle}
+				createAppointment={createAppointment}
+				setStartDate={setStartDate}
+				setEndDate={setEndDate}
+				setLocation={setLocation}
+				setComments={setComments}
+				open={open}
+				setLoading={setLoading}
+			/>
 			<List>
 				{staffs.map((staff, index) => (
 					<Grow in timeout={index * 200} key={index}>

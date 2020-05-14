@@ -141,7 +141,7 @@ const resources = [
 		title: "status",
 		instances: [
 			{ id: "PENDING", text: "PENDING", color: amber[400] },
-			{ id: "APPROVED", text: "APPROVED", color: lime[400] },
+			{ id: "APPROVED", text: "APPROVED", color: green[400] },
 			{ id: "DECLINED", text: "DECLINED", color: red[400] },
 		],
 	},

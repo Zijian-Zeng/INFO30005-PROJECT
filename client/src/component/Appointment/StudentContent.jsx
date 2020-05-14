@@ -67,9 +67,9 @@ const style = ({ palette, spacing }) => ({
 		borderRadius: 30,
 	},
 	approved: {
-		backgroundColor: lime[400],
+		backgroundColor: green[400],
 		"&:hover": {
-			backgroundColor: lime[400],
+			backgroundColor: green[400],
 		},
 		borderRadius: 30,
 	},

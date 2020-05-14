@@ -32,6 +32,7 @@ import TimeTable from "../Timetable";
 
 import Header from "./StaffHeader";
 import Content from "./StudentContent";
+import TimetableBar from "./TimetableBar";
 
 import { myFetch, UserContext, StaffContext } from "../Methods";
 import CloseIcon from "@material-ui/icons/Close";
@@ -65,18 +66,75 @@ const useStyles = makeStyles((theme) => ({
 		color: theme.palette.grey[500],
 	},
 	approve: {
-		backgroundColor: lime[500],
+		backgroundColor: green[400],
 		"&:hover": {
-			backgroundColor: lime[600],
+			backgroundColor: green[600],
 		},
 	},
 	decline: {
 		backgroundColor: red[500],
 		"&:hover": {
-			backgroundColor: red[900],
+			backgroundColor: red[700],
 		},
 	},
 }));
+
+const PendDialog = ({ pendAppointment, setPendAppointment, pend, classes }) => (
+	<Dialog
+		open={pendAppointment.id !== ""}
+		onClose={() => setPendAppointment({ id: "" })}
+		fullWidth
+	>
+		<DialogTitle>
+			Pending this appointment{" "}
+			<IconButton
+				aria-label="close"
+				className={classes.closeButton}
+				onClick={() => setPendAppointment({ id: "" })}
+			>
+				<CloseIcon />
+			</IconButton>
+		</DialogTitle>
+		<DialogContent>
+			<TextField
+				label="Any comment for him/her?"
+				multiline
+				fullWidth
+				rowsMax={4}
+				value={pendAppointment.comments}
+				onChange={(e) => {
+					setPendAppointment({
+						id: pendAppointment.id,
+						comments: e.target.value,
+					});
+				}}
+				variant="outlined"
+			/>
+		</DialogContent>
+		<DialogActions>
+			<ButtonGroup fullWidth>
+				<Button
+					fullWidth
+					variant="contained"
+					onClick={() => pend("DECLINED")}
+					className={classes.decline}
+					color={red[400]}
+				>
+					Decline it.
+				</Button>
+				<Button
+					fullWidth
+					onClick={() => pend("APPROVED")}
+					color={green[400]}
+					variant="contained"
+					className={classes.approve}
+				>
+					Approve it.
+				</Button>
+			</ButtonGroup>
+		</DialogActions>
+	</Dialog>
+);
 
 export default () => {
 	const classes = useStyles();
@@ -90,6 +148,11 @@ export default () => {
 	});
 	const [loading, setLoading] = useState(true);
 	const { alert, detectAlert, user, setUser } = useContext(UserContext);
+
+	//Timetable bar....
+	const [currentStatus, setCurrentStatus] = useState(0);
+	const [mainResourceName, setMainResourceName] = useState("status");
+
 	const { userInfo } = user;
 
 	//Reloading user information.
@@ -108,32 +171,46 @@ export default () => {
 		return res.appointments;
 	};
 
+	const formatData = (data, status) => {
+		//Formatting data for timetable to render.
+		const appoints = [];
+		data.map((appointment) => {
+			switch (status) {
+				case 1:
+					if (appointment.status !== "PENDING") return;
+					break;
+				case 2:
+					if (appointment.status !== "APPROVED") return;
+					break;
+				case 3:
+					if (appointment.status !== "DECLINED") return;
+					break;
+				default:
+					break;
+			}
+			appoints.push({
+				title: appointment.subjectCode,
+				startDate: new Date(appointment.startDate),
+				endDate: new Date(appointment.endDate),
+				id: appointment._id,
+				location: appointment.location,
+				status: appointment.status,
+				student: appointment.student,
+				comments: appointment.comment,
+			});
+		});
+		setData(appoints);
+		setLoading(false);
+	};
+
 	//Updating appointments Information.
 	useEffect(() => {
 		reloadUser().then((user) => {
-			fetchAppoint().then((appointments) => {
-				if (!appointments) return;
-				console.log(appointments);
-				//Formatting data for timetable to render.
-				const appoints = [];
-
-				appointments.map((appointment) => {
-					appoints.push({
-						title: appointment.subjectCode,
-						startDate: new Date(appointment.startDate),
-						endDate: new Date(appointment.endDate),
-						id: appointment._id,
-						location: appointment.location,
-						status: appointment.status,
-						student: appointment.student,
-						comments: appointment.comment,
-					});
-				});
-				setData(appoints);
-				setLoading(false);
-			});
+			fetchAppoint().then((appointments) =>
+				formatData(appointments, currentStatus)
+			);
 		});
-	}, [alert.status]);
+	}, [alert.status, currentStatus]);
 
 	//pend an appointment.
 	const pend = async (status) => {
@@ -163,64 +240,22 @@ export default () => {
 				setUser,
 			}}
 		>
-			<Dialog
-				open={pendAppointment.id !== ""}
-				onClose={() => setPendAppointment({ id: "" })}
-				fullWidth
-			>
-				<DialogTitle>
-					Pending this appointment{" "}
-					<IconButton
-						aria-label="close"
-						className={classes.closeButton}
-						onClick={() => setPendAppointment({ id: "" })}
-					>
-						<CloseIcon />
-					</IconButton>
-				</DialogTitle>
-				<DialogContent>
-					<TextField
-						label="Any comment for him/her?"
-						multiline
-						fullWidth
-						rowsMax={4}
-						value={pendAppointment.comments}
-						onChange={(e) => {
-							setPendAppointment({
-								id: pendAppointment.id,
-								comments: e.target.value,
-							});
-						}}
-						variant="outlined"
-					/>
-				</DialogContent>
-				<DialogActions>
-					<ButtonGroup fullWidth>
-						<Button
-							fullWidth
-							variant="contained"
-							onClick={() => pend("DECLINED")}
-							className={classes.decline}
-							color={red[400]}
-						>
-							Decline it.
-						</Button>
-						<Button
-							fullWidth
-							onClick={() => pend("APPROVED")}
-							color={green[400]}
-							variant="contained"
-							className={classes.approve}
-						>
-							Approve it.
-						</Button>
-					</ButtonGroup>
-				</DialogActions>
-			</Dialog>
+			<PendDialog
+				pendAppointment={pendAppointment}
+				setPendAppointment={setPendAppointment}
+				pend={pend}
+				classes={classes}
+			/>
 			<Fade in timeout={500}>
 				<div className={classes.paper}>
 					<Grid container justify="space-around">
 						<Grid item xs={12}>
+							<TimetableBar
+								currentStatus={currentStatus}
+								setCurrentStatus={setCurrentStatus}
+								mainResourceName={mainResourceName}
+								setMainResourceName={setMainResourceName}
+							/>
 							<TimeTable
 								data={data}
 								currentDate={currentDate}
@@ -228,7 +263,7 @@ export default () => {
 								header={Header}
 								content={Content}
 								loading={loading}
-								mainResourceName="title"
+								mainResourceName={mainResourceName}
 								subjects={user.userInfo.subjects}
 							/>
 						</Grid>
