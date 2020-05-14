@@ -3,25 +3,14 @@ import React, { useState, useEffect, useContext } from "react";
 import { AppointmentTooltip } from "@devexpress/dx-react-scheduler-material-ui";
 
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import {
-	IconButton,
-	Grid,
-	Paper,
-	Fab,
-	Container,
-	Dialog,
-	Snackbar,
-	DialogContent,
-	DialogTitle,
-} from "@material-ui/core";
+import { IconButton, Grid, Paper, Fab, Container } from "@material-ui/core";
 
 import AddIcon from "@material-ui/icons/Add";
 import Room from "@material-ui/icons/Room";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import classNames from "clsx";
 
-import { myFetch, UserContext, StaffContext } from "../Methods";
-import EditDialog from "./ConsultDialog";
+import { UserContext, StaffContext } from "../Methods";
 
 const style = ({ palette, spacing }) => ({
 	icon: {
@@ -38,7 +27,9 @@ const style = ({ palette, spacing }) => ({
 
 export default withStyles(style, { name: "Header" })(
 	({ children, appointmentData, classes, ...restProps }) => {
-		const { setEditOpen, setEditingAppointment } = useContext(StaffContext);
+		const { pendAppointment, setPendAppointment } = useContext(
+			StaffContext
+		);
 
 		return (
 			<AppointmentTooltip.Header
@@ -46,11 +37,9 @@ export default withStyles(style, { name: "Header" })(
 				appointmentData={appointmentData}
 				showCloseButton
 				showOpenButton
-				onOpenButtonClick={() => {
-					console.log("???");
-					setEditOpen(true);
-					setEditingAppointment(appointmentData);
-				}}
+				onOpenButtonClick={() =>
+					setPendAppointment({ id: appointmentData.id })
+				}
 			></AppointmentTooltip.Header>
 		);
 	}

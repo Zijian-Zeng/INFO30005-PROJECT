@@ -17,7 +17,7 @@ import {
     Route,
     Redirect,
 } from "react-router-dom";
-import { AuthApi, UserContext } from "./component/Methods";
+import { AuthApi, UserContext, myFetch } from "./component/Methods";
 
 const HomeRoute = ({ component: Component, ...rest }) => {
     const { auth } = useContext(AuthApi);
@@ -52,13 +52,14 @@ export default () => {
     //Authentication state...
     const [auth, setAuth] = useState(false);
     const [loginEl, setLoginEl] = useState(null);
+    const [openLogin, setOpenLogin] = React.useState(false);
 
     //Loading routes context...
     const [selectedRoute, setSelectedRoute] = useState("settings");
     const [loadingRoute, setLoadingRoute] = useState(true);
 
     //user information...
-    const [userInfo, setUserInfo] = useState(null);
+    const [user, setUser] = useState({});
 
     //Alerting responses from back end (eg. back end error)...
     const [alert, setAlert] = useState({ status: "", message: "" });
@@ -88,6 +89,15 @@ export default () => {
         }
     };
 
+    //Loading user information.
+    const fetchUser = async () => {
+        setLoadingRoute(true);
+        const res = await myFetch("/api/shared/users/info", "GET");
+        detectAlert(res);
+        setUser(res);
+        return res;
+    };
+
     //Make authentication.
     useEffect(() => {
         const cookie = Cookies.get("meetute");
@@ -97,12 +107,12 @@ export default () => {
     return (
         <AuthApi.Provider
             value={{
-                userInfo,
-                setUserInfo,
                 auth,
                 setAuth,
                 loginEl,
                 setLoginEl,
+                openLogin,
+                setOpenLogin,
             }}
         >
             <UserContext.Provider
@@ -115,6 +125,9 @@ export default () => {
                     setAlert,
                     loadingRoute,
                     setLoadingRoute,
+                    fetchUser,
+                    user,
+                    setUser,
                 }}
             >
                 <Router>

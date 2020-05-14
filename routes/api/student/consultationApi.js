@@ -11,7 +11,7 @@ const {
 } = require("../../../Controllers/student/consultationController");
 
 //View all consultations by subject
-router.get("/viewAll", verify, identify, viewAllConsult);
+router.post("/viewAll", verify, identify, viewAllConsult);
 
 //View all registered consultations of current account
 router.get("/viewRegistered", verify, identify, viewRegistConsult);

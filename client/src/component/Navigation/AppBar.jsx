@@ -13,7 +13,7 @@ import {
     Fab,
 } from "@material-ui/core";
 import clsx from "clsx";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { Link } from "react-router-dom";
 
@@ -63,11 +63,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default ({ setOpenLogin, openDrawer, handleDrawerOpen, logOut }) => {
+export default ({ openDrawer, handleDrawerOpen, logOut }) => {
     const classes = useStyles();
 
-    const { loginEl, setLoginEl, auth } = useContext(AuthApi);
+    const { loginEl, setLoginEl, auth, setOpenLogin } = useContext(AuthApi);
+
+    const { setLoadingRoute } = useContext(UserContext);
     const history = useHistory();
+    const location = useLocation();
 
     const handleClick = (event) => {
         setLoginEl(event.currentTarget);
@@ -101,15 +104,20 @@ export default ({ setOpenLogin, openDrawer, handleDrawerOpen, logOut }) => {
                     </IconButton>
                 ) : null}
 
-                <Link to={"/"}>
-                    <Button>
-                        <img
-                            className={classes.logo}
-                            src={logoImage}
-                            alt="meetute"
-                        />
-                    </Button>
-                </Link>
+                <Button
+                    onClick={() => {
+                        if (location.pathname === "/Settings") return;
+                        setLoadingRoute(true);
+                        history.push("/Settings");
+                        console.log(location.pathname);
+                    }}
+                >
+                    <img
+                        className={classes.logo}
+                        src={logoImage}
+                        alt="meetute"
+                    />
+                </Button>
 
                 <Link className={classes.noDecoration} to={"/about"}>
                     <Button

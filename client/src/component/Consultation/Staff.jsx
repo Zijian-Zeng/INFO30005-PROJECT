@@ -18,12 +18,10 @@ import {
 import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
 import TimeTable from "../Timetable";
 
-import { Alert } from "@material-ui/lab";
-
 import ConsultDialog from "./ConsultDialog";
 
-import Header from "./Header";
-import Content from "./Content";
+import Header from "./StaffHeader";
+import Content from "./StaffContent";
 
 import { myFetch, UserContext, StaffContext } from "../Methods";
 import AddIcon from "@material-ui/icons/Add";
@@ -40,10 +38,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default ({ user }) => {
+export default () => {
 	const classes = useStyles();
-
-	const { userInfo } = user;
 
 	const [data, setData] = useState([]);
 
@@ -61,17 +57,16 @@ export default ({ user }) => {
 		location: "",
 	});
 
-	const { status, setStatus, alert, closeAlert } = useContext(UserContext);
-
+	const { alert, user } = useContext(UserContext);
 	//Updating consultations Information.
 	useEffect(() => {
+		setLoading(true);
 		//Fetch all created consultations.
 		const fetchConsult = async () => {
 			const res = await myFetch("/api/staff/consult/viewCreated", "GET");
 			return res.consultations;
 		};
 		fetchConsult().then((consultations) => {
-			setLoading(false);
 			const consults = [];
 			consultations.map((consultation) => {
 				consults.push({
@@ -84,10 +79,16 @@ export default ({ user }) => {
 					totalStudent: consultation.studentRegistered.length,
 				});
 			});
-
 			setData(consults);
+			setLoading(false);
 		});
 	}, [alert.status]);
+
+	const api = {
+		create: "/api/staff/consult/create",
+		edit: "/api/staff/consult/patch",
+		delete: "/api/staff/consult/delete",
+	};
 
 	return (
 		<StaffContext.Provider
@@ -98,13 +99,13 @@ export default ({ user }) => {
 				setCreateOpen,
 				data,
 				setData,
-				userInfo,
 				editOpen,
 				setEditOpen,
 				setEditingAppointment,
 				editingAppointment,
 				loading,
 				setLoading,
+				api,
 			}}
 		>
 			<Fade in timeout={500}>
@@ -116,6 +117,8 @@ export default ({ user }) => {
 						header={Header}
 						content={Content}
 						loading={loading}
+						mainResourceName="title"
+						subjects={user.userInfo.subjects}
 					/>
 					<ConsultDialog
 						open={createOpen}
@@ -137,6 +140,7 @@ export default ({ user }) => {
 							});
 						}}
 						edit
+						context={StaffContext}
 					/>
 				</div>
 			</Fade>

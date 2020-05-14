@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useCallback, useContext } from "react";
 
 import Typography from "@material-ui/core/Typography";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-
+import { makeStyles, useTheme, UserContext } from "@material-ui/core/styles";
+import { AuthApi } from "../Methods";
 import AppBar from "../Navigation/AppBar";
 import Header from "./header";
 import WaveBorder from "./waveBorder";
@@ -21,12 +21,12 @@ const useStyles = makeStyles((theme) => ({
 export default () => {
     const classes = useStyles();
     const theme = useTheme();
-    const [openLogin, setOpenLogin] = React.useState(false);
+    const { openLogin, setOpenLogin } = useContext(AuthApi);
 
     return (
         <div className={classes.root}>
             <AppBar setOpenLogin={setOpenLogin} />
-            <Login open={openLogin} setOpenLogin={setOpenLogin} />
+            <Login />
             <Header setOpenLogin={setOpenLogin} />
             <WaveBorder
                 upperColor={theme.background}

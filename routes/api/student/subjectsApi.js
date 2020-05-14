@@ -17,7 +17,7 @@ router.post("/join", verify, identify, joinSubject);
 router.post("/leave", verify, identify, leaveSubject);
 
 //Get all of staff information in a subject.
-router.get("/allStaff", verify, identify, getAllStaffs);
+router.post("/allStaff", verify, identify, getAllStaffs);
 
 //GET all selected subjects
 router.get("/all", verify, identify, getAllSubjects);

@@ -9,82 +9,77 @@ import Staff from "./Staff";
 import Loading from "../Navigation/Loading";
 
 export default () => {
-	const [userInfo, setUserInfo] = useState(null);
-	const [subjectInfo, setSubjectInfo] = useState(null);
-	const [loading, setLoading] = useState(true);
-	const {
-		setSelectedRoute,
-		setLoadingRoute,
-		loadingRoute,
-		detectAlert,
-	} = useContext(UserContext);
+    const [subjectInfo, setSubjectInfo] = useState({});
+    const {
+        setSelectedRoute,
+        setLoadingRoute,
+        loadingRoute,
+        detectAlert,
+        fetchUser,
+        user,
+    } = useContext(UserContext);
 
-	useEffect(() => {
-		//Set Navigation to this page.
-		setSelectedRoute("settings");
-		setLoadingRoute(true);
+    console.log("???");
 
-		//Loading user information.
-		const fetchUser = async () => {
-			const res = await myFetch("/api/shared/users/info", "GET");
-			setUserInfo(res);
-			console.log(res);
-			detectAlert(res);
-			if (res.success) {
-				detectAlert(
-					res,
-					false,
-					`Welcome back! ${res.type} ${res.userInfo.firstName} ${res.userInfo.lastName}`
-				);
-			}
+    const fetchSubject = async (type) => {
+        console.log(type);
+        if (type === "student") {
+            const res = await myFetch("/api/student/subjects/all", "GET");
+            setSubjectInfo(res);
+            detectAlert(res);
+            if (res.success) setLoadingRoute(false);
 
-			return res.type;
-		};
+            console.log(res);
+        } else {
+            const res = await myFetch("/api/staff/subjects/all", "GET");
+            setSubjectInfo(res);
+            detectAlert(res);
+            if (res.success) setLoadingRoute(false);
+        }
+    };
 
-		const fetchSubject = async (type) => {
-			if (type === "student") {
-				const res = await myFetch("/api/student/subjects/all", "GET");
-				setSubjectInfo(res);
-				detectAlert(res);
-				if (res.success) setLoadingRoute(false);
+    useEffect(() => {
+        //Set Navigation to this page.
+        setSelectedRoute("settings");
 
-				console.log(res);
-			} else {
-				const res = await myFetch("/api/staff/subjects/all", "GET");
-				setSubjectInfo(res);
-				detectAlert(res);
-				if (res.success) setLoadingRoute(false);
-			}
-		};
-		const fetchData = async () => {
-			const type = await fetchUser();
-			fetchSubject(type);
-		};
-		fetchData();
-	}, []);
+        const fetchData = async () => {
+            const res = await fetchUser();
+            if (res.success) {
+                detectAlert(
+                    res,
+                    false,
+                    `Welcome back! ${res.type} ${res.userInfo.firstName} ${res.userInfo.lastName}`
+                );
+            }
+            console.log(res);
+            fetchSubject(res.type).then(() => setLoadingRoute(false));
+        };
+        fetchData();
+    }, []);
 
-	if (loadingRoute || !userInfo) {
-		return <Layout />;
-	}
+    if (loadingRoute || !user.type) {
+        return <Layout />;
+    }
 
-	return (
-		<Layout
-			content={
-				userInfo.type === "student" ? (
-					<Student
-						user={userInfo}
-						mySubjects={subjectInfo}
-						setMySubjects={setSubjectInfo}
-					/>
-				) : (
-					<Staff
-						user={userInfo}
-						mySubjects={subjectInfo}
-						setMySubjects={setSubjectInfo}
-					/>
-				)
-			}
-			type={userInfo.type}
-		/>
-	);
+    return (
+        <Layout
+            content={
+                user.type === "student" ? (
+                    <Student
+                        user={user}
+                        mySubjects={subjectInfo}
+                        setMySubjects={setSubjectInfo}
+                    />
+                ) : (
+                    <Staff
+                        user={user}
+                        mySubjects={subjectInfo}
+                        setMySubjects={setSubjectInfo}
+                        fetchSubject={fetchSubject}
+                    />
+                )
+            }
+            type={user.type}
+        />
+    );
 };

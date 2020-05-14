@@ -29,7 +29,7 @@ import ScheduleIcon from "@material-ui/icons/Schedule";
 import RoomIcon from "@material-ui/icons/Room";
 import GroupIcon from "@material-ui/icons/GroupAddTwoTone";
 import CloseIcon from "@material-ui/icons/Close";
-import { red, pink } from "@material-ui/core/colors";
+import { grey, pink } from "@material-ui/core/colors";
 
 import MomentUtils from "@date-io/moment";
 import {
@@ -39,7 +39,7 @@ import {
 
 import { StaffContext } from "../Methods";
 
-const PrettoSlider = withStyles({
+const SlotSlider = withStyles({
 	root: {
 		color: "#52af77",
 		height: 8,
@@ -69,16 +69,28 @@ const PrettoSlider = withStyles({
 	},
 })(Slider);
 
+const marks = [
+	{
+		value: 0,
+		label: "0 Minutes",
+	},
+	{
+		value: 60,
+		label: "1 hour",
+	},
+	{
+		value: 120,
+		label: "2 hours",
+	},
+	{
+		value: 240,
+		label: "4 hours",
+	},
+];
+
 const useStyles = makeStyles((theme) => ({
 	icon: {
 		margin: "auto",
-	},
-	delete: {
-		backgroundColor:
-			"linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%)",
-		"&:hover": {
-			backgroundColor: "#52af77",
-		},
 	},
 
 	closeButton: {
@@ -91,84 +103,90 @@ const useStyles = makeStyles((theme) => ({
 
 const DeleteButton = withStyles((theme) => ({
 	root: {
-		color: theme.palette.getContrastText(pink[400]),
-		backgroundColor: pink[400],
+		color: theme.palette.getContrastText(grey[700]),
+		backgroundColor: grey[700],
 		"&:hover": {
-			backgroundColor: pink[600],
+			backgroundColor: grey[900],
 		},
 	},
 }))(Button);
 
 export default ({ edit, open, toggle }) => {
 	const classes = useStyles();
+	const {
+		editingAppointment,
+		setEditingAppointment,
+		setLoading,
+		api,
+	} = useContext(StaffContext);
+	const { detectAlert, setAlert, user } = useContext(UserContext);
+	const subjects = user.userInfo.subjects;
 
-	const [subjectCode, setSubjectCode] = useState("");
+	const [subjectCode, setSubjectCode] = useState(subjects[0]);
 	const [startDate, setStartDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(new Date());
 	const [location, setLocation] = useState("");
 	const [slot, setSlot] = useState(20);
 
-	const { setStatus, detectAlert, setAlert } = useContext(UserContext);
-	const {
-		userInfo,
-		editingAppointment,
-		setEditingAppointment,
-		setLoading,
-	} = useContext(StaffContext);
-	const { subjects } = userInfo;
+	const getDuration = (startDate, endDate) => {
+		const duration = (endDate - startDate) / 60000;
+		if (duration < 15) return 15;
+		if (duration > 300) return 300;
+		return duration;
+	};
 
-	const createConsult = async () => {
+	const getEndDate = (start, duration) => {
+		const end = new Date(start);
+		return end.setMinutes(end.getMinutes() + duration);
+	};
+
+	const createTime = async () => {
 		setLoading(true);
-		if (!subjectCode || !startDate || !endDate) {
+		if (!subjectCode || !startDate || !endDate || location === "") {
 			setAlert({ status: "warning", message: "Insufficient Input." });
 			return;
 		}
 		const body = {
 			subjectCode: subjectCode,
 			startDate: startDate,
-			endDate: endDate,
+			endDate: getEndDate(startDate, getDuration(startDate, endDate)),
 			location: location,
 			slotsAvailable: slot,
 		};
-		const res = await myFetch("/api/staff/consult/create", "POST", body);
-		detectAlert(res, "You have successfully created a consultation.");
+		const res = await myFetch(api.create, "POST", body);
+		detectAlert(res, "Successfully created.");
 		toggle();
 		return res;
 	};
 
-	const editConsult = async () => {
+	const editTime = async () => {
 		setLoading(true);
 		if (
 			!editingAppointment.endDate ||
 			!editingAppointment.startDate ||
 			!editingAppointment.slotsAvailable ||
-			!editingAppointment.location
+			editingAppointment.location === ""
 		) {
-			setStatus("Error! insufficient Input.");
+			setAlert({ status: "warning", message: "Insufficient Input." });
 			return;
 		}
 
-		const res = await myFetch(
-			"/api/staff/consult/patch",
-			"PATCH",
-			editingAppointment
-		);
-		detectAlert(res, "You have successfully updated a consultation.");
+		const res = await myFetch(api.edit, "PATCH", editingAppointment);
+		detectAlert(res, "Successfully updated.");
 		toggle();
 		return res;
 	};
 
-	const deleteConsult = async () => {
+	const deleteTime = async () => {
 		setLoading(true);
 		const body = {
 			id: editingAppointment.id,
 		};
-		const res = await myFetch("/api/staff/consult/delete", "DELETE", body);
-		detectAlert(res, "You have successfully deleted a consultation.");
+		const res = await myFetch(api.delete, "DELETE", body);
+		detectAlert(res, "Successfully deleted.");
 		toggle();
 		return res;
 	};
-
 	return (
 		<Dialog
 			open={open}
@@ -177,7 +195,7 @@ export default ({ edit, open, toggle }) => {
 			fullWidth
 		>
 			<DialogTitle id="form-dialog-title">
-				{edit ? "Create a new Consultation" : "Edit a Consultation"}
+				{!edit ? "Create a new Consultation" : "Edit a Consultation"}
 
 				<IconButton
 					aria-label="close"
@@ -236,6 +254,13 @@ export default ({ edit, open, toggle }) => {
 										setEditingAppointment({
 											...editingAppointment,
 											startDate: date,
+											endDate: getEndDate(
+												editingAppointment.startDate,
+												getDuration(
+													editingAppointment.startDate,
+													editingAppointment.endDate
+												)
+											),
 										});
 										return;
 									}
@@ -244,27 +269,55 @@ export default ({ edit, open, toggle }) => {
 								fullWidth
 								required
 							/>
-							<br />
-							<br />
-							<KeyboardDateTimePicker
-								label="End Date"
-								value={
-									edit ? editingAppointment.endDate : endDate
-								}
-								onChange={(date) => {
-									if (edit) {
-										setEditingAppointment({
-											...editingAppointment,
-											endDate: date,
-										});
-										return;
-									}
-									setEndDate(date);
-								}}
-								fullWidth
-								required
-							/>
 						</MuiPickersUtilsProvider>
+						<br />
+						<br />
+					</Grid>
+					<Grid item xs={1}>
+						<br />
+						<ScheduleIcon className={classes.icon} />
+					</Grid>
+					<Grid item xs={11}>
+						<DialogContentText>
+							{"Duration: "}
+							{edit
+								? getDuration(
+										editingAppointment.startDate,
+										editingAppointment.endDate
+								  )
+								: getDuration(startDate, endDate)}
+							{" Minutes"}
+						</DialogContentText>
+						<br />
+						<Slider
+							valueLabelDisplay="auto"
+							marks={marks}
+							aria-labelledby="discrete-slider"
+							getAriaValueText={(value) => `${value} Minutes`}
+							value={
+								edit
+									? getDuration(
+											editingAppointment.startDate,
+											editingAppointment.endDate
+									  )
+									: getDuration(startDate, endDate)
+							}
+							onChange={(e, newValue) => {
+								if (edit) {
+									setEditingAppointment({
+										...editingAppointment,
+										endDate: getEndDate(
+											editingAppointment.startDate,
+											newValue
+										),
+									});
+									return;
+								}
+								setEndDate(getEndDate(startDate, newValue));
+							}}
+							step={15}
+							max={300}
+						/>
 						<br />
 						<br />
 					</Grid>
@@ -303,10 +356,10 @@ export default ({ edit, open, toggle }) => {
 							{edit ? editingAppointment.slotsAvailable : slot}
 						</DialogContentText>
 						<br />
-
-						<PrettoSlider
+						<SlotSlider
 							valueLabelDisplay="auto"
 							aria-label="pretto slider"
+							aria-labelledby="discrete-slider"
 							value={
 								edit ? editingAppointment.slotsAvailable : slot
 							}
@@ -331,8 +384,7 @@ export default ({ edit, open, toggle }) => {
 							fullWidth
 							onClick={() => {
 								toggle();
-								deleteConsult().then((res) => {
-									console.log(res);
+								deleteTime().then((res) => {
 									setLoading(false);
 								});
 							}}
@@ -345,7 +397,7 @@ export default ({ edit, open, toggle }) => {
 							color="primary"
 							variant="contained"
 							onClick={() => {
-								editConsult().then((res) => {
+								editTime().then((res) => {
 									console.log(res);
 									setLoading(false);
 								});
@@ -364,7 +416,7 @@ export default ({ edit, open, toggle }) => {
 							color="primary"
 							variant="contained"
 							onClick={() => {
-								createConsult().then((res) => {
+								createTime().then((res) => {
 									console.log(res);
 									setLoading(false);
 								});

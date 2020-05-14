@@ -90,9 +90,13 @@ export default ({ content, type }) => {
 
 	//Navigation Drawer...
 	const history = useHistory();
-	const { selectedRoute, alert, closeAlert, setLoadingRoute } = useContext(
-		UserContext
-	);
+	const {
+		selectedRoute,
+		alert,
+		closeAlert,
+		setLoadingRoute,
+		setUser,
+	} = useContext(UserContext);
 	const { loadingRoute } = useContext(UserContext);
 	const [open, setOpen] = useState(true);
 
@@ -114,6 +118,7 @@ export default ({ content, type }) => {
 	const { setAuth } = useContext(AuthApi);
 	const logOut = () => {
 		setAuth(false);
+		setUser({});
 		Cookies.remove("meetute");
 	};
 

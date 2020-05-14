@@ -10,6 +10,7 @@ import {
 	LinearProgress,
 } from "@material-ui/core";
 import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
+import { UserContext } from "../Methods";
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -18,8 +19,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default ({ user }) => {
+export default () => {
 	const classes = useStyles();
+
+	const { user } = useContext(UserContext);
 
 	const { type, userInfo } = user;
 	const { firstName, lastName } = userInfo;

@@ -19,6 +19,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import AppBar from "../Navigation/AppBar";
 import aboutImg from "./img/about.png";
 import { cyan } from "@material-ui/core/colors";
+import Login from "../Login/login";
 
 const useStyles = makeStyles((theme) => ({
     c1: {
@@ -56,6 +57,7 @@ export default () => {
     return (
         <div className={classes.root}>
             <AppBar />
+            <Login />
             <Grid container justify="space-around">
                 <Grid item xs={5}>
                     <Grid container justify="center" className={classes.images}>
