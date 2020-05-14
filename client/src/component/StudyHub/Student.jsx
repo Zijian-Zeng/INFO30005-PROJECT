@@ -38,35 +38,11 @@ import {
 import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
 import { red, green, grey } from "@material-ui/core/colors";
 import { myFetch, UserContext, StudentContext } from "../Methods";
-import {
-    KeyboardTimePicker,
-    MuiPickersUtilsProvider,
-    KeyboardDateTimePicker,
-} from "@material-ui/pickers";
-import MomentUtils from "@date-io/moment";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-
-import RoomIcon from "@material-ui/icons/Room";
-
-import AutorenewIcon from "@material-ui/icons/Autorenew";
-import ThumbUpIcon from "@material-ui/icons/ThumbUp";
-import CancelIcon from "@material-ui/icons/Cancel";
-
-import DraftsIcon from "@material-ui/icons/Drafts";
-import SendIcon from "@material-ui/icons/Send";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-
-import SchoolIcon from "@material-ui/icons/School";
-import ScheduleIcon from "@material-ui/icons/Schedule";
-import GroupIcon from "@material-ui/icons/GroupAddTwoTone";
-import CloseIcon from "@material-ui/icons/Close";
-import AddIcon from "@material-ui/icons/PlaylistAdd";
 import CreateIcon from "@material-ui/icons/Add";
 
 import HubCard from "./HubCard";
 import { Create } from "@material-ui/icons";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 import CreateDialog from "./CreateDialog";
 const useStyles = makeStyles((theme) => ({
@@ -93,6 +69,10 @@ const useStyles = makeStyles((theme) => ({
             color: theme.palette.getContrastText(grey[900]),
             background: grey[900],
         },
+    },
+
+    media: {
+        height: "33VH",
     },
 }));
 
@@ -307,24 +287,61 @@ export default () => {
                     </Grid>
                 </Grid>
             </AppBar>
-
             <Grid container justify="space-around" alignItems="center">
-                {hubs.map((hub, index) => (
-                    <Grid key={index} item xs={5} className={classes.hub}>
-                        <HubCard
-                            hub={hub}
-                            loading={loading}
-                            time={(index + 1) * 200}
-                            setDeleteHub={setDeleteHub}
-                            setLoading={setLoading}
-                            setHubs={setHubs}
-                            fetchHubs={fetchHubs}
-                            currentSubject={currentSubject}
-                            detectAlert={detectAlert}
-                            userInfo={userInfo}
-                        />
-                    </Grid>
-                ))}
+                {!loading
+                    ? hubs.map((hub, index) => (
+                          <Grid key={index} item xs={5} className={classes.hub}>
+                              <HubCard
+                                  hub={hub}
+                                  loading={loading}
+                                  time={(index + 1) * 200}
+                                  setDeleteHub={setDeleteHub}
+                                  setLoading={setLoading}
+                                  setHubs={setHubs}
+                                  fetchHubs={fetchHubs}
+                                  currentSubject={currentSubject}
+                                  detectAlert={detectAlert}
+                                  userInfo={userInfo}
+                              />
+                          </Grid>
+                      ))
+                    : [0, 1, 2, 3].map((index) => (
+                          <Grid key={index} item xs={5} className={classes.hub}>
+                              <Card className={classes.card}>
+                                  <CardHeader
+                                      avatar={
+                                          <Skeleton
+                                              animation="wave"
+                                              variant="circle"
+                                              width={40}
+                                              height={40}
+                                          />
+                                      }
+                                      title={
+                                          <Skeleton
+                                              animation="wave"
+                                              height={10}
+                                              width="80%"
+                                              style={{ marginBottom: 6 }}
+                                          />
+                                      }
+                                      subheader={
+                                          <Skeleton
+                                              animation="wave"
+                                              height={10}
+                                              width="40%"
+                                          />
+                                      }
+                                  />
+
+                                  <Skeleton
+                                      animation="wave"
+                                      variant="rect"
+                                      className={classes.media}
+                                  />
+                              </Card>
+                          </Grid>
+                      ))}
             </Grid>
         </div>
     );

@@ -2,7 +2,7 @@ import { useState, useEffect, createContext } from "react";
 import Cookies from "js-cookie";
 
 const myFetch = async (url, method, body) => {
-    const res = await fetch("http://localhost:5000" + url, {
+    const res = await fetch("https://meetute.herokuapp.com" + url, {
         method: method,
         body: JSON.stringify(body),
         headers: {
