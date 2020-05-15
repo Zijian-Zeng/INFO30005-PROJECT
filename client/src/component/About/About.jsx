@@ -106,7 +106,11 @@ export default () => {
 
                             <Typography>
                                 {" "}
-                                 In addition, as students, we
+                                MeeTute identifies the problem of the
+                                underutilisation of consultation hours during
+                                off-peak times, potentially leading to a
+                                negative impact on the work efficiency of our
+                                teaching staff. In addition, as students, we
                                 truly understand the challenges of getting the
                                 help we need from teaching staff during
                                 assignment or exam seasons. This is an issue
