@@ -169,40 +169,6 @@ const AppointmentFormContainerBasic = ({
               />
             </MuiPickersUtilsProvider>
           </div>
-          <div className={classes.wrapper}>
-            <LocationOn className={classes.icon} color="action" />
-            <TextField {...textEditorProps("location")} />
-          </div>
-          <div className={classes.wrapper}>
-            <Notes className={classes.icon} color="action" />
-            <TextField {...textEditorProps("notes")} multiline rows="6" />
-          </div>
-        </div>
-        <div className={classes.buttonGroup}>
-          {!isNewAppointment && (
-            <Button
-              variant="outlined"
-              color="secondary"
-              className={classes.button}
-              onClick={() => {
-                visibleChange();
-                commitAppointment("deleted");
-              }}
-            >
-              Delete
-            </Button>
-          )}
-          <Button
-            variant="outlined"
-            color="primary"
-            className={classes.button}
-            onClick={() => {
-              visibleChange();
-              applyChanges();
-            }}
-          >
-            {isNewAppointment ? "Create" : "Save"}
-          </Button>
         </div>
       </div>
     </AppointmentForm.Overlay>

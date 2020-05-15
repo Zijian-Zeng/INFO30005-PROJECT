@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { AppointmentForm } from "@devexpress/dx-react-scheduler-material-ui";
 import { withStyles, Theme, createStyles } from "@material-ui/core";
 import { indigo, blue, teal } from "@material-ui/core/colors";
 import MomentUtils from "@date-io/moment";
 
-import { Paper, Button, TextField, IconButton } from "@material-ui/core";
 import LocationOn from "@material-ui/icons/LocationOn";
 import Notes from "@material-ui/icons/Notes";
 import Close from "@material-ui/icons/Close";
@@ -17,58 +16,49 @@ import {
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 
+import {
+  AppointmentTooltip,
+  WeekView,
+} from "@devexpress/dx-react-scheduler-material-ui";
+
+import {
+  Grid,
+  Paper,
+  Typography,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+  Badge,
+  Button,
+  TextField,
+  IconButton,
+} from "@material-ui/core";
+
+import FolderIcon from "@material-ui/icons/Folder";
+import DataUsageIcon from "@material-ui/icons/DataUsage";
+import RoomIcon from "@material-ui/icons/Room";
+import EqualizerIcon from "@material-ui/icons/Equalizer";
+import FormatAlignLeftIcon from "@material-ui/icons/FormatAlignLeft";
+import LibraryAddIcon from "@material-ui/icons/LibraryAdd";
+import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
+import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
+
+import { myFetch, UserContext, StaffContext } from "../Methods";
+
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
-const containerStyles = (theme) => ({
-  container: {
-    width: "100%",
-    padding: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
+const style = ({ palette, spacing }) => ({
+  icon: {
+    color: palette.action.active,
   },
-  content: {
-    padding: theme.spacing(2),
+  textCenter: {
+    textAlign: "center",
   },
   header: {
-    width: "100%",
-    padding: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-  },
-  closeButton: {
-    width: "100%",
-    padding: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-    float: "right",
-    justifyContent: "flex-end",
-  },
-  buttonGroup: {
-    width: "100%",
-    padding: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-    display: "flex",
-    justifyContent: "flex-end",
-  },
-  button: {
-    width: "50%",
-    paddingTop: theme.spacing(11),
-  },
-  picker: {
-    "&:last-child": {
-      marginRight: 0,
-    },
-    width: "50%",
-  },
-  wrapper: {
-    width: "100%",
-    paddingBottom: theme.spacing(2),
-    display: "flex",
-    justifyContent: "flex-end",
-    padding: theme.spacing(1, 0),
-  },
-  icon: {
-    margin: theme.spacing(2, 0),
-  },
-  textField: {
-    display: "flex",
+    height: "260px",
+    backgroundSize: "cover",
   },
 });
 
@@ -150,97 +140,63 @@ const AppointmentFormContainerBasic = ({
     cancelAppointment();
   };
 
+  const api = {
+    create: "/api/staff/consult/create",
+    edit: "/api/staff/consult/patch",
+    delete: "/api/staff/consult/delete",
+  };
+
   return (
-    <AppointmentForm.Overlay
-      visible={visible}
-      target={target}
-      fullSize
-      onHide={onHide}
-    >
-      <div className={classes.container}>
-        <div className={classes.header}>
-          <IconButton className={classes.closeButton} onClick={cancelChanges}>
-            <Close color="action" />
-          </IconButton>
-        </div>
-        <div className={classes.content}>
-          <div className={classes.wrapper}>
-            <Create className={classes.icon} color="action" />
-            <Autocomplete
-              id="addSubject"
-              options={["COMP10001", "COMP10002"]}
-              getOptionLabel={(option) => option}
-              value={displayAppointmentData["title"]}
-              onChange={(event, newValue) => {
-                changeAppointment({
-                  field: ["title"],
-                  changes: newValue,
-                });
-              }}
-              className={classes.textField}
-              renderInput={(params) => {
-                return (
-                  <TextField
-                    {...params}
-                    label="Please choose a subject"
-                    variant="filled"
-                    required
-                    className={classes.textField}
-                  />
-                );
-              }}
+    <Grid container justify="center">
+      <Grid item xs={11}>
+        <List>
+          <ListItem>
+            <ListItemIcon>
+              <RoomIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary="Location"
+              secondary={appointmentData.location}
             />
-          </div>
-          <div className={classes.wrapper}>
-            <CalendarToday className={classes.icon} color="action" />
-            <MuiPickersUtilsProvider utils={MomentUtils}>
-              <KeyboardDateTimePicker
-                label="Start Date"
-                {...pickerEditorProps("startDate")}
-              />
-              <KeyboardDateTimePicker
-                label="End Date"
-                {...pickerEditorProps("endDate")}
-              />
-            </MuiPickersUtilsProvider>
-          </div>
-          <div className={classes.wrapper}>
-            <LocationOn className={classes.icon} color="action" />
-            <TextField {...textEditorProps("location")} />
-          </div>
-        </div>
-        <div className={classes.buttonGroup}>
-          {!isNewAppointment && (
-            <Button
-              variant="contained"
-              className={classes.button}
-              onClick={() => {
-                visibleChange();
-                commitAppointment("deleted");
-              }}
-              fullWidth
-            >
-              Delete
-            </Button>
-          )}
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={() => {
-              visibleChange();
-              applyChanges();
-            }}
-            fullWidth
-          >
-            {isNewAppointment ? "Create" : "Save"}
-          </Button>
-        </div>
-      </div>
-    </AppointmentForm.Overlay>
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <SupervisorAccountIcon />
+            </ListItemIcon>{" "}
+            <ListItemText primary="Slots Available" secondary=" " />
+            <ListItemIcon>
+              <Badge
+                badgeContent={appointmentData.slotsAvailable}
+                color="primary"
+                showZero
+              >
+                <EqualizerIcon />
+              </Badge>
+            </ListItemIcon>
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <LibraryAddIcon />
+            </ListItemIcon>
+
+            <ListItemText primary="Student Registered" secondary=" " />
+
+            <ListItemIcon>
+              <Badge
+                badgeContent={appointmentData.totalStudent}
+                color="primary"
+                showZero
+              >
+                <EqualizerIcon />
+              </Badge>
+            </ListItemIcon>
+          </ListItem>
+        </List>
+      </Grid>
+    </Grid>
   );
 };
 
-export default withStyles(containerStyles, {
+export default withStyles({
   name: "AppointmentFormContainer",
 })(AppointmentFormContainerBasic);
