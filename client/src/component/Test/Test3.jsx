@@ -60,6 +60,20 @@ const appointments = [
     location: "Room 10",
   },
   {
+    title: "COMP10002",
+    startDate: new Date("2018-07-27 10:00"),
+    endDate: new Date("2018-07-27 11:00"),
+    id: 0,
+    location: "Room 10",
+  },
+  {
+    title: "COMP10003",
+    startDate: new Date("2018-07-27 10:00"),
+    endDate: new Date("2018-07-27 11:00"),
+    id: 0,
+    location: "Room 10",
+  },
+  {
     title: "COMP10001",
     startDate: new Date("2018-07-18 13:00"),
     endDate: new Date("2018-07-18 14:00"),
@@ -72,6 +86,13 @@ const appointments = [
     endDate: new Date("2018-07-24 15:00"),
     id: 2,
     location: "Room 2",
+  },
+  {
+    title: "COMP10005",
+    startDate: new Date("2018-07-27 10:00"),
+    endDate: new Date("2018-07-27 11:00"),
+    id: 0,
+    location: "Room 10",
   },
   {
     title: "COMP10003",
@@ -233,7 +254,45 @@ export default () => {
             onVisibilityChange={toggleEditingFormVisibility}
           />
         </Scheduler>
-
+        <Dialog open={confirmationVisible}>
+          <DialogTitle>Delete Appointment</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete this appointment?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog><Dialog open={confirmationVisible}>
+          <DialogTitle>Delete Appointment</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete this appointment?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
         <Dialog open={confirmationVisible}>
           <DialogTitle>Delete Appointment</DialogTitle>
           <DialogContent>
