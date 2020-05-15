@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     background: "inherit",
     borderColor: cyan,
     border: "solid  #4dd0e1 5px",
-    //maxHeight: "70VH",
+    maxHeight: "90VH",
   },
 }));
 
@@ -88,6 +88,7 @@ export default () => {
               <Divider style={{ width: "80%", margin: "auto" }} />
               <CardContent>
                 <Typography
+                  align="center"
                   style={{
                     fontSize: "20px",
                     color: "#37474f",
