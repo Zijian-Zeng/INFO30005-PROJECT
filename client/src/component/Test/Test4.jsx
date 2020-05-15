@@ -235,7 +235,9 @@ export default () => {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
             <Button
               onClick={commitDeletedAppointment}
               color="primary"
