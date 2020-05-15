@@ -308,6 +308,127 @@ export default () => {
               Delete
             </Button>
           </DialogActions>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+           <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+           <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+          
         </Dialog>
         <Dialog open={confirmationVisible}>
           <DialogTitle>Delete Appointment</DialogTitle>
