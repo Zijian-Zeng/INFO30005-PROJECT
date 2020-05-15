@@ -73,19 +73,20 @@ const appointments = [
     id: 2,
     location: "Room 2",
   },
-  {
-    title: "COMP10004",
-    startDate: new Date("2018-07-24 12:00"),
-    endDate: new Date("2018-07-24 18:00"),
-    id: 4,
-    location: "Room 4",
-  },
+  
   {
     title: "COMP10005",
     startDate: new Date("2018-07-24 12:00"),
     endDate: new Date("2018-07-24 18:00"),
     id: 5,
     location: "Room 5",
+  },
+  {
+    title: "COMP10004",
+    startDate: new Date("2018-07-24 12:00"),
+    endDate: new Date("2018-07-24 18:00"),
+    id: 4,
+    location: "Room 4",
   },
   {
     title: "COMP10006",
@@ -245,6 +246,51 @@ export default () => {
             </Button>
           </DialogActions>
         </Dialog>
+        <Fab
+          color="primary"
+          className={classes.fab}
+          onClick={() => {
+            setEditingFormVisible(true);
+
+            onEditingAppointmentChange(undefined);
+            onAddedAppointmentChange({
+              startDate: new Date(currentDate).setHours(startDayHour),
+              endDate: new Date(currentDate).setHours(startDayHour + 1),
+            });
+          }}
+        >
+          <AddIcon />
+        </Fab>
+        <Fab
+          color="primary"
+          className={classes.fab}
+          onClick={() => {
+            setEditingFormVisible(true);
+
+            onEditingAppointmentChange(undefined);
+            onAddedAppointmentChange({
+              startDate: new Date(currentDate).setHours(startDayHour),
+              endDate: new Date(currentDate).setHours(startDayHour + 1),
+            });
+          }}
+        >
+          <AddIcon />
+        </Fab>
+        <Fab
+          color="primary"
+          className={classes.fab}
+          onClick={() => {
+            setEditingFormVisible(true);
+
+            onEditingAppointmentChange(undefined);
+            onAddedAppointmentChange({
+              startDate: new Date(currentDate).setHours(startDayHour),
+              endDate: new Date(currentDate).setHours(startDayHour + 1),
+            });
+          }}
+        >
+          <AddIcon />
+        </Fab>
         <Fab
           color="primary"
           className={classes.fab}
