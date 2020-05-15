@@ -111,7 +111,9 @@ export default () => {
                                 off-peak times, potentially leading to a
                                 negative impact on the work efficiency of our
                                 teaching staff. In addition, as students, we
-                                 This is an issue
+                                truly understand the challenges of getting the
+                                help we need from teaching staff during
+                                assignment or exam seasons. This is an issue
                                 that affects over 48,000 students and staff, and
                                 probably the wider community.
                                 <br />
