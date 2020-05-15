@@ -20,13 +20,15 @@ After log in, you will be directed to the settings page where both student and s
 
 ## Functionality 2: Consultation Booking System
 
-In this tool, teaching staff can set up consultations for different subjects - each consultation includes subject information, date, duration, location and slots available. After creation, student accounts then can register for available consultations in different subjects. Students can view all registered consultations. If you view consultations by subject, there will be three colours representing three statuses - green for registered, blue for available to book and red for fully booked.
+In this tool, teaching staff can set up consultations for different subjects - each consultation includes subject information, date, duration, location and slots available. After creation, student accounts then can register for available consultations in different subjects. Students can view all registered consultations. If you view consultations by subject, there will be three colours representing three statuses - green for registered, blue for available to book and red for fully booked. Students can view all the consultations either by registration or by enrolled subjects.
 
 ## Functionality 3: 1v1 Appointment System
 
-For this functionality, student accounts can filter on the subject, select any staff and request for an appointment, request details include date, duration, location and request reason. Upon creating a request, the status of the request will be pending. Then the teaching staff can either approve or decline your request with an option to write any approved/declined comments. Similar to consultation booking, three different colours represent different statuses of the request - green for approved, yellow for pending and red for declined.
+For this functionality, student accounts can filter on the subject, select any staff and request for an appointment, request details include date, duration, location and request reason. Upon creating a request, the status of the request will be pending. Then the teaching staff can either approve or decline your request with an option to write any approved/declined comments. Similar to consultation booking, three different colours represent different statuses of the request - green for approved, yellow for pending and red for declined. Students can view all the requests by their status.
 
 ## Functionality 4: Study Hub (Students only)
+
+Students can create study hubs to meet classmates enrolled in the same subject. Every student has access to create new study hubs, which include details such as name of the study hub, subject, day of the week they want to meet up, time, duration and location. When you want to join a study hub, you can see all the current registered students. If you are the creator the hub, leaving the hub means the hub will be deleted. If you are not the creator, after leaving the hub, you can still re-join it. Hubs coloured in blue mean they are available to register, and the ones coloured in green mean the student has already joined the hub.
 
 ## Functionality 5: Analytics (Staff only)
 
