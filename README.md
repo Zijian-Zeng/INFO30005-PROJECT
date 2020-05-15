@@ -2,6 +2,30 @@
 
 MeeTute is a platform that wants to make consultations and support services more accessible for students and more manageable for staff.
 
+## User Guide for front-end (Deliverable 3)
+
+---
+
+## Testing Account Details:
+
+Email: test1@email.com
+
+Password: 123456
+
+Usertype: Can be used as both student and staff
+
+## Functionality 1: Enrollment Subject List
+
+After log in, you will be directed to the settings page where both student and staff accounts can join new subjects or leave current enrolled subjects. In addition, staff accounts have access to create new subject (with new subject name and subject code). Both student and staff accounts can only enroll in a maximum of 5 subjects, which aligns with the maximum workload allowed each semester at UniMelb.
+
+## Functionality 2: Consultation Booking System
+
+In this system, teaching staff can set up consultations for different subjects - each consultation includes subject information, duration, location and slots available. After creation, student accounts then can register for available consultations in different subjects. Students can view all registered consultations. If you view consultations by subject, there will be three colours representing three statuses - green for registered, blue for available to book and red for fully booked.
+
+## User Guide for backend (Deliverable 2)
+
+---
+
 -   Steps to use our backend:
 
     1. Staff must create subjects first for students to enroll in the subject
