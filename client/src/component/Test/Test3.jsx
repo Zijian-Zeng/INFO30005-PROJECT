@@ -260,6 +260,12 @@ export default () => {
             <DialogContentText>
               Are you sure you want to delete this appointment?
             </DialogContentText>
+            <DialogContentText>
+              Are you sure you want to delete this appointment?
+            </DialogContentText>
+            <DialogContentText>
+              Are you sure you want to delete this appointment?
+            </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={toggleConfirmationVisible} variant="outlined">
@@ -275,6 +281,16 @@ export default () => {
           </DialogActions>
         </Dialog><Dialog open={confirmationVisible}>
           <DialogTitle>Delete Appointment</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete this appointment?
+            </DialogContentText>
+          </DialogContent>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete this appointment?
+            </DialogContentText>
+          </DialogContent>
           <DialogContent>
             <DialogContentText>
               Are you sure you want to delete this appointment?

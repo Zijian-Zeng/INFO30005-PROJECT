@@ -263,21 +263,7 @@ export default () => {
         >
           <AddIcon />
         </Fab>
-        <Fab
-          color="primary"
-          className={classes.fab}
-          onClick={() => {
-            setEditingFormVisible(true);
 
-            onEditingAppointmentChange(undefined);
-            onAddedAppointmentChange({
-              startDate: new Date(currentDate).setHours(startDayHour),
-              endDate: new Date(currentDate).setHours(startDayHour + 1),
-            });
-          }}
-        >
-          <AddIcon />
-        </Fab>
         <Fab
           color="primary"
           className={classes.fab}
