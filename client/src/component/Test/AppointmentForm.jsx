@@ -24,8 +24,9 @@ const containerStyles = (theme) => ({
     paddingBottom: theme.spacing(2),
   },
   content: {
-    padding: theme.spacing(2),
-    paddingTop: 0,
+    width: theme.spacing(68),
+    padding: 0,
+    paddingBottom: theme.spacing(2),
   },
   header: {
     overflow: "hidden",
@@ -39,7 +40,7 @@ const containerStyles = (theme) => ({
   closeButton: {
     float: "right",
   },
-  button: {
+  clickButton: {
     marginLeft: theme.spacing(2),
   },
   picker: {
@@ -53,10 +54,6 @@ const containerStyles = (theme) => ({
     display: "flex",
     justifyContent: "space-between",
     padding: theme.spacing(1, 0),
-  },
-  icon: {
-    margin: theme.spacing(2, 0),
-    marginRight: theme.spacing(2),
   },
   textField: {
     width: "100%",
