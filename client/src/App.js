@@ -156,8 +156,7 @@ export default () => {
                         <HomeRoute exact path="/" component={Home} />
                         <Route exact path="/about" component={About} />
                         <Route exact path="/signup" component={Signup} />
-                        <Route exact path="/test" component={Test} />
-                        <Route exact path="/test2" component={Test2} />
+                        
                     </Switch>
                 </Router>
             </UserContext.Provider>
