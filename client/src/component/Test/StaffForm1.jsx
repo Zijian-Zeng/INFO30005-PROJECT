@@ -192,6 +192,92 @@ const AppointmentFormContainerBasic = ({
             </ListItemIcon>
           </ListItem>
         </List>
+        <List>
+          <ListItem>
+            <ListItemIcon>
+              <RoomIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary="Location"
+              secondary={appointmentData.location}
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <SupervisorAccountIcon />
+            </ListItemIcon>{" "}
+            <ListItemText primary="Slots Available" secondary=" " />
+            <ListItemIcon>
+              <Badge
+                badgeContent={appointmentData.slotsAvailable}
+                color="primary"
+                showZero
+              >
+                <EqualizerIcon />
+              </Badge>
+            </ListItemIcon>
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <LibraryAddIcon />
+            </ListItemIcon>
+
+            <ListItemText primary="Student Registered" secondary=" " />
+
+            <ListItemIcon>
+              <Badge
+                badgeContent={appointmentData.totalStudent}
+                color="primary"
+                showZero
+              >
+                <EqualizerIcon />
+              </Badge>
+            </ListItemIcon>
+          </ListItem>
+        </List>
+        <List>
+          <ListItem>
+            <ListItemIcon>
+              <RoomIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary="Location"
+              secondary={appointmentData.location}
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <SupervisorAccountIcon />
+            </ListItemIcon>{" "}
+            <ListItemText primary="Slots Available" secondary=" " />
+            <ListItemIcon>
+              <Badge
+                badgeContent={appointmentData.slotsAvailable}
+                color="primary"
+                showZero
+              >
+                <EqualizerIcon />
+              </Badge>
+            </ListItemIcon>
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <LibraryAddIcon />
+            </ListItemIcon>
+
+            <ListItemText primary="Student Registered" secondary=" " />
+
+            <ListItemIcon>
+              <Badge
+                badgeContent={appointmentData.totalStudent}
+                color="primary"
+                showZero
+              >
+                <EqualizerIcon />
+              </Badge>
+            </ListItemIcon>
+          </ListItem>
+        </List>
       </Grid>
     </Grid>
   );

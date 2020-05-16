@@ -129,6 +129,34 @@ const appointments = [
     id: 7,
     location: "Room 7",
   },
+  {
+    title: "COMP10004",
+    startDate: new Date("2018-07-24 12:00"),
+    endDate: new Date("2018-07-24 18:00"),
+    id: 4,
+    location: "Room 4",
+  },
+  {
+    title: "COMP10005",
+    startDate: new Date("2018-07-24 12:00"),
+    endDate: new Date("2018-07-24 18:00"),
+    id: 5,
+    location: "Room 5",
+  },
+  {
+    title: "COMP10006",
+    startDate: new Date("2018-07-24 12:00"),
+    endDate: new Date("2018-07-24 18:00"),
+    id: 6,
+    location: "Room 2",
+  },
+  {
+    title: "COMP10007",
+    startDate: new Date("2018-07-24 12:00"),
+    endDate: new Date("2018-07-24 18:00"),
+    id: 7,
+    location: "Room 7",
+  },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -279,7 +307,8 @@ export default () => {
               Delete
             </Button>
           </DialogActions>
-        </Dialog><Dialog open={confirmationVisible}>
+        </Dialog>
+        <Dialog open={confirmationVisible}>
           <DialogTitle>Delete Appointment</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -404,7 +433,7 @@ export default () => {
               Delete
             </Button>
           </DialogActions>
-           <DialogActions>
+          <DialogActions>
             <Button onClick={toggleConfirmationVisible} variant="outlined">
               Cancel
             </Button>
@@ -416,7 +445,7 @@ export default () => {
               Delete
             </Button>
           </DialogActions>
-           <DialogActions>
+          <DialogActions>
             <Button onClick={toggleConfirmationVisible} variant="outlined">
               Cancel
             </Button>
@@ -428,7 +457,6 @@ export default () => {
               Delete
             </Button>
           </DialogActions>
-          
         </Dialog>
         <Dialog open={confirmationVisible}>
           <DialogTitle>Delete Appointment</DialogTitle>
