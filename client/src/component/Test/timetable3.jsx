@@ -53,50 +53,84 @@ import classNames from "clsx";
 import AppointmentFormContainer from "./StaffForm";
 const appointments = [
   {
+<<<<<<< HEAD
     title: "COMP10001",
     startDate: new Date("2018-07-27 9:00"),
     endDate: new Date("2018-07-27 12:00"),
+=======
+    title: "COMP10021",
+    startDate: new Date("2018-07-23 9:00"),
+    endDate: new Date("2018-07-23 12:00"),
+>>>>>>> chloe
     id: 0,
     location: "Room 1",
   },
   {
+<<<<<<< HEAD
     title: "COMP10001",
     startDate: new Date("2018-07-28 13:00"),
     endDate: new Date("2018-07-28 14:00"),
+=======
+    title: "COMP10009",
+    startDate: new Date("2018-07-28 12:00"),
+    endDate: new Date("2018-07-28 12:00"),
+>>>>>>> chloe
     id: 1,
     location: "Room 1",
   },
   {
+<<<<<<< HEAD
     title: "COMP10001",
+=======
+    title: "COMP10005",
+>>>>>>> chloe
     startDate: new Date("2018-07-24 12:00"),
     endDate: new Date("2018-07-24 18:00"),
     id: 2,
     location: "Room 2",
   },
+<<<<<<< HEAD
   
   {
     title: "COMP10005",
+=======
+
+  {
+    title: "COMP10002",
+>>>>>>> chloe
     startDate: new Date("2018-07-24 12:00"),
     endDate: new Date("2018-07-24 18:00"),
     id: 5,
     location: "Room 5",
   },
   {
+<<<<<<< HEAD
     title: "COMP10004",
+=======
+    title: "COMP20003",
+>>>>>>> chloe
     startDate: new Date("2018-07-24 12:00"),
     endDate: new Date("2018-07-24 18:00"),
     id: 4,
     location: "Room 4",
   },
   {
+<<<<<<< HEAD
     title: "COMP10006",
+=======
+    title: "COMP10008",
+>>>>>>> chloe
     startDate: new Date("2018-07-24 12:00"),
     endDate: new Date("2018-07-24 18:00"),
     id: 6,
     location: "Room 2",
   },
   {
+<<<<<<< HEAD
     title: "COMP10007",
+=======
+    title: "COMP20004",
+>>>>>>> chloe
     startDate: new Date("2018-07-24 12:00"),
     endDate: new Date("2018-07-24 18:00"),
     id: 7,
@@ -107,8 +141,13 @@ const appointments = [
 const useStyles = makeStyles((theme) => ({
   fab: {
     position: "fixed",
+<<<<<<< HEAD
     bottom: theme.spacing(1) * 10,
     right: theme.spacing(1) * 11,
+=======
+    bottom: theme.spacing(1) * 17,
+    right: theme.spacing(1) * 17,
+>>>>>>> chloe
   },
 }));
 
@@ -246,6 +285,7 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
           <ViewState currentDate={currentDate} />
           <EditingState
@@ -304,6 +344,38 @@ export default () => {
             onVisibilityChange={toggleEditingFormVisibility}
           />
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
+          <ViewState currentDate={currentDate} />
+          <EditingState
+            onCommitChanges={commitChanges}
+            onEditingAppointmentChange={onEditingAppointmentChange}
+            onAddedAppointmentChange={onAddedAppointmentChange}
+          />
+<<<<<<< HEAD
+          <WeekView startDayHour={8} endDayHour={24} cellDuration={60} />
+=======
+          <WeekView startDayHour={7} endDayHour={24} cellDuration={60} />
+>>>>>>> chloe
+
+          <Appointments />
+          <AppointmentTooltip showOpenButton showCloseButton />
+          <Toolbar />
+          <DateNavigator />
+
+          <AppointmentForm
+            overlayComponent={appointmentForm}
+            visible={editingFormVisible}
+            onVisibilityChange={toggleEditingFormVisibility}
+          />
+<<<<<<< HEAD
+        </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -322,7 +394,12 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -341,7 +418,12 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -360,7 +442,12 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -379,7 +466,12 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -398,7 +490,12 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -417,7 +514,68 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
+          <ViewState currentDate={currentDate} />
+          <EditingState
+            onCommitChanges={commitChanges}
+            onEditingAppointmentChange={onEditingAppointmentChange}
+            onAddedAppointmentChange={onAddedAppointmentChange}
+          />
+<<<<<<< HEAD
+          <WeekView startDayHour={8} endDayHour={24} cellDuration={60} />
+=======
+          <WeekView startDayHour={7} endDayHour={24} cellDuration={60} />
+>>>>>>> chloe
+
+          <Appointments />
+          <AppointmentTooltip showOpenButton showCloseButton />
+          <Toolbar />
+          <DateNavigator />
+
+          <AppointmentForm
+            overlayComponent={appointmentForm}
+            visible={editingFormVisible}
+            onVisibilityChange={toggleEditingFormVisibility}
+          />
+<<<<<<< HEAD
+        </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
+          <ViewState currentDate={currentDate} />
+          <EditingState
+            onCommitChanges={commitChanges}
+            onEditingAppointmentChange={onEditingAppointmentChange}
+            onAddedAppointmentChange={onAddedAppointmentChange}
+          />
+<<<<<<< HEAD
+          <WeekView startDayHour={8} endDayHour={24} cellDuration={60} />
+=======
+          <WeekView startDayHour={7} endDayHour={24} cellDuration={60} />
+>>>>>>> chloe
+
+          <Appointments />
+          <AppointmentTooltip showOpenButton showCloseButton />
+          <Toolbar />
+          <DateNavigator />
+
+          <AppointmentForm
+            overlayComponent={appointmentForm}
+            visible={editingFormVisible}
+            onVisibilityChange={toggleEditingFormVisibility}
+          />
+<<<<<<< HEAD
+        </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -436,7 +594,40 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
+          <ViewState currentDate={currentDate} />
+          <EditingState
+            onCommitChanges={commitChanges}
+            onEditingAppointmentChange={onEditingAppointmentChange}
+            onAddedAppointmentChange={onAddedAppointmentChange}
+          />
+<<<<<<< HEAD
+          <WeekView startDayHour={8} endDayHour={24} cellDuration={60} />
+=======
+          <WeekView startDayHour={7} endDayHour={24} cellDuration={60} />
+>>>>>>> chloe
+
+          <Appointments />
+          <AppointmentTooltip showOpenButton showCloseButton />
+          <Toolbar />
+          <DateNavigator />
+
+          <AppointmentForm
+            overlayComponent={appointmentForm}
+            visible={editingFormVisible}
+            onVisibilityChange={toggleEditingFormVisibility}
+          />
+<<<<<<< HEAD
+        </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -455,7 +646,12 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -474,7 +670,12 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -493,7 +694,12 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -512,7 +718,68 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
+          <ViewState currentDate={currentDate} />
+          <EditingState
+            onCommitChanges={commitChanges}
+            onEditingAppointmentChange={onEditingAppointmentChange}
+            onAddedAppointmentChange={onAddedAppointmentChange}
+          />
+<<<<<<< HEAD
+          <WeekView startDayHour={8} endDayHour={24} cellDuration={60} />
+=======
+          <WeekView startDayHour={7} endDayHour={24} cellDuration={60} />
+>>>>>>> chloe
+
+          <Appointments />
+          <AppointmentTooltip showOpenButton showCloseButton />
+          <Toolbar />
+          <DateNavigator />
+
+          <AppointmentForm
+            overlayComponent={appointmentForm}
+            visible={editingFormVisible}
+            onVisibilityChange={toggleEditingFormVisibility}
+          />
+<<<<<<< HEAD
+        </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
+          <ViewState currentDate={currentDate} />
+          <EditingState
+            onCommitChanges={commitChanges}
+            onEditingAppointmentChange={onEditingAppointmentChange}
+            onAddedAppointmentChange={onAddedAppointmentChange}
+          />
+<<<<<<< HEAD
+          <WeekView startDayHour={8} endDayHour={24} cellDuration={60} />
+=======
+          <WeekView startDayHour={7} endDayHour={24} cellDuration={60} />
+>>>>>>> chloe
+
+          <Appointments />
+          <AppointmentTooltip showOpenButton showCloseButton />
+          <Toolbar />
+          <DateNavigator />
+<<<<<<< HEAD
+
+          <AppointmentForm
+            overlayComponent={appointmentForm}
+            visible={editingFormVisible}
+            onVisibilityChange={toggleEditingFormVisibility}
+          />
+        </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -531,7 +798,12 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -550,7 +822,12 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -569,7 +846,12 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -588,7 +870,12 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -607,7 +894,12 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -626,7 +918,12 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -645,7 +942,12 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -664,7 +966,12 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -683,121 +990,12 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
+<<<<<<< HEAD
         </Scheduler> <Scheduler data={data}>
-          <ViewState currentDate={currentDate} />
-          <EditingState
-            onCommitChanges={commitChanges}
-            onEditingAppointmentChange={onEditingAppointmentChange}
-            onAddedAppointmentChange={onAddedAppointmentChange}
-          />
-          <WeekView startDayHour={8} endDayHour={24} cellDuration={60} />
-
-          <Appointments />
-          <AppointmentTooltip showOpenButton showCloseButton />
-          <Toolbar />
-          <DateNavigator />
-
-          <AppointmentForm
-            overlayComponent={appointmentForm}
-            visible={editingFormVisible}
-            onVisibilityChange={toggleEditingFormVisibility}
-          />
-        </Scheduler> <Scheduler data={data}>
-          <ViewState currentDate={currentDate} />
-          <EditingState
-            onCommitChanges={commitChanges}
-            onEditingAppointmentChange={onEditingAppointmentChange}
-            onAddedAppointmentChange={onAddedAppointmentChange}
-          />
-          <WeekView startDayHour={8} endDayHour={24} cellDuration={60} />
-
-          <Appointments />
-          <AppointmentTooltip showOpenButton showCloseButton />
-          <Toolbar />
-          <DateNavigator />
-
-          <AppointmentForm
-            overlayComponent={appointmentForm}
-            visible={editingFormVisible}
-            onVisibilityChange={toggleEditingFormVisibility}
-          />
-        </Scheduler> <Scheduler data={data}>
-          <ViewState currentDate={currentDate} />
-          <EditingState
-            onCommitChanges={commitChanges}
-            onEditingAppointmentChange={onEditingAppointmentChange}
-            onAddedAppointmentChange={onAddedAppointmentChange}
-          />
-          <WeekView startDayHour={8} endDayHour={24} cellDuration={60} />
-
-          <Appointments />
-          <AppointmentTooltip showOpenButton showCloseButton />
-          <Toolbar />
-          <DateNavigator />
-
-          <AppointmentForm
-            overlayComponent={appointmentForm}
-            visible={editingFormVisible}
-            onVisibilityChange={toggleEditingFormVisibility}
-          />
-        </Scheduler> <Scheduler data={data}>
-          <ViewState currentDate={currentDate} />
-          <EditingState
-            onCommitChanges={commitChanges}
-            onEditingAppointmentChange={onEditingAppointmentChange}
-            onAddedAppointmentChange={onAddedAppointmentChange}
-          />
-          <WeekView startDayHour={8} endDayHour={24} cellDuration={60} />
-
-          <Appointments />
-          <AppointmentTooltip showOpenButton showCloseButton />
-          <Toolbar />
-          <DateNavigator />
-
-          <AppointmentForm
-            overlayComponent={appointmentForm}
-            visible={editingFormVisible}
-            onVisibilityChange={toggleEditingFormVisibility}
-          />
-        </Scheduler> <Scheduler data={data}>
-          <ViewState currentDate={currentDate} />
-          <EditingState
-            onCommitChanges={commitChanges}
-            onEditingAppointmentChange={onEditingAppointmentChange}
-            onAddedAppointmentChange={onAddedAppointmentChange}
-          />
-          <WeekView startDayHour={8} endDayHour={24} cellDuration={60} />
-
-          <Appointments />
-          <AppointmentTooltip showOpenButton showCloseButton />
-          <Toolbar />
-          <DateNavigator />
-
-          <AppointmentForm
-            overlayComponent={appointmentForm}
-            visible={editingFormVisible}
-            onVisibilityChange={toggleEditingFormVisibility}
-          />
-        </Scheduler> <Scheduler data={data}>
-          <ViewState currentDate={currentDate} />
-          <EditingState
-            onCommitChanges={commitChanges}
-            onEditingAppointmentChange={onEditingAppointmentChange}
-            onAddedAppointmentChange={onAddedAppointmentChange}
-          />
-          <WeekView startDayHour={8} endDayHour={24} cellDuration={60} />
-
-          <Appointments />
-          <AppointmentTooltip showOpenButton showCloseButton />
-          <Toolbar />
-          <DateNavigator />
-
-          <AppointmentForm
-            overlayComponent={appointmentForm}
-            visible={editingFormVisible}
-            onVisibilityChange={toggleEditingFormVisibility}
-          />
-        </Scheduler> <Scheduler data={data}>
+=======
+        </Scheduler>{" "}
+        <Scheduler data={data}>
+>>>>>>> chloe
           <ViewState currentDate={currentDate} />
           <EditingState
             onCommitChanges={commitChanges}
@@ -825,7 +1023,10 @@ export default () => {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
+<<<<<<< HEAD
             
+=======
+>>>>>>> chloe
             <Button
               onClick={commitDeletedAppointment}
               color="primary"
@@ -836,6 +1037,7 @@ export default () => {
           </DialogActions>
         </Dialog>
         <Fab
+<<<<<<< HEAD
           color="primary"
           className={classes.fab}
           onClick={() => {
@@ -868,6 +1070,8 @@ export default () => {
         </Fab>
         <Fab
           color="primary"
+=======
+>>>>>>> chloe
           className={classes.fab}
           onClick={() => {
             setEditingFormVisible(true);
