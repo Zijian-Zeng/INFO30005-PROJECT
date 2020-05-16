@@ -33,6 +33,70 @@ const style = ({ palette, spacing }) => ({
 	header: {
 		height: "260px",
 		backgroundSize: "cover",
+	},icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},
+	icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
 	},
 });
 
