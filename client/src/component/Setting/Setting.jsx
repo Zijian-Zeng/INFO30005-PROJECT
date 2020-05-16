@@ -19,8 +19,6 @@ export default () => {
         user,
     } = useContext(UserContext);
 
-    console.log("???");
-
     const fetchSubject = async (type) => {
         console.log(type);
         if (type === "student") {
@@ -41,6 +39,8 @@ export default () => {
     useEffect(() => {
         //Set Navigation to this page.
         setSelectedRoute("settings");
+        setLoadingRoute(true);
+        console.log(123);
 
         const fetchData = async () => {
             const res = await fetchUser();

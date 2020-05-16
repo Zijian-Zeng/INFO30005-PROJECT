@@ -30,10 +30,37 @@ export default ({
     setError,
     setAdded,
 }) => {
-    const { detectAlert, loadingRoute, setLoadingRoute } = useContext(
+    const { detectAlert, setAlert, loadingRoute, setLoadingRoute } = useContext(
         UserContext
     );
+
+    //Create a subject in subject account.
     const create = async () => {
+        if (subjectCode.length != 9) {
+            setAlert({
+                status: "warning",
+                message:
+                    "UniMelb subject code must have a length of 9 letters.",
+            });
+            return;
+        }
+
+        if (subjectName.length > 100) {
+            setAlert({
+                status: "warning",
+                message: "Subject name too long.",
+            });
+            return;
+        }
+
+        const verify = /[A-Z]{4}[0-9]{5}/;
+        if (!verify.test(subjectCode)) {
+            setAlert({
+                status: "warning",
+                message: "Invalid form of subjectCode.",
+            });
+            return;
+        }
         setLoadingRoute(true);
 
         const res = await myFetch("/api/staff/subjects/create", "POST", {

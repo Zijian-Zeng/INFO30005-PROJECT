@@ -4,12 +4,11 @@ import {
     Grid,
     Container,
     Hidden,
-    withWidth,
-    isWidthUp,
     Typography,
     Grow,
     Button,
 } from "@material-ui/core";
+import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 
 import { Link } from "react-router-dom";
 
@@ -62,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default ({ setOpenLogin }) => {
+export default withWidth()(({ setOpenLogin, width }) => {
     const classes = useStyles();
 
     return (
@@ -87,7 +86,12 @@ export default ({ setOpenLogin }) => {
                                     <br />
                                 </Typography>
                                 <Grid item xs={8}>
-                                    <Typography variant="h3" align="center">
+                                    <Typography
+                                        variant={
+                                            isWidthUp("sm", width) ? "h3" : "h4"
+                                        }
+                                        align="center"
+                                    >
                                         Ask your questions today, for an easier
                                         life tomorrow.
                                     </Typography>
@@ -127,11 +131,16 @@ export default ({ setOpenLogin }) => {
                                                             classes.getStarted
                                                         }
                                                         startIcon={
-                                                            <ChatBubbleOutlineIcon
-                                                                className={
-                                                                    classes.largeIcon
-                                                                }
-                                                            />
+                                                            isWidthUp(
+                                                                "sm",
+                                                                width
+                                                            ) ? (
+                                                                <ChatBubbleOutlineIcon
+                                                                    className={
+                                                                        classes.largeIcon
+                                                                    }
+                                                                />
+                                                            ) : null
                                                         }
                                                     >
                                                         get started
@@ -147,17 +156,22 @@ export default ({ setOpenLogin }) => {
                                                     size="large"
                                                     className={classes.about}
                                                     startIcon={
-                                                        <FaceIcon
-                                                            className={
-                                                                classes.largeIcon
-                                                            }
-                                                        />
+                                                        isWidthUp(
+                                                            "sm",
+                                                            width
+                                                        ) ? (
+                                                            <FaceIcon
+                                                                className={
+                                                                    classes.largeIcon
+                                                                }
+                                                            />
+                                                        ) : null
                                                     }
                                                     onClick={() => {
                                                         setOpenLogin(true);
                                                     }}
                                                 >
-                                                    Login in
+                                                    Login
                                                 </Button>
                                             </Grid>
                                         </Grid>
@@ -193,4 +207,4 @@ export default ({ setOpenLogin }) => {
             </Container>
         </div>
     );
-};
+});

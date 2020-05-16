@@ -89,7 +89,6 @@ export default ({ user, setMySubjects, mySubjects, fetchSubject }) => {
         setLoadingRoute(false);
     };
 
-    console.log(mySubjects);
     if (!mySubjects.subjectsInfo) return null;
 
     return (

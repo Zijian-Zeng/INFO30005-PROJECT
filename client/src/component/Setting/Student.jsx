@@ -75,6 +75,8 @@ export default ({ user, setMySubjects, mySubjects }) => {
         setLoadingRoute(false);
     };
 
+    if (!mySubjects.subjectsInfo) return null;
+
     return (
         <div>
             <Tooltip title="Join new subject" aria-label="add">

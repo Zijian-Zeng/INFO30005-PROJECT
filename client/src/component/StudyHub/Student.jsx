@@ -1,40 +1,22 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
     Grid,
-    CardContent,
-    withWidth,
-    isWidthUp,
     Button,
-    Paper,
-    Typography,
-    LinearProgress,
     Card,
     CardHeader,
-    List,
-    ListItem,
-    ListItemAvatar,
-    Collapse,
-    ListItemIcon,
-    ListItemText,
-    Avatar,
     AppBar,
-    Select,
     Tab,
     Tabs,
-    MenuItem,
     Tooltip,
     Fab,
     Dialog,
     DialogTitle,
     DialogActions,
     DialogContent,
-    Grow,
-    Slider,
     Zoom,
-    TextField,
-    DialogContentText,
     ButtonGroup,
 } from "@material-ui/core";
+import withWidth, { isWidthUp, isWidthDown } from "@material-ui/core/withWidth";
 import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
 import { red, green, grey } from "@material-ui/core/colors";
 import { myFetch, UserContext, StudentContext } from "../Methods";
@@ -45,6 +27,8 @@ import { Create } from "@material-ui/icons";
 import Skeleton from "@material-ui/lab/Skeleton";
 
 import CreateDialog from "./CreateDialog";
+
+import legend from "./legend.svg";
 const useStyles = makeStyles((theme) => ({
     paper: {
         maxWidth: "100%",
@@ -54,9 +38,14 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(5),
     },
     fab: {
-        position: "fixed",
-        bottom: theme.spacing(1) * 10,
-        right: theme.spacing(1) * 8,
+        [theme.breakpoints.down("lg")]: {
+            marginTop: theme.spacing(5),
+        },
+        [theme.breakpoints.up("lg")]: {
+            position: "fixed",
+            bottom: theme.spacing(1) * 10,
+            right: theme.spacing(1) * 8,
+        },
     },
     icon: {
         margin: "auto",
@@ -74,26 +63,19 @@ const useStyles = makeStyles((theme) => ({
     media: {
         height: "33VH",
     },
+    legend: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+        [theme.breakpoints.up("sm")]: {
+            minWidth: "25%",
+            minHeight: "25%",
+        },
+        [theme.breakpoints.down("sm")]: {
+            minWidth: "100%",
+            minHeight: "100%",
+        },
+    },
 }));
-
-const marks = [
-    {
-        value: 0,
-        label: "0 Minutes",
-    },
-    {
-        value: 60,
-        label: "1 hour",
-    },
-    {
-        value: 120,
-        label: "2 hours",
-    },
-    {
-        value: 240,
-        label: "4 hours",
-    },
-];
 
 //Fetch the appointments of the current subject.
 const fetchHubs = async (currentSubject, detectAlert, setLoading, userInfo) => {
@@ -176,7 +158,7 @@ const DeleteDialog = ({
     );
 };
 
-export default () => {
+export default withWidth()(({ width }) => {
     const classes = useStyles();
 
     const { user, detectAlert, setAlert } = useContext(UserContext);
@@ -194,6 +176,7 @@ export default () => {
     const [openDelete, setOpenDelete] = useState(false);
 
     const [sortBy, setSortBy] = useState("time");
+    const largeScreen = isWidthUp("lg", width);
 
     //Updating consultations Information.
     useEffect(() => {
@@ -220,22 +203,6 @@ export default () => {
                 userInfo={userInfo}
                 currentSubject={currentSubject}
             />
-            {loading ? null : (
-                <Zoom in={!loading} timeout={700}>
-                    <Tooltip title="Create a study hub" aria-label="add">
-                        <Fab
-                            color="primary"
-                            size="large"
-                            className={classes.fab}
-                            onClick={() => {
-                                setOpenCreate(true);
-                            }}
-                        >
-                            <CreateIcon />
-                        </Fab>
-                    </Tooltip>
-                </Zoom>
-            )}
             <DeleteDialog
                 setAlert={setAlert}
                 detectAlert={detectAlert}
@@ -251,7 +218,7 @@ export default () => {
 
             <AppBar position="relative" color="default">
                 <Grid container justify="space-between">
-                    <Grid item xs={10}>
+                    <Grid item xs={12}>
                         <Tabs
                             value={currentSubject}
                             indicatorColor="primary"
@@ -270,27 +237,37 @@ export default () => {
                             ))}
                         </Tabs>
                     </Grid>
-                    <Grid item xs={2}>
-                        <Select
-                            value={sortBy}
-                            onChange={(e) => setSortBy(e.target.value)}
-                            variant="outlined"
-                            fullWidth
-                        >
-                            <MenuItem key="time" value="time">
-                                time
-                            </MenuItem>
-                            <MenuItem key="trending" value="trending">
-                                trending
-                            </MenuItem>
-                        </Select>
-                    </Grid>
                 </Grid>
             </AppBar>
+            <Grid container justify="flex-end">
+                <img className={classes.legend} src={legend} alt="legend" />
+            </Grid>
+
+            <Grid container justify="center">
+                <Tooltip title="Create a study hub" aria-label="add">
+                    <Fab
+                        color="primary"
+                        size="large"
+                        className={classes.fab}
+                        onClick={() => {
+                            setOpenCreate(true);
+                        }}
+                    >
+                        <CreateIcon />
+                    </Fab>
+                </Tooltip>
+            </Grid>
+
             <Grid container justify="space-around" alignItems="center">
                 {!loading
                     ? hubs.map((hub, index) => (
-                          <Grid key={index} item xs={5} className={classes.hub}>
+                          //stduy hubs cards...
+                          <Grid
+                              key={index}
+                              item
+                              xs={largeScreen ? 5 : 12}
+                              className={classes.hub}
+                          >
                               <HubCard
                                   hub={hub}
                                   loading={loading}
@@ -306,7 +283,13 @@ export default () => {
                           </Grid>
                       ))
                     : [0, 1, 2, 3].map((index) => (
-                          <Grid key={index} item xs={5} className={classes.hub}>
+                          //Loading skeletion....
+                          <Grid
+                              key={index}
+                              item
+                              xs={largeScreen ? 5 : 12}
+                              className={classes.hub}
+                          >
                               <Card className={classes.card}>
                                   <CardHeader
                                       avatar={
@@ -345,4 +328,4 @@ export default () => {
             </Grid>
         </div>
     );
-};
+});
