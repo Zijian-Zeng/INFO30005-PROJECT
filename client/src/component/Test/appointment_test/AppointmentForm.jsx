@@ -58,6 +58,18 @@ const containerStyles = (theme) => ({
   textField: {
     width: "100%",
   },
+  approve: {
+    backgroundColor: green[400],
+    "&:hover": {
+      backgroundColor: green[600],
+    },
+  },
+  decline: {
+    backgroundColor: red[500],
+    "&:hover": {
+      backgroundColor: red[700],
+    },
+  },
 });
 
 const AppointmentFormContainerBasic = ({
