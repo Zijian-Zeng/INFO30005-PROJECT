@@ -906,26 +906,6 @@ export default () => {
             visible={editingFormVisible}
             onVisibilityChange={toggleEditingFormVisibility}
           />
-        </Scheduler>{" "}
-        <Scheduler data={data}>
-          <ViewState currentDate={currentDate} />
-          <EditingState
-            onCommitChanges={commitChanges}
-            onEditingAppointmentChange={onEditingAppointmentChange}
-            onAddedAppointmentChange={onAddedAppointmentChange}
-          />
-          <WeekView startDayHour={8} endDayHour={24} cellDuration={60} />
-
-          <Appointments />
-          <AppointmentTooltip showOpenButton showCloseButton />
-          <Toolbar />
-          <DateNavigator />
-
-          <AppointmentForm
-            overlayComponent={appointmentForm}
-            visible={editingFormVisible}
-            onVisibilityChange={toggleEditingFormVisibility}
-          />
         </Scheduler>
         <Dialog open={confirmationVisible}>
           <DialogTitle>Delete Appointment</DialogTitle>
