@@ -30,6 +30,231 @@ import { myFetch, UserContext, StaffContext } from "../Methods";
 import Staff from "./Staff";
 const style = ({ palette, spacing }) => ({
 	icon: {
+	color: palette.action.active,
+	marginLeft: spacing(1),
+},
+textCenter: {
+	textAlign: "center",
+},
+header: {
+	height: "260px",
+	backgroundSize: "cover",
+},
+commandButton: {
+	backgroundColor: "rgba(255,255,100,0.65)",
+},
+left: {
+	marginLeft: spacing(1),
+},icon: {
+	color: palette.action.active,
+	marginLeft: spacing(1),
+},
+textCenter: {
+	textAlign: "center",
+},
+header: {
+	height: "260px",
+	backgroundSize: "cover",
+},
+commandButton: {
+	backgroundColor: "rgba(255,255,100,0.65)",
+},
+left: {
+	marginLeft: spacing(1),
+},icon: {
+	color: palette.action.active,
+	marginLeft: spacing(1),
+},
+textCenter: {
+	textAlign: "center",
+},
+header: {
+	height: "260px",
+	backgroundSize: "cover",
+},
+commandButton: {
+	backgroundColor: "rgba(255,255,100,0.65)",
+},
+left: {
+	marginLeft: spacing(1),
+},icon: {
+	color: palette.action.active,
+	marginLeft: spacing(1),
+},
+textCenter: {
+	textAlign: "center",
+},
+header: {
+	height: "260px",
+	backgroundSize: "cover",
+},
+commandButton: {
+	backgroundColor: "rgba(255,255,100,0.65)",
+},
+left: {
+	marginLeft: spacing(1),
+},icon: {
+	color: palette.action.active,
+	marginLeft: spacing(1),
+},
+textCenter: {
+	textAlign: "center",
+},
+header: {
+	height: "260px",
+	backgroundSize: "cover",
+},
+commandButton: {
+	backgroundColor: "rgba(255,255,100,0.65)",
+},
+left: {
+	marginLeft: spacing(1),
+},icon: {
+	color: palette.action.active,
+	marginLeft: spacing(1),
+},
+textCenter: {
+	textAlign: "center",
+},
+header: {
+	height: "260px",
+	backgroundSize: "cover",
+},
+commandButton: {
+	backgroundColor: "rgba(255,255,100,0.65)",
+},
+left: {
+	marginLeft: spacing(1),
+},icon: {
+	color: palette.action.active,
+	marginLeft: spacing(1),
+},
+textCenter: {
+	textAlign: "center",
+},
+header: {
+	height: "260px",
+	backgroundSize: "cover",
+},
+commandButton: {
+	backgroundColor: "rgba(255,255,100,0.65)",
+},
+left: {
+	marginLeft: spacing(1),
+},icon: {
+	color: palette.action.active,
+	marginLeft: spacing(1),
+},
+textCenter: {
+	textAlign: "center",
+},
+header: {
+	height: "260px",
+	backgroundSize: "cover",
+},
+commandButton: {
+	backgroundColor: "rgba(255,255,100,0.65)",
+},
+left: {
+	marginLeft: spacing(1),
+},icon: {
+	color: palette.action.active,
+	marginLeft: spacing(1),
+},
+textCenter: {
+	textAlign: "center",
+},
+header: {
+	height: "260px",
+	backgroundSize: "cover",
+},
+commandButton: {
+	backgroundColor: "rgba(255,255,100,0.65)",
+},
+left: {
+	marginLeft: spacing(1),
+},icon: {
+	color: palette.action.active,
+	marginLeft: spacing(1),
+},
+textCenter: {
+	textAlign: "center",
+},
+header: {
+	height: "260px",
+	backgroundSize: "cover",
+},
+commandButton: {
+	backgroundColor: "rgba(255,255,100,0.65)",
+},
+left: {
+	marginLeft: spacing(1),
+},icon: {
+	color: palette.action.active,
+	marginLeft: spacing(1),
+},
+textCenter: {
+	textAlign: "center",
+},
+header: {
+	height: "260px",
+	backgroundSize: "cover",
+},
+commandButton: {
+	backgroundColor: "rgba(255,255,100,0.65)",
+},
+left: {
+	marginLeft: spacing(1),
+},icon: {
+	color: palette.action.active,
+	marginLeft: spacing(1),
+},
+textCenter: {
+	textAlign: "center",
+},
+header: {
+	height: "260px",
+	backgroundSize: "cover",
+},
+commandButton: {
+	backgroundColor: "rgba(255,255,100,0.65)",
+},
+left: {
+	marginLeft: spacing(1),
+},icon: {
+	color: palette.action.active,
+	marginLeft: spacing(1),
+},
+textCenter: {
+	textAlign: "center",
+},
+header: {
+	height: "260px",
+	backgroundSize: "cover",
+},
+commandButton: {
+	backgroundColor: "rgba(255,255,100,0.65)",
+},
+left: {
+	marginLeft: spacing(1),
+},icon: {
+	color: palette.action.active,
+	marginLeft: spacing(1),
+},
+textCenter: {
+	textAlign: "center",
+},
+header: {
+	height: "260px",
+	backgroundSize: "cover",
+},
+commandButton: {
+	backgroundColor: "rgba(255,255,100,0.65)",
+},
+left: {
+	marginLeft: spacing(1),
+},
+	icon: {
 		color: palette.action.active,
 		marginLeft: spacing(1),
 	},
