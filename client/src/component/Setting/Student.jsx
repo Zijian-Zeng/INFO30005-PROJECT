@@ -33,9 +33,14 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(10),
     },
     fab: {
-        position: "fixed",
-        bottom: theme.spacing(1) * 10,
-        right: theme.spacing(1) * 11,
+        [theme.breakpoints.up("lg")]: {
+            position: "fixed",
+            bottom: theme.spacing(1) * 10,
+            right: theme.spacing(1) * 8,
+        },
+        [theme.breakpoints.down("lg")]: {
+            marginTop: theme.spacing(2),
+        },
     },
 }));
 
@@ -79,18 +84,6 @@ export default ({ user, setMySubjects, mySubjects }) => {
 
     return (
         <div>
-            <Tooltip title="Join new subject" aria-label="add">
-                <Fab
-                    color="primary"
-                    size="large"
-                    className={classes.fab}
-                    onClick={() => {
-                        setOpen(true);
-                    }}
-                >
-                    <AddIcon />
-                </Fab>
-            </Tooltip>
             <Add
                 open={open}
                 handleDialogClose={() => {
@@ -143,6 +136,18 @@ export default ({ user, setMySubjects, mySubjects }) => {
                         )
                     )}
                 </Grid>
+                <Tooltip title="Join new subject" aria-label="add">
+                    <Fab
+                        color="primary"
+                        size="large"
+                        className={classes.fab}
+                        onClick={() => {
+                            setOpen(true);
+                        }}
+                    >
+                        <AddIcon />
+                    </Fab>
+                </Tooltip>
             </Grid>
         </div>
     );
