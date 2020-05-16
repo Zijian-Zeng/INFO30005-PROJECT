@@ -129,6 +129,48 @@ const appointments = [
     id: 7,
     location: "Room 7",
   },
+  {
+    title: "COMP10005",
+    startDate: new Date("2018-07-24 12:00"),
+    endDate: new Date("2018-07-24 18:00"),
+    id: 5,
+    location: "Room 5",
+  },
+  {
+    title: "COMP10006",
+    startDate: new Date("2018-07-24 12:00"),
+    endDate: new Date("2018-07-24 18:00"),
+    id: 6,
+    location: "Room 2",
+  },
+  {
+    title: "COMP10007",
+    startDate: new Date("2018-07-24 12:00"),
+    endDate: new Date("2018-07-24 18:00"),
+    id: 7,
+    location: "Room 7",
+  },
+  {
+    title: "COMP10005",
+    startDate: new Date("2018-07-24 12:00"),
+    endDate: new Date("2018-07-24 18:00"),
+    id: 5,
+    location: "Room 5",
+  },
+  {
+    title: "COMP10006",
+    startDate: new Date("2018-07-24 12:00"),
+    endDate: new Date("2018-07-24 18:00"),
+    id: 6,
+    location: "Room 2",
+  },
+  {
+    title: "COMP10007",
+    startDate: new Date("2018-07-24 12:00"),
+    endDate: new Date("2018-07-24 18:00"),
+    id: 7,
+    location: "Room 7",
+  },
 ];
 
 const useStyles = makeStyles((theme) => ({

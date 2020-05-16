@@ -36,30 +36,6 @@ const style = ({ palette, spacing }) => ({
       boxShadow: "inherit",
     },
   },
-  active: {},
-  valueLabel: {
-    left: "calc(-50% + 4px)",
-  },
-  track: {
-    height: 8,
-    borderRadius: 4,
-  },
-  rail: {
-    height: 8,
-    borderRadius: 4,
-  },
-  closeButton: {
-    position: "absolute",
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
-  approve: {
-    backgroundColor: green[400],
-    "&:hover": {
-      backgroundColor: green[600],
-    },
-  },
 });
 
 export default withStyles(style, { name: "Header" })(

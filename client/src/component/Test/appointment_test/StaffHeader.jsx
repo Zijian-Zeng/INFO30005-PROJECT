@@ -33,48 +33,6 @@ const style = ({ palette, spacing }) => ({
     padding: 0,
     paddingBottom: theme.spacing(2),
   },
-  header: {
-    overflow: "hidden",
-    paddingTop: theme.spacing(0.5),
-  },
-  buttonGroup: {
-    display: "flex",
-    justifyContent: "flex-end",
-    padding: theme.spacing(0, 2),
-  },
-  closeButton: {
-    float: "right",
-  },
-  clickButton: {
-    marginLeft: theme.spacing(2),
-  },
-  picker: {
-    marginRight: theme.spacing(2),
-    "&:last-child": {
-      marginRight: 0,
-    },
-    width: "50%",
-  },
-  wrapper: {
-    display: "flex",
-    justifyContent: "space-between",
-    padding: theme.spacing(1, 0),
-  },
-  textField: {
-    width: "100%",
-  },
-  approve: {
-    backgroundColor: green[400],
-    "&:hover": {
-      backgroundColor: green[600],
-    },
-  },
-  decline: {
-    backgroundColor: red[500],
-    "&:hover": {
-      backgroundColor: red[700],
-    },
-  },
 });
 
 export default withStyles(style, { name: "Header" })(

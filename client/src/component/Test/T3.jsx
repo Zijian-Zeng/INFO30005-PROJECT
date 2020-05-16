@@ -254,6 +254,190 @@ export default () => {
             onVisibilityChange={toggleEditingFormVisibility}
           />
         </Scheduler>
+        <Dialog open={confirmationVisible}>
+          <DialogTitle>Delete Appointment</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete this appointment?
+            </DialogContentText>
+            <DialogContentText>
+              Are you sure you want to delete this appointment?
+            </DialogContentText>
+            <DialogContentText>
+              Are you sure you want to delete this appointment?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog open={confirmationVisible}>
+          <DialogTitle>Delete Appointment</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete this appointment?
+            </DialogContentText>
+          </DialogContent>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete this appointment?
+            </DialogContentText>
+          </DialogContent>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete this appointment?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog open={confirmationVisible}>
+          <DialogTitle>Delete Appointment</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete this appointment?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={toggleConfirmationVisible} variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={commitDeletedAppointment}
+              color="primary"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Paper>
     </div>
   );
