@@ -2,6 +2,8 @@
 
 MeeTute is a platform that wants to make consultations and support services more accessible for students and more manageable for staff.
 
+### Production environment: https://meetute.herokuapp.com
+
 ## User Guide for front-end (Deliverable 3)
 
 ---
@@ -16,19 +18,27 @@ Usertype: Can be used as both student and staff
 
 ## Functionality 1: Enrollment Subject List
 
-After log in, you will be directed to the settings page where both student and staff accounts can join new subjects or leave current enrolled subjects. In addition, staff accounts have access to create new subject (with new subject name and subject code). Both student and staff accounts can only enroll in a maximum of 5 subjects, which aligns with the maximum workload allowed each semester at UniMelb.
+http://meetute.herokuapp.com/settings
+
+After log in, you will be directed to the settings page where both student and staff accounts can join new subjects or leave current enrolled subjects. In addition, staff accounts have access to create a new subject (with new subject name and subject code). Both student and staff accounts can only enrol in a maximum of 5 subjects, which aligns with the maximum workload allowed each semester at UniMelb.
 
 ## Functionality 2: Consultation Booking System
+
+http://meetute.herokuapp.com/consultations
 
 In this tool, teaching staff can set up consultations for different subjects - each consultation includes subject information, date, duration, location and slots available. After creation, student accounts then can register for available consultations in different subjects. Students can view all registered consultations. If you view consultations by subject, there will be three colours representing three statuses - green for registered, blue for available to book and red for fully booked. Students can view all the consultations either by registration or by enrolled subjects.
 
 ## Functionality 3: 1v1 Appointment System
 
+http://meetute.herokuapp.com/appointments
+
 For this functionality, student accounts can filter on the subject, select any staff and request for an appointment, request details include date, duration, location and request reason. Upon creating a request, the status of the request will be pending. Then the teaching staff can either approve or decline your request with an option to write any approved/declined comments. Similar to consultation booking, three different colours represent different statuses of the request - green for approved, yellow for pending and red for declined. Students can view all the requests by their status.
 
 ## Functionality 4: Study Hub (Students only)
 
-Students can create study hubs to meet classmates enrolled in the same subject. Every student has access to create new study hubs, which include details such as name of the study hub, subject, day of the week they want to meet up, time, duration and location. When you want to join a study hub, you can see all the current registered students. If you are the creator the hub, leaving the hub means the hub will be deleted. If you are not the creator, after leaving the hub, you can still re-join it. Hubs coloured in blue mean they are available to register, and the ones coloured in green mean the student has already joined the hub.
+http://meetute.herokuapp.com/hubs
+
+Students can create study hubs to meet classmates enrolled in the same subject. Every student has access to create new study hubs, which include details such as the name of the study hub, subject, day of the week they want to meet up, time, duration and location. When you want to join a study hub, you can see all the current registered students. If you are the creator of the hub, leaving the hub means the hub will be deleted. If you are not the creator, after leaving the hub, you can still re-join it. Hubs coloured in blue mean they are available to register, and the ones coloured in green mean the student has already joined the hub.
 
 ## Functionality 5: Analytics (Staff only)
 
@@ -56,9 +66,6 @@ This analytics tool will visualise the user data from consultations and request.
 All the API testing request data can be found in the "[meetute_API_testing](https://github.com/Zijian-Zeng/INFO30005-PROJECT/blob/master/meetute_API_testing.json)" JSON file for Postman to import.
 
 ## Guides for back-end APIs: /api/...
-
-### Production environment: https://meetute.herokuapp.com
-
 ### Postman Document: https://documenter.getpostman.com/view/11130247/SzmY8gZr
 
 ---
