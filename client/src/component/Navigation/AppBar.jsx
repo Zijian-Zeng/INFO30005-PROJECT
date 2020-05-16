@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import clsx from "clsx";
 import { useHistory, useLocation } from "react-router-dom";
+import withWidth, { isWidthUp, isWidthDown } from "@material-ui/core/withWidth";
 
 import { Link } from "react-router-dom";
 
@@ -63,122 +64,129 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default ({ openDrawer, handleDrawerOpen, logOut }) => {
-    const classes = useStyles();
+export default withWidth()(
+    ({ openDrawer, handleDrawerOpen, logOut, width, aboutBar }) => {
+        const classes = useStyles();
 
-    const { loginEl, setLoginEl, auth, setOpenLogin } = useContext(AuthApi);
+        const { loginEl, setLoginEl, auth, setOpenLogin } = useContext(AuthApi);
 
-    const { setLoadingRoute } = useContext(UserContext);
-    const history = useHistory();
-    const location = useLocation();
+        const { setLoadingRoute } = useContext(UserContext);
+        const history = useHistory();
+        const location = useLocation();
 
-    const handleClick = (event) => {
-        setLoginEl(event.currentTarget);
-    };
+        const handleClick = (event) => {
+            if (aboutBar) return history.push("/");
+            setLoginEl(event.currentTarget);
+        };
 
-    const handleClose = () => {
-        setLoginEl(null);
-    };
+        const handleClose = () => {
+            setLoginEl(null);
+        };
 
-    const open = Boolean(loginEl);
-    const id = open ? "simple-popover" : undefined;
+        const open = Boolean(loginEl);
+        const id = open ? "simple-popover" : undefined;
 
-    return (
-        <AppBar
-            position="fixed"
-            className={clsx(classes.appBar, {
-                [classes.appBarShift]: openDrawer,
-            })}
-        >
-            <Toolbar>
-                {auth ? (
-                    <IconButton
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        className={clsx(classes.menuButton, {
-                            [classes.hide]: openDrawer,
-                        })}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                ) : null}
+        return (
+            <AppBar
+                position="fixed"
+                className={clsx(classes.appBar, {
+                    [classes.appBarShift]: openDrawer,
+                })}
+            >
+                <Toolbar>
+                    {auth && !aboutBar ? (
+                        <IconButton
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            edge="start"
+                            className={clsx(classes.menuButton, {
+                                [classes.hide]: openDrawer,
+                            })}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                    ) : null}
 
-                <Button
-                    onClick={() => {
-                        if (location.pathname === "/Settings") return;
-                        setLoadingRoute(true);
-                        history.push("/Settings");
-                        console.log(location.pathname);
-                    }}
-                >
-                    <img
-                        className={classes.logo}
-                        src={logoImage}
-                        alt="meetute"
-                    />
-                </Button>
-
-                <Link className={classes.noDecoration} to={"/about"}>
                     <Button
-                        style={{
-                            fontSize: "18px",
-                            color: "#616161",
-                            fontWeight: 530,
-                            fontFamily: "Arial",
-                            textTransform: "none",
+                        onClick={() => {
+                            if (
+                                location.pathname === "/Settings" ||
+                                location.pathname === "/settings"
+                            )
+                                return;
+                            setLoadingRoute(true);
+                            history.push("/Settings");
+                            console.log(location.pathname);
                         }}
                     >
-                        About Us
+                        <img
+                            className={classes.logo}
+                            src={logoImage}
+                            alt="meetute"
+                        />
                     </Button>
-                </Link>
 
-                <div className={classes.link}>
-                    <Button className={classes.link} onClick={handleClick}>
-                        <Avatar />
-                    </Button>
-                    <Menu
-                        id={id}
-                        open={open}
-                        anchorEl={loginEl}
-                        onClose={handleClose}
-                        keepMounted
-                    >
-                        {auth ? (
-                            <MenuItem
-                                onClick={() => {
-                                    logOut();
-                                    handleClose();
-                                }}
-                                className={classes.menuItem}
-                            >
-                                Logout
-                            </MenuItem>
-                        ) : (
-                            <div>
+                    <Link className={classes.noDecoration} to={"/about"}>
+                        <Button
+                            style={{
+                                fontSize: "18px",
+                                color: "#616161",
+                                fontWeight: 530,
+                                fontFamily: "Arial",
+                                textTransform: "none",
+                            }}
+                        >
+                            About {isWidthDown("sm", width) ? "" : " us"}
+                        </Button>
+                    </Link>
+
+                    <div className={classes.link}>
+                        <Button className={classes.link} onClick={handleClick}>
+                            <Avatar />
+                        </Button>
+                        <Menu
+                            id={id}
+                            open={open}
+                            anchorEl={loginEl}
+                            onClose={handleClose}
+                            keepMounted
+                        >
+                            {auth ? (
                                 <MenuItem
                                     onClick={() => {
-                                        setOpenLogin(true);
+                                        logOut();
                                         handleClose();
                                     }}
                                     className={classes.menuItem}
                                 >
-                                    Login
+                                    Logout
                                 </MenuItem>
-                                <MenuItem
-                                    onClick={() => {
-                                        handleClose();
-                                        history.push("/signup");
-                                    }}
-                                    className={classes.menuItem}
-                                >
-                                    Sign Up
-                                </MenuItem>
-                            </div>
-                        )}
-                    </Menu>
-                </div>
-            </Toolbar>
-        </AppBar>
-    );
-};
+                            ) : (
+                                <div>
+                                    <MenuItem
+                                        onClick={() => {
+                                            setOpenLogin(true);
+                                            handleClose();
+                                        }}
+                                        className={classes.menuItem}
+                                    >
+                                        Login
+                                    </MenuItem>
+                                    <MenuItem
+                                        onClick={() => {
+                                            handleClose();
+                                            history.push("/signup");
+                                        }}
+                                        className={classes.menuItem}
+                                    >
+                                        Sign Up
+                                    </MenuItem>
+                                </div>
+                            )}
+                        </Menu>
+                    </div>
+                </Toolbar>
+            </AppBar>
+        );
+    }
+);

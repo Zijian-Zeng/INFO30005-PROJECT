@@ -34,14 +34,12 @@ import Add from "./Add";
 import Create from "./Create";
 
 const useStyles = makeStyles((theme) => ({
-    paper: {
-        maxWidth: "100%",
-        marginTop: theme.spacing(10),
-    },
     fab: {
-        position: "fixed",
-        bottom: theme.spacing(6),
-        right: theme.spacing(6),
+        [theme.breakpoints.up("lg")]: {
+            position: "fixed",
+            bottom: theme.spacing(1) * 10,
+            right: theme.spacing(1) * 8,
+        },
     },
 }));
 
@@ -89,39 +87,10 @@ export default ({ user, setMySubjects, mySubjects, fetchSubject }) => {
         setLoadingRoute(false);
     };
 
-    console.log(mySubjects);
     if (!mySubjects.subjectsInfo) return null;
 
     return (
         <div>
-            <SpeedDial
-                ariaLabel="SpeedDial example"
-                className={classes.fab}
-                icon={<SpeedDialIcon />}
-                open={openSpeed}
-                onClose={() => {
-                    setOpenSpeed(false);
-                }}
-                onOpen={() => {
-                    setOpenSpeed(true);
-                }}
-                direction="up"
-            >
-                <SpeedDialAction
-                    icon={<AddIcon />}
-                    tooltipTitle="Join new subject"
-                    onClick={handleJoinOpen}
-                />
-                <SpeedDialAction
-                    icon={<CreateIcon />}
-                    tooltipTitle="Create new subject"
-                    onClick={() => {
-                        closeAlert();
-                        setOpenCreate(true);
-                    }}
-                />
-            </SpeedDial>
-
             <Add
                 open={openJoin}
                 handleDialogClose={() => {
@@ -141,7 +110,6 @@ export default ({ user, setMySubjects, mySubjects, fetchSubject }) => {
                 subjectName={newName}
                 setSubjectName={setNewName}
             />
-
             <Grid container justify="center" alignItems="center">
                 <Grid item xs={12}>
                     <Typography
@@ -184,6 +152,35 @@ export default ({ user, setMySubjects, mySubjects, fetchSubject }) => {
                             </Grow>
                         )
                     )}
+                    <Grid item xs={12}>
+                        <SpeedDial
+                            ariaLabel="SpeedDial example"
+                            className={classes.fab}
+                            icon={<SpeedDialIcon />}
+                            open={openSpeed}
+                            onClose={() => {
+                                setOpenSpeed(false);
+                            }}
+                            onOpen={() => {
+                                setOpenSpeed(true);
+                            }}
+                            direction="up"
+                        >
+                            <SpeedDialAction
+                                icon={<AddIcon />}
+                                tooltipTitle="Join new subject"
+                                onClick={handleJoinOpen}
+                            />
+                            <SpeedDialAction
+                                icon={<CreateIcon />}
+                                tooltipTitle="Create new subject"
+                                onClick={() => {
+                                    closeAlert();
+                                    setOpenCreate(true);
+                                }}
+                            />
+                        </SpeedDial>
+                    </Grid>
                 </Grid>
             </Grid>
         </div>
