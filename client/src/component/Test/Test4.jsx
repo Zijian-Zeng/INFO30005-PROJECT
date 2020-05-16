@@ -66,6 +66,13 @@ const appointments = [
     id: 1,
     location: "Room 1",
   },
+  {
+    title: "COMP10001",
+    startDate: new Date("2018-07-24 12:00"),
+    endDate: new Date("2018-07-24 18:00"),
+    id: 2,
+    location: "Room 2",
+  },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -171,6 +178,27 @@ export default () => {
   return (
     <div>
       <Paper>
+        <Scheduler data={data}>
+          <ViewState currentDate={currentDate} />
+          <EditingState
+            onCommitChanges={commitChanges}
+            onEditingAppointmentChange={onEditingAppointmentChange}
+            onAddedAppointmentChange={onAddedAppointmentChange}
+          />
+          <WeekView startDayHour={8} endDayHour={24} cellDuration={60} />
+
+          <Appointments />
+          <AppointmentTooltip showOpenButton showCloseButton />
+          <Toolbar />
+          <DateNavigator />
+
+          <AppointmentForm
+            overlayComponent={appointmentForm}
+            visible={editingFormVisible}
+            onVisibilityChange={toggleEditingFormVisibility}
+          />
+        </Scheduler>
+
         <Dialog open={confirmationVisible}>
           <DialogTitle>Delete Appointment</DialogTitle>
           <DialogContent>
@@ -191,6 +219,21 @@ export default () => {
             </Button>
           </DialogActions>
         </Dialog>
+        <Fab
+          color="primary"
+          className={classes.fab}
+          onClick={() => {
+            setEditingFormVisible(true);
+
+            onEditingAppointmentChange(undefined);
+            onAddedAppointmentChange({
+              startDate: new Date(currentDate).setHours(startDayHour),
+              endDate: new Date(currentDate).setHours(startDayHour + 1),
+            });
+          }}
+        >
+          <AddIcon />
+        </Fab>
       </Paper>
     </div>
   );

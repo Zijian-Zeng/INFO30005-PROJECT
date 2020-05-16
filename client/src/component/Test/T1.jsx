@@ -279,7 +279,8 @@ export default () => {
               Delete
             </Button>
           </DialogActions>
-        </Dialog><Dialog open={confirmationVisible}>
+        </Dialog>
+        <Dialog open={confirmationVisible}>
           <DialogTitle>Delete Appointment</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -404,7 +405,7 @@ export default () => {
               Delete
             </Button>
           </DialogActions>
-           <DialogActions>
+          <DialogActions>
             <Button onClick={toggleConfirmationVisible} variant="outlined">
               Cancel
             </Button>
@@ -416,7 +417,7 @@ export default () => {
               Delete
             </Button>
           </DialogActions>
-           <DialogActions>
+          <DialogActions>
             <Button onClick={toggleConfirmationVisible} variant="outlined">
               Cancel
             </Button>
@@ -428,7 +429,6 @@ export default () => {
               Delete
             </Button>
           </DialogActions>
-          
         </Dialog>
         <Dialog open={confirmationVisible}>
           <DialogTitle>Delete Appointment</DialogTitle>
