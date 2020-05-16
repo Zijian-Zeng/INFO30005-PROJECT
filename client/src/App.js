@@ -2,10 +2,6 @@ import React, { useState, useContext, useEffect } from "react";
 import Signup from "./component/Signup/Signup";
 import Cookies from "js-cookie";
 import Home from "./component/Home/home";
-import Test from "./component/Test/Test";
-import Test2 from "./component/Test/Test2";
-import Test3 from "./component/Test/Test3";
-import Test4 from "./component/Test/Test4";
 
 import Appointment from "./component/Appointment/Appointment";
 import Consultation from "./component/Consultation/Consultation";
@@ -149,10 +145,6 @@ export default () => {
             <HomeRoute exact path="/" component={Home} />
             <Route exact path="/about" component={About} />
             <Route exact path="/signup" component={Signup} />
-            <Route exact path="/test" component={Test} />
-            <Route exact path="/test2" component={Test2} />
-            <Route exact path="/test3" component={Test3} />
-            <Route exact path="/test4" component={Test4} />
           </Switch>
         </Router>
       </UserContext.Provider>
