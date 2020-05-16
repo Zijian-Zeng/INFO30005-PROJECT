@@ -98,6 +98,115 @@ const style = ({ palette, spacing }) => ({
 		height: "260px",
 		backgroundSize: "cover",
 	},
+	icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},icon: {
+		color: palette.action.active,
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},
 });
 
 export default withStyles(style, { name: "Header" })(
