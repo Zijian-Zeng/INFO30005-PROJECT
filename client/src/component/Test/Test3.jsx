@@ -75,6 +75,90 @@ const appointments = [
   },
   {
     title: "COMP10001",
+    startDate: new Date("2018-07-27 10:00"),
+    endDate: new Date("2018-07-27 11:00"),
+    id: 0,
+    location: "Room 10",
+  },
+  {
+    title: "COMP10002",
+    startDate: new Date("2018-07-27 10:00"),
+    endDate: new Date("2018-07-27 11:00"),
+    id: 0,
+    location: "Room 10",
+  },
+  {
+    title: "COMP10003",
+    startDate: new Date("2018-07-27 10:00"),
+    endDate: new Date("2018-07-27 11:00"),
+    id: 0,
+    location: "Room 10",
+  },
+  {
+    title: "COMP10001",
+    startDate: new Date("2018-07-27 10:00"),
+    endDate: new Date("2018-07-27 11:00"),
+    id: 0,
+    location: "Room 10",
+  },
+  {
+    title: "COMP10002",
+    startDate: new Date("2018-07-27 10:00"),
+    endDate: new Date("2018-07-27 11:00"),
+    id: 0,
+    location: "Room 10",
+  },
+  {
+    title: "COMP10003",
+    startDate: new Date("2018-07-27 10:00"),
+    endDate: new Date("2018-07-27 11:00"),
+    id: 0,
+    location: "Room 10",
+  },
+  {
+    title: "COMP10001",
+    startDate: new Date("2018-07-27 10:00"),
+    endDate: new Date("2018-07-27 11:00"),
+    id: 0,
+    location: "Room 10",
+  },
+  {
+    title: "COMP10002",
+    startDate: new Date("2018-07-27 10:00"),
+    endDate: new Date("2018-07-27 11:00"),
+    id: 0,
+    location: "Room 10",
+  },
+  {
+    title: "COMP10003",
+    startDate: new Date("2018-07-27 10:00"),
+    endDate: new Date("2018-07-27 11:00"),
+    id: 0,
+    location: "Room 10",
+  },
+  {
+    title: "COMP10001",
+    startDate: new Date("2018-07-27 10:00"),
+    endDate: new Date("2018-07-27 11:00"),
+    id: 0,
+    location: "Room 10",
+  },
+  {
+    title: "COMP10002",
+    startDate: new Date("2018-07-27 10:00"),
+    endDate: new Date("2018-07-27 11:00"),
+    id: 0,
+    location: "Room 10",
+  },
+  {
+    title: "COMP10003",
+    startDate: new Date("2018-07-27 10:00"),
+    endDate: new Date("2018-07-27 11:00"),
+    id: 0,
+    location: "Room 10",
+  },
+  {
+    title: "COMP10001",
     startDate: new Date("2018-07-18 13:00"),
     endDate: new Date("2018-07-18 14:00"),
     id: 1,
@@ -279,7 +363,8 @@ export default () => {
               Delete
             </Button>
           </DialogActions>
-        </Dialog><Dialog open={confirmationVisible}>
+        </Dialog>
+        <Dialog open={confirmationVisible}>
           <DialogTitle>Delete Appointment</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -404,7 +489,7 @@ export default () => {
               Delete
             </Button>
           </DialogActions>
-           <DialogActions>
+          <DialogActions>
             <Button onClick={toggleConfirmationVisible} variant="outlined">
               Cancel
             </Button>
@@ -416,7 +501,7 @@ export default () => {
               Delete
             </Button>
           </DialogActions>
-           <DialogActions>
+          <DialogActions>
             <Button onClick={toggleConfirmationVisible} variant="outlined">
               Cancel
             </Button>
@@ -428,7 +513,6 @@ export default () => {
               Delete
             </Button>
           </DialogActions>
-          
         </Dialog>
         <Dialog open={confirmationVisible}>
           <DialogTitle>Delete Appointment</DialogTitle>
