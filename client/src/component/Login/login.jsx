@@ -6,45 +6,48 @@ import { AuthApi } from "./../Methods";
 import { Close } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        margin: "auto",
-        maxWidth: theme.spacing(55),
-    },
-    close: {
-        marginTop: theme.spacing(1),
-    },
+	root: {
+		margin: "auto",
+		maxWidth: theme.spacing(55),
+	},
+	close: {
+		marginTop: theme.spacing(1),
+	},
 }));
 
+/***
+ * Login dialog
+ */
 export default () => {
-    const classes = useStyles();
-    const { setLoginEl, openLogin, setOpenLogin } = useContext(AuthApi);
+	const classes = useStyles();
+	const { setLoginEl, openLogin, setOpenLogin } = useContext(AuthApi);
 
-    const closeLoginWindow = () => {
-        setOpenLogin(false);
-        setLoginEl(null);
-    };
+	const closeLoginWindow = () => {
+		setOpenLogin(false);
+		setLoginEl(null);
+	};
 
-    return (
-        <Dialog
-            onClose={closeLoginWindow}
-            aria-labelledby="customized-dialog-title"
-            open={openLogin}
-            className={classes.root}
-        >
-            <Grid container justify="flex-end">
-                <Grid item xs={2}>
-                    <IconButton
-                        className={classes.close}
-                        onClick={closeLoginWindow}
-                    >
-                        <Close />
-                    </IconButton>
-                </Grid>
-            </Grid>
+	return (
+		<Dialog
+			onClose={closeLoginWindow}
+			aria-labelledby="customized-dialog-title"
+			open={openLogin}
+			className={classes.root}
+		>
+			<Grid container justify="flex-end">
+				<Grid item xs={2}>
+					<IconButton
+						className={classes.close}
+						onClick={closeLoginWindow}
+					>
+						<Close />
+					</IconButton>
+				</Grid>
+			</Grid>
 
-            <Grid container justify="center">
-                <LoginForm closeLoginWindow={closeLoginWindow} />
-            </Grid>
-        </Dialog>
-    );
+			<Grid container justify="center">
+				<LoginForm closeLoginWindow={closeLoginWindow} />
+			</Grid>
+		</Dialog>
+	);
 };

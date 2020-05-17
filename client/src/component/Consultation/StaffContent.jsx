@@ -1,33 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
-import {
-	AppointmentTooltip,
-	WeekView,
-} from "@devexpress/dx-react-scheduler-material-ui";
-
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import React from "react";
+import { AppointmentTooltip } from "@devexpress/dx-react-scheduler-material-ui";
+import { withStyles } from "@material-ui/core/styles";
 import {
 	Grid,
-	Paper,
-	Typography,
 	List,
 	ListItem,
 	ListItemIcon,
 	ListItemText,
-	Divider,
 	Badge,
 } from "@material-ui/core";
-
-import FolderIcon from "@material-ui/icons/Folder";
-import DataUsageIcon from "@material-ui/icons/DataUsage";
 import RoomIcon from "@material-ui/icons/Room";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
-import FormatAlignLeftIcon from "@material-ui/icons/FormatAlignLeft";
 import LibraryAddIcon from "@material-ui/icons/LibraryAdd";
-import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 
-import { myFetch, UserContext, StaffContext } from "../Methods";
-import Staff from "./Staff";
 const style = ({ palette, spacing }) => ({
 	icon: {
 		color: palette.action.active,
@@ -48,10 +34,11 @@ const style = ({ palette, spacing }) => ({
 	},
 });
 
+/***
+ * Customized timetable content for consultation feature (staff)
+ */
 export default withStyles(style, { name: "Content" })(
 	({ children, appointmentData, classes, ...restProps }) => {
-		//const {} = useContext(StaffContext);
-		console.log(appointmentData);
 		return (
 			<AppointmentTooltip.Content
 				{...restProps}

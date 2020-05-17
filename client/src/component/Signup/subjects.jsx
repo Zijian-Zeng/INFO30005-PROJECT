@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Autocomplete from "@material-ui/lab/autocomplete";
 import { TextField, Chip } from "@material-ui/core";
-import { myFetch } from "../Methods";
 
+/***
+ * Subjects field in stepper card.
+ */
 export default ({ setChosenSubjects, allSubjects }) => {
 	return (
 		<div>

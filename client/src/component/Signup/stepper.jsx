@@ -10,6 +10,9 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import clsx from "clsx";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 
+/***
+ * Customized step connector.
+ */
 const ColorlibConnector = withStyles({
 	alternativeLabel: {
 		top: 22,
@@ -50,7 +53,10 @@ const useColorlibStepIconStyles = makeStyles({
 	},
 });
 
-function ColorlibStepIcon(props) {
+/***
+ * Customized step icons for each step.
+ */
+const ColorlibStepIcon = (props) => {
 	const classes = useColorlibStepIconStyles();
 	const { active, completed } = props;
 
@@ -72,7 +78,7 @@ function ColorlibStepIcon(props) {
 			{icons[String(props.icon)]}
 		</div>
 	);
-}
+};
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -80,6 +86,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+/***
+ * The stepper in sign up page.
+ */
 export default ({ activeStep, getSteps }) => {
 	const classes = useStyles();
 	const steps = getSteps();

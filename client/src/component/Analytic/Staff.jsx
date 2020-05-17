@@ -1,33 +1,19 @@
-import React, { useContext, useEffect } from "react";
-import {
-    Grid,
-    CardContent,
-    withWidth,
-    isWidthUp,
-    Button,
-    Paper,
-    Typography,
-    LinearProgress,
-} from "@material-ui/core";
-import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
+import React, { useContext } from "react";
 import { UserContext } from "../Methods";
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        maxWidth: "100%",
-        marginTop: theme.spacing(10),
-    },
-}));
 
+/***
+ * Analytic page for staff.
+ */
 export default () => {
-    const classes = useStyles();
-    const { user } = useContext(UserContext);
-    console.log(user);
-    const { type, userInfo } = user;
-    const { firstName, lastName } = userInfo;
+	const { user } = useContext(UserContext);
 
-    return (
-        <h1>
-            Welcome {type} {firstName} {lastName}
-        </h1>
-    );
+	const { type, userInfo } = user;
+	const { firstName, lastName } = userInfo;
+
+	//Developing, to be continued...
+	return (
+		<h1>
+			Welcome {type} {firstName} {lastName}
+		</h1>
+	);
 };
