@@ -1,9 +1,7 @@
-<<<<<<< HEAD
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import { ViewState } from "@devexpress/dx-react-scheduler";
 import {
     Scheduler,
-    DayView,
     Appointments,
     MonthView,
     Toolbar,
@@ -16,58 +14,21 @@ import {
 } from "@devexpress/dx-react-scheduler-material-ui";
 
 import { Paper, LinearProgress } from "@material-ui/core";
-import {
-    makeStyles,
-    withStyles,
-    lighten,
-    useTheme,
-} from "@material-ui/core/styles";
-import withWidth, { isWidthUp, isWidthDown } from "@material-ui/core/withWidth";
+import { withStyles } from "@material-ui/core/styles";
+import withWidth from "@material-ui/core/withWidth";
 import {
     lime,
-    lightBlue,
     red,
     green,
-    yellow,
     cyan,
     blue,
     amber,
     teal,
 } from "@material-ui/core/colors";
 
-=======
-import React from "react";
-import { ViewState } from "@devexpress/dx-react-scheduler";
-import {
-	Scheduler,
-	Appointments,
-	MonthView,
-	Toolbar,
-	DateNavigator,
-	ViewSwitcher,
-	TodayButton,
-	Resources,
-	AppointmentTooltip,
-	WeekView,
-} from "@devexpress/dx-react-scheduler-material-ui";
-
-import { Paper, LinearProgress } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
-import withWidth from "@material-ui/core/withWidth";
-import {
-	lime,
-	red,
-	green,
-	cyan,
-	blue,
-	amber,
-	teal,
-} from "@material-ui/core/colors";
-
 /***
  * timetable loading bar.
  */
->>>>>>> regina-front-end
 const ToolbarWithLoading = withStyles(
     {
         toolbarRoot: {
@@ -88,12 +49,9 @@ const ToolbarWithLoading = withStyles(
     </div>
 ));
 
-<<<<<<< HEAD
-=======
 /***
  * For changing timetable colors
  */
->>>>>>> regina-front-end
 const resources = [
     {
         fieldName: "booking",
@@ -133,7 +91,9 @@ const loadSubjectResources = (subjects) => {
     });
 };
 
-<<<<<<< HEAD
+/***
+ * Customized Timetable component.
+ */
 export default withWidth()(
     ({
         data,
@@ -144,13 +104,10 @@ export default withWidth()(
         loading,
         mainResourceName,
         subjects,
-        viewChange,
-        width,
         halfScreen,
     }) => {
+        //Loading colors for each subject in this account.
         if (subjects) loadSubjectResources(subjects);
-
-        const largeScreen = isWidthUp("sm", width);
 
         return (
             <Paper>
@@ -192,64 +149,4 @@ export default withWidth()(
             </Paper>
         );
     }
-=======
-/***
- * Customized Timetable component.
- */
-export default withWidth()(
-	({
-		data,
-		currentDate,
-		setCurrentDate,
-		header,
-		content,
-		loading,
-		mainResourceName,
-		subjects,
-		halfScreen,
-	}) => {
-		//Loading colors for each subject in this account.
-		if (subjects) loadSubjectResources(subjects);
-
-		return (
-			<Paper>
-				<Scheduler data={data} height={halfScreen ? 350 : 600}>
-					<ViewState
-						currentDate={currentDate}
-						onCurrentDateChange={setCurrentDate}
-					/>
-
-					<WeekView
-						excludedDays={[0, 6]}
-						startDayHour={8}
-						endDayHour={24}
-						cellDuration={60}
-					/>
-
-					<MonthView />
-
-					<Appointments />
-
-					<AppointmentTooltip
-						headerComponent={header}
-						contentComponent={content}
-					/>
-					<Resources
-						mainResourceName={mainResourceName}
-						data={resources}
-						palette={[blue, cyan, teal, lime, amber]}
-					/>
-					<Toolbar
-						{...(loading
-							? { rootComponent: ToolbarWithLoading }
-							: null)}
-					/>
-					<DateNavigator />
-					<TodayButton />
-					<ViewSwitcher />
-				</Scheduler>
-			</Paper>
-		);
-	}
->>>>>>> regina-front-end
 );

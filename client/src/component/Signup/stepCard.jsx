@@ -19,7 +19,6 @@ import MyField from "../Login/MyField";
 import Subjects from "./subjects";
 
 const useStyles = makeStyles((theme) => ({
-<<<<<<< HEAD
     paper: {
         background: theme.background,
 
@@ -50,38 +49,6 @@ const useStyles = makeStyles((theme) => ({
     SchoolIcon: {
         marginRight: theme.spacing(1),
     },
-=======
-	paper: {
-		background: theme.background,
-
-		[theme.breakpoints.down("sm")]: {
-			marginTop: theme.spacing(8),
-		},
-	},
-	buttons: {
-		marginTop: theme.spacing(2),
-	},
-	staff: {
-		minHeight: "4rem",
-		background: "linear-gradient(to right, #f7985d 0%, #f7985d 100%)",
-		borderRadius: 30,
-	},
-	student: {
-		minHeight: "4rem",
-		background: "linear-gradient(to right, #f7985d 0%, #f7985d 100%)",
-		borderRadius: 30,
-	},
-	largeIcon: {
-		width: 30,
-		height: 30,
-	},
-	noDecoration: {
-		textDecoration: "none !important",
-	},
-	SchoolIcon: {
-		marginRight: theme.spacing(1),
-	},
->>>>>>> regina-front-end
 }));
 
 /***
@@ -90,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 export default (props) => {
     const classes = useStyles();
 
-<<<<<<< HEAD
+    //props for handling steps.
     const {
         activeStep,
         handleNext,
@@ -100,8 +67,21 @@ export default (props) => {
         handleSubmit,
     } = props;
 
-    const history = useHistory();
+    //props for handling sign up information.
+    const {
+        setEmail,
+        userType,
+        setUserType,
+        setFirstName,
+        setLasName,
+        setPassword,
+        setConformPassword,
+        status,
+        setChosenSubjects,
+        allSubjects,
+    } = props;
 
+    //Buttons for each step.
     const getButton = (cardID) => {
         switch (cardID) {
             case 5:
@@ -125,56 +105,6 @@ export default (props) => {
                         </Grid>
                     </Grid>
                 );
-=======
-	//props for handling steps.
-	const {
-		activeStep,
-		handleNext,
-		handleBack,
-		text,
-		cardID,
-		handleSubmit,
-	} = props;
-
-	//props for handling sign up information.
-	const {
-		setEmail,
-		userType,
-		setUserType,
-		setFirstName,
-		setLasName,
-		setPassword,
-		setConformPassword,
-		status,
-		setChosenSubjects,
-		allSubjects,
-	} = props;
-
-	//Buttons for each step.
-	const getButton = (cardID) => {
-		switch (cardID) {
-			case 5:
-				return (
-					<Grid container justify="space-between" alignItems="center">
-						<Grid item xs={12}>
-							<Grid container justify="center">
-								<Link to="/" className={classes.noDecoration}>
-									<Fab
-										variant="extended"
-										color="primary"
-										aria-label="add"
-									>
-										<SchoolIcon
-											className={classes.SchoolIcon}
-										/>
-										Start your meetute life
-									</Fab>
-								</Link>
-							</Grid>
-						</Grid>
-					</Grid>
-				);
->>>>>>> regina-front-end
 
             case 4:
                 return (
@@ -229,20 +159,7 @@ export default (props) => {
         }
     };
 
-<<<<<<< HEAD
-    const {
-        setEmail,
-        userType,
-        setUserType,
-        setFirstName,
-        setLasName,
-        setPassword,
-        setConformPassword,
-        status,
-        setChosenSubjects,
-        allSubjects,
-    } = props;
-
+    //Fields for each step.
     const getField = (cardID) => {
         switch (cardID) {
             case 0:
@@ -329,95 +246,6 @@ export default (props) => {
                                     : ""
                             }
                         />
-=======
-	//Fields for each step.
-	const getField = (cardID) => {
-		switch (cardID) {
-			case 0:
-				return (
-					<Autocomplete
-						id="combo-box-demo"
-						options={["student", "staff"]}
-						defaultValue="student"
-						getOptionLabel={(option) => option}
-						value={userType}
-						onChange={(event, newValue) => {
-							setUserType(newValue);
-						}}
-						renderInput={(params) => {
-							return (
-								<TextField
-									{...params}
-									label="I'm a"
-									variant="filled"
-									required
-								/>
-							);
-						}}
-					/>
-				);
-			case 2:
-				return (
-					<MyField
-						label="Please Enter your Email"
-						setState={setEmail}
-						required={true}
-						type="email"
-						error={
-							status === "Error! email cannot be blank"
-								? status
-								: ""
-						}
-					/>
-				);
-			case 3:
-				return (
-					<div>
-						<MyField
-							label="Set Password"
-							setState={setPassword}
-							required={true}
-							type={"password"}
-							error={
-								status === "Error! password cannot be blank"
-									? status
-									: ""
-							}
-						/>
-						<MyField
-							label="Confirm Password"
-							setState={setConformPassword}
-							required={true}
-							type={"password"}
-							error={
-								status === "Error! password cannot be blank"
-									? status
-									: ""
-							}
-						/>
-					</div>
-				);
-			case 4:
-				return (
-					<Subjects
-						allSubjects={allSubjects}
-						setChosenSubjects={setChosenSubjects}
-					/>
-				);
-			case 1:
-				return (
-					<div>
-						<MyField
-							label="First Name"
-							setState={setFirstName}
-							required={true}
-							error={
-								status === "Error! FirstName cannot be blank"
-									? status
-									: ""
-							}
-						/>
->>>>>>> regina-front-end
 
                         <MyField
                             label="Last Name"
@@ -437,7 +265,6 @@ export default (props) => {
         }
     };
 
-<<<<<<< HEAD
     return (
         <div>
             <Collapse in={activeStep === cardID} timeout={500}>
@@ -452,22 +279,6 @@ export default (props) => {
                             <br />
                             <br />
                         </Typography>
-=======
-	return (
-		<div>
-			<Collapse in={activeStep === cardID} timeout={500}>
-				<Paper
-					variant="elevation"
-					elevation={0}
-					className={classes.paper}
-				>
-					<Container maxWidth="md">
-						<Typography align="center" variant="h4">
-							{text}
-							<br />
-							<br />
-						</Typography>
->>>>>>> regina-front-end
 
                         <Container className={classes.buttons} maxWidth="sm">
                             <form

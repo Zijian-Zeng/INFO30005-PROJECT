@@ -1,44 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-<<<<<<< HEAD:client/build/precache-manifest.c6c227c71da5e43af251a4b46cce53dd.js
-    "revision": "632875833aa352c8f3783bcf4a9fff40",
+    "revision": "84be7b281f511ba7ff8d7f15acc51362",
     "url": "/index.html"
   },
   {
-    "revision": "dd1b4e6a4a680d664ffd",
+    "revision": "3e090165b9b3a7092d94",
     "url": "/static/css/main.5ecd60fb.chunk.css"
   },
   {
-    "revision": "6c7bf8c02a463548fb4a",
-    "url": "/static/js/2.cd0b00d1.chunk.js"
+    "revision": "e15d83783b5fb90054b6",
+    "url": "/static/js/2.d26069ac.chunk.js"
   },
   {
     "revision": "845a8e0b52c5efae29a7c22539d8e72a",
-    "url": "/static/js/2.cd0b00d1.chunk.js.LICENSE.txt"
+    "url": "/static/js/2.d26069ac.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "dd1b4e6a4a680d664ffd",
-    "url": "/static/js/main.ddfb3d20.chunk.js"
-=======
-    "revision": "d17d21294852cc94ada46dcedd7d9bd1",
-    "url": "/index.html"
-  },
-  {
-    "revision": "56fd767a7f67a45f642f",
-    "url": "/static/css/main.5ecd60fb.chunk.css"
-  },
-  {
-    "revision": "43e00286ad1a580a26ba",
-    "url": "/static/js/2.a86fd458.chunk.js"
-  },
-  {
-    "revision": "845a8e0b52c5efae29a7c22539d8e72a",
-    "url": "/static/js/2.a86fd458.chunk.js.LICENSE.txt"
-  },
-  {
-    "revision": "56fd767a7f67a45f642f",
-    "url": "/static/js/main.8988ef59.chunk.js"
->>>>>>> regina-front-end:client/build/precache-manifest.ff178fb3a4872bf5990934c7fa4f17a3.js
+    "revision": "3e090165b9b3a7092d94",
+    "url": "/static/js/main.eb40f5c9.chunk.js"
   },
   {
     "revision": "6be19f206596c84cad74",

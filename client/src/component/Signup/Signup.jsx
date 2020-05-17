@@ -11,7 +11,6 @@ import SignupForm from "./signupForm";
 import WaveBorder from "../Home/waveBorder";
 
 const useStyles = makeStyles((theme) => ({
-<<<<<<< HEAD
     c1: {
         background: theme.background,
         maxWidth: "100WH",
@@ -20,16 +19,6 @@ const useStyles = makeStyles((theme) => ({
         background: theme.palette.secondary.light,
         height: "80VH",
     },
-=======
-	c1: {
-		background: theme.background,
-		maxWidth: "100WH",
-	},
-	c2: {
-		background: theme.palette.secondary.light,
-		height: "80VH",
-	},
->>>>>>> regina-front-end
 }));
 
 /***

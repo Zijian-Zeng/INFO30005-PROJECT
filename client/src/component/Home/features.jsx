@@ -2,11 +2,6 @@ import React, { useState } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
-<<<<<<< HEAD
-
-//Icons
-=======
->>>>>>> regina-front-end
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import FeatureCard from "./featureCard";
@@ -59,18 +54,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-<<<<<<< HEAD
-export default withWidth()(({ width }) => {
-    const classes = useStyles();
-    const theme = useTheme();
-=======
 /***
  * The feature section in home page.
  */
 export default withWidth()(({ width }) => {
-	const classes = useStyles();
-	const theme = useTheme();
->>>>>>> regina-front-end
+    const classes = useStyles();
+    const theme = useTheme();
 
     const [activeStep, setActiveStep] = useState(0);
     const maxSteps = features.length;
@@ -79,7 +68,6 @@ export default withWidth()(({ width }) => {
         setActiveStep(step);
     };
 
-<<<<<<< HEAD
     return (
         <div className={classes.root}>
             <Typography
@@ -123,49 +111,4 @@ export default withWidth()(({ width }) => {
             </AutoPlaySwipeableViews>
         </div>
     );
-=======
-	return (
-		<div className={classes.root}>
-			<Typography
-				className={classes.headline}
-				variant={isWidthUp("sm", width) ? "h3" : "h4"}
-				align="center"
-			>
-				<br />
-				See how MeeTute can help you...
-				<br />
-				<br />
-			</Typography>
-
-			{isWidthUp("sm", width) ? (
-				<Stepper
-					activeStep={activeStep}
-					setActiveStep={setActiveStep}
-					features={features}
-				/>
-			) : null}
-
-			<AutoPlaySwipeableViews
-				axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-				index={activeStep}
-				onChangeIndex={handleStepChange}
-				enableMouseEvents
-				className={classes.swipe}
-				interval={9000}
-			>
-				{features.map((element) => (
-					<FeatureCard
-						key={element.headline}
-						headline={element.headline}
-						text={element.text}
-						activeStep={activeStep}
-						setActiveStep={setActiveStep}
-						maxSteps={maxSteps}
-						image={element.image}
-					/>
-				))}
-			</AutoPlaySwipeableViews>
-		</div>
-	);
->>>>>>> regina-front-end
 });
