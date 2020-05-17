@@ -151,6 +151,207 @@ const style = ({ palette, spacing }) => ({
 	fab: {
 		margin: "auto",
 		width: "100%",
+	},icon: {
+		color: palette.action.active,
+		marginLeft: spacing(1),
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},
+	commandButton: {
+		backgroundColor: "rgba(255,255,100,0.65)",
+	},
+	left: {
+		marginLeft: spacing(1),
+	},
+	fab: {
+		margin: "auto",
+		width: "100%",
+	},icon: {
+		color: palette.action.active,
+		marginLeft: spacing(1),
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},
+	commandButton: {
+		backgroundColor: "rgba(255,255,100,0.65)",
+	},
+	left: {
+		marginLeft: spacing(1),
+	},
+	fab: {
+		margin: "auto",
+		width: "100%",
+	},icon: {
+		color: palette.action.active,
+		marginLeft: spacing(1),
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},
+	commandButton: {
+		backgroundColor: "rgba(255,255,100,0.65)",
+	},
+	left: {
+		marginLeft: spacing(1),
+	},
+	fab: {
+		margin: "auto",
+		width: "100%",
+	},icon: {
+		color: palette.action.active,
+		marginLeft: spacing(1),
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},
+	commandButton: {
+		backgroundColor: "rgba(255,255,100,0.65)",
+	},
+	left: {
+		marginLeft: spacing(1),
+	},
+	fab: {
+		margin: "auto",
+		width: "100%",
+	},icon: {
+		color: palette.action.active,
+		marginLeft: spacing(1),
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},
+	commandButton: {
+		backgroundColor: "rgba(255,255,100,0.65)",
+	},
+	left: {
+		marginLeft: spacing(1),
+	},
+	fab: {
+		margin: "auto",
+		width: "100%",
+	},
+	icon: {
+		color: palette.action.active,
+		marginLeft: spacing(1),
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},
+	commandButton: {
+		backgroundColor: "rgba(255,255,100,0.65)",
+	},
+	left: {
+		marginLeft: spacing(1),
+	},
+	fab: {
+		margin: "auto",
+		width: "100%",
+	},icon: {
+		color: palette.action.active,
+		marginLeft: spacing(1),
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},
+	commandButton: {
+		backgroundColor: "rgba(255,255,100,0.65)",
+	},
+	left: {
+		marginLeft: spacing(1),
+	},
+	fab: {
+		margin: "auto",
+		width: "100%",
+	},icon: {
+		color: palette.action.active,
+		marginLeft: spacing(1),
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},
+	commandButton: {
+		backgroundColor: "rgba(255,255,100,0.65)",
+	},
+	left: {
+		marginLeft: spacing(1),
+	},
+	fab: {
+		margin: "auto",
+		width: "100%",
+	},icon: {
+		color: palette.action.active,
+		marginLeft: spacing(1),
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},
+	commandButton: {
+		backgroundColor: "rgba(255,255,100,0.65)",
+	},
+	left: {
+		marginLeft: spacing(1),
+	},
+	fab: {
+		margin: "auto",
+		width: "100%",
+	},icon: {
+		color: palette.action.active,
+		marginLeft: spacing(1),
+	},
+	textCenter: {
+		textAlign: "center",
+	},
+	header: {
+		height: "260px",
+		backgroundSize: "cover",
+	},
+	commandButton: {
+		backgroundColor: "rgba(255,255,100,0.65)",
+	},
+	left: {
+		marginLeft: spacing(1),
+	},
+	fab: {
+		margin: "auto",
+		width: "100%",
 	},
 });
 
