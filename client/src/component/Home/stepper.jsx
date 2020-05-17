@@ -28,6 +28,7 @@ const ColorlibConnector = withStyles({
 })(StepConnector);
 
 const useColorlibStepIconStyles = makeStyles((theme) => ({
+<<<<<<< HEAD
     root: {
         backgroundColor: "#ccc",
         zIndex: 1,
@@ -48,6 +49,28 @@ const useColorlibStepIconStyles = makeStyles((theme) => ({
         width: 10,
         height: 10,
     },
+=======
+	root: {
+		backgroundColor: "#ccc",
+		zIndex: 1,
+		color: "#fff",
+		width: 50,
+		height: 50,
+
+		display: "flex",
+		borderRadius: "50%",
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	active: {
+		backgroundImage: "linear-gradient(to top, #0a6aab 0%, #0a6aab 100%)",
+		boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)",
+	},
+	icon: {
+		width: 10,
+		height: 10,
+	},
+>>>>>>> regina-front-end
 }));
 
 function ColorlibStepIcon(props) {
@@ -72,6 +95,7 @@ function ColorlibStepIcon(props) {
         </div>
     );
 }
+
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: theme.palette.secondary.light,
@@ -80,8 +104,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+<<<<<<< HEAD
 export default ({ activeStep, setActiveStep, features, width }) => {
     const classes = useStyles();
+=======
+/***
+ * The stepper in home page (feature section).
+ */
+export default ({ activeStep, setActiveStep, features, width }) => {
+	const classes = useStyles();
+>>>>>>> regina-front-end
 
     const handleStep = (step) => () => {
         setActiveStep(step);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
@@ -10,9 +10,8 @@ import SignupForm from "./signupForm";
 
 import WaveBorder from "../Home/waveBorder";
 
-import { myFetch } from "../Methods";
-
 const useStyles = makeStyles((theme) => ({
+<<<<<<< HEAD
     c1: {
         background: theme.background,
         maxWidth: "100WH",
@@ -21,8 +20,21 @@ const useStyles = makeStyles((theme) => ({
         background: theme.palette.secondary.light,
         height: "80VH",
     },
+=======
+	c1: {
+		background: theme.background,
+		maxWidth: "100WH",
+	},
+	c2: {
+		background: theme.palette.secondary.light,
+		height: "80VH",
+	},
+>>>>>>> regina-front-end
 }));
 
+/***
+ * The sign up page for student.
+ */
 export default () => {
     const classes = useStyles();
     const theme = useTheme();

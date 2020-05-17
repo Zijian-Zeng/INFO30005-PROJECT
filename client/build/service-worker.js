@@ -14,7 +14,11 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
+<<<<<<< HEAD
   "/precache-manifest.c6c227c71da5e43af251a4b46cce53dd.js"
+=======
+  "/precache-manifest.ff178fb3a4872bf5990934c7fa4f17a3.js"
+>>>>>>> regina-front-end
 );
 
 self.addEventListener('message', (event) => {

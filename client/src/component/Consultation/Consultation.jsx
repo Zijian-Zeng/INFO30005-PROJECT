@@ -1,11 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserContext, myFetch } from "../Methods";
+import React, { useContext, useEffect } from "react";
+import { UserContext } from "../Methods";
 import Layout from "../Navigation/Layout";
 import Student from "./Student";
 import Staff from "./Staff";
 
+/**
+ * Consultation page for student and staff.
+ */
 export default () => {
-	//Set the routes.
 	const {
 		setSelectedRoute,
 		loadingRoute,
@@ -14,11 +16,13 @@ export default () => {
 		user,
 	} = useContext(UserContext);
 
+	//Set up
 	useEffect(() => {
 		setSelectedRoute("consultations");
 		fetchUser().then(() => setLoadingRoute(false));
 	}, []);
 
+	//Loading...
 	if (loadingRoute || !user.type) return <Layout />;
 
 	return (

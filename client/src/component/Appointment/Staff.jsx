@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
+<<<<<<< HEAD
     Grid,
     Button,
     ButtonGroup,
@@ -27,6 +28,21 @@ import {
     lighten,
     useTheme,
 } from "@material-ui/core/styles";
+=======
+	Grid,
+	Button,
+	ButtonGroup,
+	Fade,
+	Dialog,
+	DialogContent,
+	DialogTitle,
+	DialogActions,
+	IconButton,
+	TextField,
+} from "@material-ui/core";
+import withWidth from "@material-ui/core/withWidth";
+import { makeStyles } from "@material-ui/core/styles";
+>>>>>>> regina-front-end
 import TimeTable from "../Timetable";
 
 import Header from "./StaffHeader";
@@ -35,6 +51,7 @@ import TimetableBar from "./TimetableBar";
 
 import { myFetch, UserContext, StaffContext } from "../Methods";
 import CloseIcon from "@material-ui/icons/Close";
+<<<<<<< HEAD
 import { grey, red, green, lime } from "@material-ui/core/colors";
 import legend from "./legend.svg";
 
@@ -89,8 +106,67 @@ const useStyles = makeStyles((theme) => ({
             minHeight: "100%",
         },
     },
+=======
+import { grey, red, green } from "@material-ui/core/colors";
+import legend from "./legend.svg";
+
+const useStyles = makeStyles((theme) => ({
+	paper: {
+		maxHeight: "70VH",
+	},
+	fab: {
+		position: "fixed",
+		bottom: theme.spacing(1) * 6,
+		right: theme.spacing(1) * 6,
+	},
+	noDecoration: {
+		textDecoration: "none !important",
+	},
+	delete: {
+		textTransform: "none",
+		color: theme.palette.getContrastText(grey[700]),
+		background: grey[700],
+		"&:hover": {
+			color: theme.palette.getContrastText(grey[900]),
+			background: grey[900],
+		},
+	},
+	closeButton: {
+		position: "absolute",
+		right: theme.spacing(1),
+		top: theme.spacing(1),
+		color: theme.palette.grey[500],
+	},
+	approve: {
+		backgroundColor: green[400],
+		"&:hover": {
+			backgroundColor: green[600],
+		},
+	},
+	decline: {
+		backgroundColor: red[500],
+		"&:hover": {
+			backgroundColor: red[700],
+		},
+	},
+	legend: {
+		marginTop: theme.spacing(2),
+		marginBottom: theme.spacing(2),
+		[theme.breakpoints.up("sm")]: {
+			minWidth: "30%",
+			minHeight: "30%",
+		},
+		[theme.breakpoints.down("sm")]: {
+			minWidth: "100%",
+			minHeight: "100%",
+		},
+	},
+>>>>>>> regina-front-end
 }));
 
+/***
+ * Dialog to pend an appointment for staff.
+ */
 const PendDialog = ({ pendAppointment, setPendAppointment, pend, classes }) => (
     <Dialog
         open={pendAppointment.id !== ""}
@@ -148,9 +224,17 @@ const PendDialog = ({ pendAppointment, setPendAppointment, pend, classes }) => (
     </Dialog>
 );
 
+<<<<<<< HEAD
 export default withWidth()(({ width }) => {
     const classes = useStyles();
     const largeScreen = isWidthUp("lg", width);
+=======
+/***
+ * Appointment page for staff.
+ */
+export default withWidth()(({ width }) => {
+	const classes = useStyles();
+>>>>>>> regina-front-end
 
     //timetable values...
     const [data, setData] = useState([]);
@@ -184,6 +268,7 @@ export default withWidth()(({ width }) => {
         return res.appointments;
     };
 
+<<<<<<< HEAD
     const formatData = (data, status) => {
         //Formatting data for timetable to render.
         const appoints = [];
@@ -215,6 +300,40 @@ export default withWidth()(({ width }) => {
         setData(appoints);
         setLoading(false);
     };
+=======
+	const formatData = (data, status) => {
+		//Formatting data for timetable to render.
+		const appoints = [];
+		data.map((appointment) => {
+			switch (status) {
+				case 1:
+					if (appointment.status !== "PENDING") return null;
+					break;
+				case 2:
+					if (appointment.status !== "APPROVED") return null;
+					break;
+				case 3:
+					if (appointment.status !== "DECLINED") return null;
+					break;
+				default:
+					break;
+			}
+			appoints.push({
+				title: appointment.subjectCode,
+				startDate: new Date(appointment.startDate),
+				endDate: new Date(appointment.endDate),
+				id: appointment._id,
+				location: appointment.location,
+				status: appointment.status,
+				student: appointment.student,
+				comments: appointment.comment,
+			});
+			return null;
+		});
+		setData(appoints);
+		setLoading(false);
+	};
+>>>>>>> regina-front-end
 
     //Updating appointments Information.
     useEffect(() => {
@@ -225,6 +344,7 @@ export default withWidth()(({ width }) => {
         });
     }, [alert.status, currentStatus]);
 
+<<<<<<< HEAD
     //pend an appointment.
     const pend = async (status) => {
         setLoading(true);
@@ -292,4 +412,73 @@ export default withWidth()(({ width }) => {
             </Fade>
         </StaffContext.Provider>
     );
+=======
+	//pend an appointment.
+	const pend = async (status) => {
+		setLoading(true);
+		const body = {
+			id: pendAppointment.id,
+			status: status,
+			comment: pendAppointment.comments,
+		};
+		const res = await myFetch("/api/staff/appointment/pend", "PATCH", body);
+		detectAlert(res, `Successfully ${status}.`);
+		setPendAppointment({ id: "" });
+	};
+
+	return (
+		<StaffContext.Provider
+			value={{
+				currentDate,
+				setCurrentDate,
+				pendAppointment,
+				setPendAppointment,
+				data,
+				setData,
+				userInfo,
+				loading,
+				setLoading,
+				setUser,
+			}}
+		>
+			<PendDialog
+				pendAppointment={pendAppointment}
+				setPendAppointment={setPendAppointment}
+				pend={pend}
+				classes={classes}
+			/>
+			<Fade in timeout={500}>
+				<div className={classes.paper}>
+					<Grid container justify="space-around">
+						<Grid item xs={12}>
+							<TimetableBar
+								currentStatus={currentStatus}
+								setCurrentStatus={setCurrentStatus}
+								mainResourceName={mainResourceName}
+								setMainResourceName={setMainResourceName}
+							/>
+							<Grid container justify="flex-end">
+								<img
+									className={classes.legend}
+									src={legend}
+									alt="legend"
+								/>
+							</Grid>
+							<TimeTable
+								data={data}
+								currentDate={currentDate}
+								setCurrentDate={setCurrentDate}
+								header={Header}
+								content={Content}
+								loading={loading}
+								mainResourceName={mainResourceName}
+								subjects={user.userInfo.subjects}
+							/>
+						</Grid>
+					</Grid>
+				</div>
+			</Fade>
+		</StaffContext.Provider>
+	);
+>>>>>>> regina-front-end
 });

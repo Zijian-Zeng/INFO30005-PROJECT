@@ -2,13 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import {
 	Grid,
 	Grow,
-	Fab,
-	Zoom,
-	Collapse,
-	Fade,
-	Tabs,
-	AppBar,
-	Tab,
 	ListItem,
 	List,
 	ListItemAvatar,
@@ -27,12 +20,10 @@ import {
 	TextField,
 	Slider,
 } from "@material-ui/core";
-import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { myFetch, UserContext } from "../Methods";
-import SchoolIcon from "@material-ui/icons/School";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import RoomIcon from "@material-ui/icons/Room";
-import GroupIcon from "@material-ui/icons/GroupAddTwoTone";
 import CloseIcon from "@material-ui/icons/Close";
 
 import MomentUtils from "@date-io/moment";
@@ -42,7 +33,7 @@ import {
 } from "@material-ui/pickers";
 
 import Skeleton from "@material-ui/lab/Skeleton";
-import { InboxOutlined, Inbox, Drafts, Send } from "@material-ui/icons";
+import { Send } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
 	closeButton: {
@@ -69,6 +60,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+/***
+ * marks for slider.
+ */
 const marks = [
 	{
 		value: 0,
@@ -87,6 +81,7 @@ const marks = [
 		label: "4 hours",
 	},
 ];
+
 const getDuration = (startDate, endDate) => {
 	const duration = (endDate - startDate) / 60000;
 	if (duration < 15) return 15;
@@ -99,6 +94,9 @@ const getEndDate = (start, duration) => {
 	return end.setMinutes(end.getMinutes() + duration);
 };
 
+/***
+ * Dialog for students to create an appointment.
+ */
 const CreateDialog = ({
 	staffInfo,
 	classes,
@@ -239,11 +237,17 @@ const CreateDialog = ({
 	);
 };
 
+/***
+ * The student query component for booking appointments.
+ */
 export default ({ userInfo }) => {
 	const classes = useStyles();
 
+	//For select bar
 	const [currentSubject, setCurrentSubject] = useState(userInfo.subjects[0]);
 	const [loading, setLoading] = useState(true);
+
+	//Appointment data...
 	const [staffs, setStaffs] = useState([]);
 	const [startDate, setStartDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(new Date());
@@ -268,6 +272,7 @@ export default ({ userInfo }) => {
 		setLoading(false);
 	};
 
+	//Create a valid appointment with back end.
 	const createAppointment = async () => {
 		setLoading(true);
 		if (!startDate || !endDate || location === "") {
@@ -299,6 +304,7 @@ export default ({ userInfo }) => {
 		fetchStaffs();
 	}, [currentSubject]);
 
+	//Loading...
 	if (loading)
 		return (
 			<div>

@@ -65,6 +65,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+/***
+ * Login Form in login dialog.
+ */
 export default ({ closeLoginWindow }) => {
 	const history = useHistory();
 	const classes = useStyles();
@@ -72,8 +75,9 @@ export default ({ closeLoginWindow }) => {
 	const [password, setPassword] = useState("");
 	const [userType, setUserType] = useState("student");
 	const [error, setError] = useState("");
-	const { setAuth, setUserInfo } = useContext(AuthApi);
+	const { setAuth } = useContext(AuthApi);
 
+	//fetch login API.
 	const login = async (e) => {
 		e.preventDefault();
 		setError("");
@@ -83,6 +87,7 @@ export default ({ closeLoginWindow }) => {
 			userType: userType,
 		});
 		if (msg.success) {
+			//Set up cookie with response token.
 			Cookies.set("meetute", msg.token);
 			setTimeout(() => {
 				setAuth(true);

@@ -1,6 +1,9 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
 
+/***
+ * Login field.
+ */
 export default ({ label, required, variant, setState, type, error }) => {
 	let style = "filled";
 	if (variant != null) style = "variant";

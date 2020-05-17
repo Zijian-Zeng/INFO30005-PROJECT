@@ -1,16 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
-
+import React, { useContext } from "react";
 import { AppointmentTooltip } from "@devexpress/dx-react-scheduler-material-ui";
-
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import { IconButton, Grid, Paper, Fab, Container } from "@material-ui/core";
-
-import AddIcon from "@material-ui/icons/Add";
-import Room from "@material-ui/icons/Room";
-import MoreIcon from "@material-ui/icons/MoreVert";
-import classNames from "clsx";
-
-import { UserContext, StaffContext } from "../Methods";
+import { withStyles } from "@material-ui/core/styles";
+import { StaffContext } from "../Methods";
 
 const style = ({ palette, spacing }) => ({
 	icon: {
@@ -25,11 +16,12 @@ const style = ({ palette, spacing }) => ({
 	},
 });
 
+/***
+ * Customized timetable header for appointment feature (staff).
+ */
 export default withStyles(style, { name: "Header" })(
 	({ children, appointmentData, classes, ...restProps }) => {
-		const { pendAppointment, setPendAppointment } = useContext(
-			StaffContext
-		);
+		const { setPendAppointment } = useContext(StaffContext);
 
 		return (
 			<AppointmentTooltip.Header

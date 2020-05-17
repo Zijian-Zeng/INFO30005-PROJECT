@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect, useContext } from "react";
 import { ViewState } from "@devexpress/dx-react-scheduler";
 import {
@@ -34,6 +35,39 @@ import {
     teal,
 } from "@material-ui/core/colors";
 
+=======
+import React from "react";
+import { ViewState } from "@devexpress/dx-react-scheduler";
+import {
+	Scheduler,
+	Appointments,
+	MonthView,
+	Toolbar,
+	DateNavigator,
+	ViewSwitcher,
+	TodayButton,
+	Resources,
+	AppointmentTooltip,
+	WeekView,
+} from "@devexpress/dx-react-scheduler-material-ui";
+
+import { Paper, LinearProgress } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import withWidth from "@material-ui/core/withWidth";
+import {
+	lime,
+	red,
+	green,
+	cyan,
+	blue,
+	amber,
+	teal,
+} from "@material-ui/core/colors";
+
+/***
+ * timetable loading bar.
+ */
+>>>>>>> regina-front-end
 const ToolbarWithLoading = withStyles(
     {
         toolbarRoot: {
@@ -54,6 +88,12 @@ const ToolbarWithLoading = withStyles(
     </div>
 ));
 
+<<<<<<< HEAD
+=======
+/***
+ * For changing timetable colors
+ */
+>>>>>>> regina-front-end
 const resources = [
     {
         fieldName: "booking",
@@ -75,6 +115,9 @@ const resources = [
     },
 ];
 
+/***
+ * Loading colors for each subject in this account.
+ */
 const loadSubjectResources = (subjects) => {
     if (resources.filter((each) => each.fieldName === "title").length > 0)
         return;
@@ -90,6 +133,7 @@ const loadSubjectResources = (subjects) => {
     });
 };
 
+<<<<<<< HEAD
 export default withWidth()(
     ({
         data,
@@ -148,4 +192,64 @@ export default withWidth()(
             </Paper>
         );
     }
+=======
+/***
+ * Customized Timetable component.
+ */
+export default withWidth()(
+	({
+		data,
+		currentDate,
+		setCurrentDate,
+		header,
+		content,
+		loading,
+		mainResourceName,
+		subjects,
+		halfScreen,
+	}) => {
+		//Loading colors for each subject in this account.
+		if (subjects) loadSubjectResources(subjects);
+
+		return (
+			<Paper>
+				<Scheduler data={data} height={halfScreen ? 350 : 600}>
+					<ViewState
+						currentDate={currentDate}
+						onCurrentDateChange={setCurrentDate}
+					/>
+
+					<WeekView
+						excludedDays={[0, 6]}
+						startDayHour={8}
+						endDayHour={24}
+						cellDuration={60}
+					/>
+
+					<MonthView />
+
+					<Appointments />
+
+					<AppointmentTooltip
+						headerComponent={header}
+						contentComponent={content}
+					/>
+					<Resources
+						mainResourceName={mainResourceName}
+						data={resources}
+						palette={[blue, cyan, teal, lime, amber]}
+					/>
+					<Toolbar
+						{...(loading
+							? { rootComponent: ToolbarWithLoading }
+							: null)}
+					/>
+					<DateNavigator />
+					<TodayButton />
+					<ViewSwitcher />
+				</Scheduler>
+			</Paper>
+		);
+	}
+>>>>>>> regina-front-end
 );

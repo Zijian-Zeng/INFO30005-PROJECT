@@ -1,29 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
-
+import React, { useContext } from "react";
 import { AppointmentTooltip } from "@devexpress/dx-react-scheduler-material-ui";
+import { withStyles } from "@material-ui/core/styles";
+import { StaffContext } from "../Methods";
 
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import {
-	IconButton,
-	Grid,
-	Paper,
-	Fab,
-	Container,
-	Dialog,
-	Snackbar,
-	DialogContent,
-	DialogTitle,
-} from "@material-ui/core";
-
-import AddIcon from "@material-ui/icons/Add";
-import Room from "@material-ui/icons/Room";
-import MoreIcon from "@material-ui/icons/MoreVert";
-import classNames from "clsx";
-
-import { myFetch, UserContext, StaffContext } from "../Methods";
-import EditDialog from "./ConsultDialog";
-
-const style = ({ palette, spacing }) => ({
+const style = ({ palette }) => ({
 	icon: {
 		color: palette.action.active,
 	},
@@ -36,6 +16,9 @@ const style = ({ palette, spacing }) => ({
 	},
 });
 
+/***
+ * Customized timetable header for consultation (staff).
+ */
 export default withStyles(style, { name: "Header" })(
 	({ children, appointmentData, classes, ...restProps }) => {
 		const { setEditOpen, setEditingAppointment } = useContext(StaffContext);

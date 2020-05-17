@@ -1,42 +1,26 @@
-import React, { useState, useEffect, useContext } from "react";
-import {
-	AppointmentTooltip,
-	WeekView,
-} from "@devexpress/dx-react-scheduler-material-ui";
+import React, { useState } from "react";
+import { AppointmentTooltip } from "@devexpress/dx-react-scheduler-material-ui";
 
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import {
 	Grid,
-	Paper,
-	Typography,
 	List,
 	ListItem,
 	ListItemIcon,
 	ListItemText,
-	ListItemAvatar,
-	Avatar,
-	Divider,
-	Badge,
 	Button,
 	Collapse,
 } from "@material-ui/core";
 
 import RoomIcon from "@material-ui/icons/Room";
-
 import AutorenewIcon from "@material-ui/icons/Autorenew";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import CancelIcon from "@material-ui/icons/Cancel";
-
 import DraftsIcon from "@material-ui/icons/Drafts";
-import SendIcon from "@material-ui/icons/Send";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-
-import { grey, pink, amber, green, red, lime } from "@material-ui/core/colors";
-
-import { myFetch, UserContext, StudentContext } from "../Methods";
-import Staff from "./Staff";
+import { amber, green, red } from "@material-ui/core/colors";
 
 const StatusIcon = ({ status }) => {
 	if (status === "APPROVED") return <ThumbUpIcon></ThumbUpIcon>;
@@ -86,10 +70,14 @@ const style = ({ palette, spacing }) => ({
 	},
 });
 
+/***
+ * Customized timetable content for appointment feature (student).
+ */
 export default withStyles(style, { name: "Content" })(
 	({ children, appointmentData, classes, ...restProps }) => {
 		const [openComments, setOpenComments] = useState(false);
 
+		//Styles for status label.
 		const getStatusStyle = (status) => {
 			switch (status) {
 				case "APPROVED":

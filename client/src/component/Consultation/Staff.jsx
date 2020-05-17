@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+<<<<<<< HEAD
 import {
     Grid,
     CardContent,
@@ -16,14 +17,19 @@ import {
     Fade,
 } from "@material-ui/core";
 import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
+=======
+import { Fab, Zoom, Fade } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+>>>>>>> regina-front-end
 import TimeTable from "../Timetable";
-
 import ConsultDialog from "./ConsultDialog";
-
 import Header from "./StaffHeader";
 import Content from "./StaffContent";
+<<<<<<< HEAD
 import legend from "./legend.svg";
 
+=======
+>>>>>>> regina-front-end
 import { myFetch, UserContext, StaffContext } from "../Methods";
 import AddIcon from "@material-ui/icons/Add";
 
@@ -39,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+/***
+ * Consultation page for staff
+ */
 export default () => {
     const classes = useStyles();
 
@@ -50,6 +59,7 @@ export default () => {
     const [editOpen, setEditOpen] = useState(false);
     const [loading, setLoading] = useState(true);
 
+<<<<<<< HEAD
     const [editingAppointment, setEditingAppointment] = useState({
         title: "",
         startDate: new Date(),
@@ -90,6 +100,50 @@ export default () => {
         edit: "/api/staff/consult/patch",
         delete: "/api/staff/consult/delete",
     };
+=======
+	//Consultation details for editing.
+	const [editingAppointment, setEditingAppointment] = useState({
+		title: "",
+		startDate: new Date(),
+		endDate: new Date(),
+		slotsAvailable: 0,
+		location: "",
+	});
+
+	//Updating consultations Information.
+	const { alert, user } = useContext(UserContext);
+	useEffect(() => {
+		setLoading(true);
+		//Fetch all created consultations.
+		const fetchConsult = async () => {
+			const res = await myFetch("/api/staff/consult/viewCreated", "GET");
+			return res.consultations;
+		};
+		fetchConsult().then((consultations) => {
+			const consults = [];
+			consultations.map((consultation) => {
+				consults.push({
+					title: consultation.subjectCode,
+					startDate: new Date(consultation.startDate),
+					endDate: new Date(consultation.endDate),
+					id: consultation._id,
+					location: consultation.location,
+					slotsAvailable: consultation.slotsAvailable,
+					totalStudent: consultation.studentRegistered.length,
+				});
+			});
+			setData(consults);
+			setLoading(false);
+		});
+	}, [alert.status]);
+
+	//Backend APIs.
+	const api = {
+		create: "/api/staff/consult/create",
+		edit: "/api/staff/consult/patch",
+		delete: "/api/staff/consult/delete",
+	};
+>>>>>>> regina-front-end
 
     return (
         <StaffContext.Provider
