@@ -21,14 +21,11 @@ export default () => {
 
     //Loading subject information.
     const fetchSubject = async (type) => {
-        console.log(type);
         if (type === "student") {
             const res = await myFetch("/api/student/subjects/all", "GET");
             setSubjectInfo(res);
             detectAlert(res);
             if (res.success) setLoadingRoute(false);
-
-            console.log(res);
         } else {
             const res = await myFetch("/api/staff/subjects/all", "GET");
             setSubjectInfo(res);
@@ -41,7 +38,6 @@ export default () => {
         //Set Navigation to this page.
         setSelectedRoute("settings");
         setLoadingRoute(true);
-        console.log(123);
 
         const fetchData = async () => {
             const res = await fetchUser();
@@ -52,7 +48,7 @@ export default () => {
                     `Welcome back! ${res.type} ${res.userInfo.firstName} ${res.userInfo.lastName}`
                 );
             }
-            console.log(res);
+
             fetchSubject(res.type).then(() => setLoadingRoute(false));
         };
         fetchData();

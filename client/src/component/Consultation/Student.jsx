@@ -142,7 +142,6 @@ export default withWidth()(({ width }) => {
                 });
                 setData(consults);
                 setLoading(false);
-                console.log("?");
             });
         });
     }, [alert.status, currentSubject]);

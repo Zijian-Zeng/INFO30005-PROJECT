@@ -114,7 +114,6 @@ export default withWidth()(
                                 return;
                             setLoadingRoute(true);
                             history.push("/Settings");
-                            console.log(location.pathname);
                         }}
                     >
                         <img

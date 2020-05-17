@@ -103,7 +103,6 @@ export default withWidth()(({ width }) => {
             );
             setAllSubjects(subjectList);
             setLoading(false);
-            console.log(subjectList);
         };
         fetchSubjects();
     }, [status]);
@@ -133,7 +132,6 @@ export default withWidth()(({ width }) => {
                 break;
         }
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        console.log(userType);
     };
 
     const handleBack = () => {

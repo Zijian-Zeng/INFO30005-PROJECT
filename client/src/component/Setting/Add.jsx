@@ -28,7 +28,6 @@ export default ({
             const res = await myFetch("/api/shared/users/allSubjects", "GET");
             setAllSubjects(res.subjectList);
             detectAlert(res);
-            console.log(res.subjectList);
         };
         fetchAllSubject();
     }, []);
