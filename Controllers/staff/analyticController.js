@@ -19,20 +19,22 @@ const getConsultData = async (req, res, next) => {
 				invalidSubjectCodes.push(subjectCode);
 			} else {
 				let signupNum = 0;
-				let consultNum = 0;
+				let slotNum = 0;
 				for (consultationId of subject.consultations) {
 					const consultation = await consultModel.findById(
 						consultationId
 					);
 					if (consultation) {
-						consultNum += 1;
+						slotNum +=
+							consultation.slotsAvailable +
+							consultation.studentRegistered.length;
 						signupNum += consultation.studentRegistered.length;
 					}
 				}
 				consultTable.push({
 					subjectCode: subjectCode,
 					TotalRegisteredNum: signupNum,
-					TotalConsultationNum: consultNum,
+					TotalSlotNum: slotNum,
 				});
 			}
 		}
@@ -44,6 +46,7 @@ const getConsultData = async (req, res, next) => {
 		}
 		req.staff.save();
 		res.status(200).json({
+			success: true,
 			consultTable,
 		});
 	} catch (error) {

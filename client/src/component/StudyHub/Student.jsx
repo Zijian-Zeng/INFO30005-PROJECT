@@ -163,7 +163,7 @@ const DeleteDialog = ({
 export default withWidth()(({ width }) => {
 	const classes = useStyles();
 
-	const { user, detectAlert, setAlert } = useContext(UserContext);
+	const { user, detectAlert, setAlert, alert } = useContext(UserContext);
 	const { userInfo } = user;
 
 	//Study hub details.
