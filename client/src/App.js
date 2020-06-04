@@ -21,6 +21,7 @@ import { AuthApi, UserContext, myFetch } from "./component/Methods";
  */
 const HomeRoute = ({ component: Component, ...rest }) => {
     const { auth } = useContext(AuthApi);
+
     return (
         <Route
             {...rest}
@@ -167,7 +168,7 @@ export default () => {
                         />
                         <HomeRoute exact path="/" component={Home} />
                         <Route exact path="/about" component={About} />
-                        <Route exact path="/signup" component={Signup} />
+                        <HomeRoute exact path="/signup" component={Signup} />
                     </Switch>
                 </Router>
             </UserContext.Provider>
