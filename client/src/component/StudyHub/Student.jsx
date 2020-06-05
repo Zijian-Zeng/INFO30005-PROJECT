@@ -193,6 +193,7 @@ export default withWidth()(({ width }) => {
 				setOpen={setOpenCreate}
 				setLoading={setLoading}
 				subjects={userInfo.subjects}
+				setCurrentSubject={setCurrentSubject}
 				fetchHubs={fetchHubs}
 				setAlert={setAlert}
 				detectAlert={detectAlert}

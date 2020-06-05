@@ -79,6 +79,7 @@ export default ({
 	detectAlert,
 	setHubs,
 	currentSubject,
+	setCurrentSubject,
 }) => {
 	const classes = useStyles();
 
@@ -106,6 +107,7 @@ export default ({
 			day: day,
 			summary: summary,
 		};
+		setCurrentSubject(0);
 		const res = await myFetch("/api/student/hub/create", "POST", body);
 		detectAlert(res, "Successfully created.");
 		const subjectHubs = await await fetchHubs(
