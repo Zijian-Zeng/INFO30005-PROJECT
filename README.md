@@ -42,6 +42,8 @@ Students can create study hubs to meet classmates enrolled in the same subject. 
 
 ## Functionality 5: Analytics (Staff only)
 
+http://meetute.herokuapp.com/analytic
+
 This analytics tool will visualise the user data from consultationss. 
 
 ## User Guide for backend (Deliverable 2)
