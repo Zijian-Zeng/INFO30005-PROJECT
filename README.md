@@ -42,7 +42,7 @@ Students can create study hubs to meet classmates enrolled in the same subject. 
 
 ## Functionality 5: Analytics (Staff only)
 
-This analytics tool will visualise the user data from consultations and request. (Not yet fully implemented for Deliverable 3)
+This analytics tool will visualise the user data from consultationss. 
 
 ## User Guide for backend (Deliverable 2)
 
